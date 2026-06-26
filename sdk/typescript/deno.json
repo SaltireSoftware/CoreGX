@@ -1,0 +1,5 @@
+{
+  "imports": {
+    "zod": "jsr:@zod/zod@^4.4.3"
+  }
+}
