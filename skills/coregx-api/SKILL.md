@@ -152,13 +152,26 @@ Success response:
   "value": {
     "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\">...</svg>",
     "xml": "<...>",
-    "equations": ["|AB| = 5", "angle(A) = 90"]
+    "equations": [
+      {
+        "expression": "distance(A,C)",
+        "expressionTex": "distance(A,C)",
+        "valueTex": "5",
+        "valueRealAsTex": "5"
+      }
+    ]
   }
 }
 ```
 
 Only the requested fields are present. To get measurement output, include a
 `measure …` command in the program *and* request `equations`.
+
+Each entry in `equations` is an object, not a plain string: `expression` is
+the measured quantity as written in the `measure …` command, and `valueTex`
+is its solved value (`expressionTex` and `valueRealAsTex` are TeX-formatted
+variants for typeset display). Build a plain-text line yourself, e.g.
+`${eq.expression} = ${eq.valueTex}`.
 
 Example request:
 
