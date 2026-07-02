@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CoreGX Demo</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; color: #222; }
+  h1 { font-size: 1.4rem; }
+  textarea, input[type="text"] { width: 100%; box-sizing: border-box; font-family: inherit; font-size: 0.95rem; padding: 0.5rem; }
+  #program { height: 8rem; font-family: ui-monospace, monospace; font-size: 0.85rem; }
+  #apikey { font-family: ui-monospace, monospace; font-size: 0.85rem; }
+  button { padding: 0.5rem 1rem; font-size: 0.95rem; cursor: pointer; margin-top: 0.5rem; }
+  button:disabled { cursor: default; opacity: 0.6; }
+  #diagram { border: 1px solid #ddd; border-radius: 4px; padding: 1rem; margin-top: 1rem; min-height: 200px; }
+  #equations { font-size: 1rem; }
+  #equations > div { margin-bottom: 0.5rem; }
+  .error { color: #b00020; }
+  .panel { margin-top: 1.5rem; }
+</style>
+</head>
+<body>
+
+<h1>CoreGX Demo</h1>
+<p>Enter a CoreGX API key (visit <a href="https://coregx.dev">coregx.dev</a> to get one), then enter a CoreGX program below to render it as an SVG diagram.</p>
+<p>Measurements from the model are shown below the diagram.</p>
+<div class="panel">
+  <label for="apikey"><h2>CoreGX API key</h2></label>
+  <input type="text" id="apikey" placeholder="your-64-char-coregx-key">
+</div>
+
+<div class="panel">
+  <label for="program"><h2>CoreGX program</h2></label>
+  <textarea id="program"></textarea>
+  <button id="render">Render diagram</button>
+  <div id="render-error" class="error"></div>
+</div>
+
+<div class="panel">
+  <h2>Diagram</h2>
+  <div id="diagram"></div>
+</div>
+
+<div class="panel">
+  <h2>Measurements</h2>
+  <div id="equations"></div>
+</div>
+
+<script>
+const COREGX_URL = "https://api.coregx.dev/run-coregx";
+const apikeyInput = document.getElementById("apikey");
+
+apikeyInput.value = localStorage.getItem("coregx-api-key") || "";
+apikeyInput.addEventListener("input", () => {
+  localStorage.setItem("coregx-api-key", apikeyInput.value.trim());
+});
+
+document.getElementById("render").addEventListener("click", async () => {
+  const button = document.getElementById("render");
+  const errorBox = document.getElementById("render-error");
+  const apikey = apikeyInput.value.trim();
+  const program = document.getElementById("program").value.trim();
+  errorBox.textContent = "";
+  if (!apikey) {
+    errorBox.textContent = "Enter your CoreGX API key first.";
+    return;
+  }
+  if (!program) {
+    errorBox.textContent = "Write a CoreGX program first.";
+    return;
+  }
+  button.disabled = true;
+  button.textContent = "Rendering...";
+  try {
+    const res = await fetch(COREGX_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ apikey, program, svg: true, equations: true }),
+    });
+    const result = await res.json();
+    if (!result.ok) {
+      errorBox.textContent = `CoreGX error: ${result.error}`;
+      return;
+    }
+    document.getElementById("diagram").innerHTML = result.value.svg;
+    const equations = result.value.equations || [];
+    const equationsBox = document.getElementById("equations");
+    equationsBox.innerHTML = "";
+    for (const eq of equations) {
+      const tex = typeof eq === "string" ? eq : `${eq.expressionTex} = ${eq.valueTex}`;
+      const line = document.createElement("div");
+      katex.render(tex, line, { throwOnError: false });
+      equationsBox.appendChild(line);
+    }
+  } catch (err) {
+    errorBox.textContent = `Request failed: ${err}`;
+  } finally {
+    button.disabled = false;
+    button.textContent = "Render diagram";
+  }
+});
+</script>
+
+</body>
+</html>
