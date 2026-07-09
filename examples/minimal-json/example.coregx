@@ -1,0 +1,5 @@
+triangle A B C
+perpendicular AB BC
+distance AB 3
+distance BC 4
+measure distance(A,C)
