@@ -5,7 +5,7 @@ Usage:
     COREGX_API_KEY=your-key python minimal.py < program.coregx > output.svg
 
     Powershell:
-    Get-Content .\example.coregx | python .\solve.py | Set-Content output.tex
+    Get-Content -Raw .\example.coregx | py -3.12 -X utf8 .\solve.py | Set-Content -Encoding UTF8 output.json
 """
 
 import json
@@ -36,25 +36,35 @@ with urllib.request.urlopen(request) as response:
 if not result["ok"]:
     raise SystemExit(f"CoreGX error: {result['error']}")
 
-tex = result["value"]["code"][0]["tex"]
+measurement_tex = result["value"]["tex"][0]["valueTex"]
 
-print("LaTeX:", tex)
+measurement = parse_latex(measurement_tex)
 
-# Convert LaTeX -> SymPy expression
-expr = parse_latex(tex)
+print("Measurement:")
+print(measurement)
 
-print("SymPy expression:")
-print(expr)
-
-# Simplify
-simplified = sp.simplify(expr)
-
-print("Simplified:")
-print(simplified)
-
-# Solve if you have an equation
 c = sp.symbols("c")
-solution = sp.solve(expr, c)
+given_answer = c + 2
 
-print("Solutions:")
-print(solution)
+equation = sp.Eq(measurement, given_answer)
+
+solution = sp.solve(equation, c)
+
+# Keep positive solutions
+positive_solution = [
+    s for s in solution
+    if s.is_real and s.evalf() > 0
+]
+
+if positive_solution:
+    c_value = positive_solution[0]
+
+    final_measurement = measurement.subs(c, c_value)
+
+    print("c value:")
+    print(c_value)
+
+    print("Final measurement:")
+    print(final_measurement)
+else:
+    print("No positive solution found")
