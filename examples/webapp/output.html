@@ -1,0 +1,3682 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>
+
+</title>
+<!-- #BeginEditable "Script" -->
+<style type="text/css">
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    font-family: "Helvetica Neue", Helvetica, Arial, "Segoe UI", system-ui, sans-serif;
+    background-color: #f5f7fa;
+    color: #2d3748;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+}
+
+#gxWrapper {
+	flex: 1;
+	overflow: auto;
+    display: flex;
+    height: auto;
+    width: 100vw;
+}
+
+#gxCanvas {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fafafa;
+	z-index: 1;
+}
+
+#display {
+    max-width: 100%;
+    max-height: 100%;
+    border: none;
+    background-color: 
+rgba(255, 255, 255, 1.00)
+;
+}
+
+#gxSidePanel {
+    width: 360px;
+    background: white;
+    border-right: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: 100%;
+    position: relative;
+    min-width: 200px;
+    max-width: 600px;
+	z-index: 10;
+	box-shadow: 5px 0 5px rgba(0,0,0,0.3);
+}
+
+#gxResizeHandle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 6px;
+    height: 100%;
+    cursor: ew-resize;
+    background: transparent;
+    z-index: 1000;
+}
+
+#gxResizeHandle:hover {
+    background: rgba(102, 126, 234, 0.2);
+}
+
+#gxResizeHandle:active {
+    background: rgba(102, 126, 234, 0.4);
+}
+
+#gxHeader {
+    background: #f5f7fa;
+    padding: 8px;
+    color: white;
+    width: 100%;
+    height: auto;
+    border-bottom: 2px solid black;
+    text-align: center;
+}
+
+#gxHeader h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #1a202c;
+    margin: 0 0 8px 0;
+}
+
+#gxInputOutput {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+#gxInputOutput canvas { /* Manipulates MI graph canvasses (canvi?) */
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    align-items: center;
+}
+
+#gxInputOutput table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 12px;
+}
+
+#gxInputOutput td {
+    padding: 8px 4px;
+    vertical-align: middle;
+    font-size: 0.7rem;
+}
+
+#gxInputOutput td:first-child {
+    font-weight: 600;
+    color: #4a5568;
+    width: auto;
+    padding-right: 8px;
+/*    white-space: nowrap; */
+}
+
+#gxInputOutput input[type="number"] {
+    width: auto;
+    padding: 10px 12px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    transition: all 0.2s;
+    background: white;
+}
+
+#gxInputOutput input[type="number"]:focus {
+    outline: none;
+    border-color: #4299e1;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+}
+
+#gxInputOutput p {
+    color: #718096;
+	font-size: 0.85rem;
+}
+
+#gxInputOutput input[type="number"]:hover {
+    border-color: #cbd5e0;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.65rem;
+    background-color: #4299e1;
+    color: white;
+}
+
+button:hover {
+    background-color: #3182ce;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(66, 153, 225, 0.3);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+#UIMechanicsDeltaGo {
+    font-size: 1rem;
+    min-width: 60px;
+}
+
+.gxInputButton {
+    align-items: center;
+    text-align: center; 
+}
+
+.gxInputButton button {
+    width: 99%;
+}
+
+.gxInputButton input {
+    width: 99%;
+}
+
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.55rem;
+    resize: vertical;
+    background: #f7fafc;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #4299e1;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+}
+
+.gxCredit {
+    font-size: 0.85rem;
+    color: #718096;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.gxCredit a {
+    color: #4299e1;
+    text-decoration: none;
+}
+
+.gxCredit a:hover {
+    text-decoration: underline;
+}
+
+#gxInputOutput tr td[colspan="3"] {
+    padding-left: 0;
+}
+
+#gxInputOutput tr td span {
+    display: inline-block;
+    padding: 8px 16px;
+    background: #edf2f7;
+    border-radius: 6px;
+    font-family: 'Courier New', monospace;
+    color: #2d3748;
+    font-weight: 600;
+}
+
+#gxInputOutput button[id$="Expand"] {
+    min-width: 40px;
+    padding: 8px;
+    background: #e2e8f0;
+    color: #4a5568;
+}
+
+#gxInputOutput button[id$="Expand"]:hover {
+    background: #cbd5e0;
+}
+
+
+@media (max-aspect-ratio: 1/1) {
+    #gxWrapper {
+        flex-direction: column-reverse;
+    }
+    
+    #gxSidePanel {
+        width: 100%;
+        max-height: 30vh;
+        border-top: 2px solid black;
+        border-right: none;
+        min-width: auto;
+        max-width: none;
+		box-shadow: 0 -5px 5px rgba(0,0,0,0.3);
+    }
+    
+    #gxCanvas {
+        min-height: 50vh;
+    }
+    
+    #gxResizeHandle {
+        width: 100%;
+        height: 8px;
+        top: 0;
+        right: auto;
+        left: 0;
+        cursor: ns-resize;
+    }
+    
+    #gxResizeHandle:hover {
+        background: rgba(102, 126, 234, 0.2);
+    }
+}
+
+td {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 0;
+}
+
+table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.gxInputLowerLimit  { 
+    width: 20%; 
+    max-width: none; 
+    white-space: nowrap; 
+    text-align: center; 
+}
+
+.gxInputCurrentValue { 
+    width: 60%; 
+    max-width: none; 
+    text-align: center; 
+    background: #edf2f7;
+    border-radius: 6px;
+    font-weight: 600;
+}
+.gxInputUpperLimit  { 
+    width: 20%; 
+    max-width: none; 
+    white-space: nowrap; 
+    text-align: center; 
+}
+
+</style>
+<!--[if lt IE 9]><script type="text/javascript" src="https://www.geometryexpressions.com/appgen/excanvas.js"></script><![endif]-->
+<script type="text/javascript">
+let FIXED_ASPECT_RATIO = 1;
+let FIXED_BOUNDS = 0;
+let BACKGROUND_COLOR = 'rgba(255, 255, 255, 1.00)';
+// Internal inputs
+let a = 11.460922497114;
+let c = 5.87704752629154;
+let theta = 0.618869421455861;
+let u_0 = -0.0393920912531787;
+let v_0 = -1.59725787738654;
+let theta_0 = 6.03347684882584;
+  
+// Internal outputs
+let JGOB0X = -0.0393920912531787;
+let JGOB0Y = -1.59725787738654;
+let JGOB1X = -5.03342911095205;
+let JGOB1Y = -7.18508209822288;
+let JGOB3X = 5.6553759209096;
+let JGOB3Y = -3.04960250382239;
+  
+// Declaration code
+// Declare JGOB0
+// Declare JGOB1
+// Declare JGOB2
+// Declare JGOB3
+// Declare JGOB4
+// Declare JGOB5
+let dragHandlesList = new Array(
+new Circle(JGOB1X, JGOB1Y, 12.000000)
+, new Circle(JGOB3X, JGOB3Y, 12.000000)
+, new Circle(JGOB0X, JGOB0Y, 12.000000)
+);
+ 
+let sliderUIc;
+let rangeUIc = new Point(0, 11.7540950525831);
+const spanUIc = rangeUIc.y - rangeUIc.x;
+let textUIINUIc;
+let buttonUIc;
+let UIcAnimationId = null;
+let UIcAnimationStartTime = null;
+const UIcDuration = 4000;
+ 
+function UIcIncrement(timestamp) {
+    if (UIcAnimationStartTime === null)
+        UIcAnimationStartTime = timestamp;
+    const elapsed = timestamp - UIcAnimationStartTime;
+    const progress = Math.min(elapsed / UIcDuration, 1);
+    c = rangeUIc.x + (spanUIc * progress);
+    if (progress >= 1) {
+        c = rangeUIc.y;
+        UIcAnimationStartTime = timestamp; // resets animation on next frame
+    }
+    sliderUIc.value = c;
+    textUIINUIc.innerHTML = eval(c).toPrecision(5);
+    try { onAnimate(); } catch (e) { console.log(e); }
+    UIcAnimationId = requestAnimationFrame(UIcIncrement);
+}
+ 
+ 
+let sliderUIa;
+let rangeUIa = new Point(0, 22.921844994228);
+const spanUIa = rangeUIa.y - rangeUIa.x;
+let textUIINUIa;
+let buttonUIa;
+let UIaAnimationId = null;
+let UIaAnimationStartTime = null;
+const UIaDuration = 4000;
+ 
+function UIaIncrement(timestamp) {
+    if (UIaAnimationStartTime === null)
+        UIaAnimationStartTime = timestamp;
+    const elapsed = timestamp - UIaAnimationStartTime;
+    const progress = Math.min(elapsed / UIaDuration, 1);
+    a = rangeUIa.x + (spanUIa * progress);
+    if (progress >= 1) {
+        a = rangeUIa.y;
+        UIaAnimationStartTime = timestamp; // resets animation on next frame
+    }
+    sliderUIa.value = a;
+    textUIINUIa.innerHTML = eval(a).toPrecision(5);
+    try { onAnimate(); } catch (e) { console.log(e); }
+    UIaAnimationId = requestAnimationFrame(UIaIncrement);
+}
+ 
+ 
+let sliderUItheta;
+let rangeUItheta = new Point(0, 6.28318530717959);
+const spanUItheta = rangeUItheta.y - rangeUItheta.x;
+let textUIINUItheta;
+let buttonUItheta;
+let UIthetaAnimationId = null;
+let UIthetaAnimationStartTime = null;
+const UIthetaDuration = 4000;
+ 
+function UIthetaIncrement(timestamp) {
+    if (UIthetaAnimationStartTime === null)
+        UIthetaAnimationStartTime = timestamp;
+    const elapsed = timestamp - UIthetaAnimationStartTime;
+    const progress = Math.min(elapsed / UIthetaDuration, 1);
+    theta = rangeUItheta.x + (spanUItheta * progress);
+    if (progress >= 1) {
+        theta = rangeUItheta.y;
+        UIthetaAnimationStartTime = timestamp; // resets animation on next frame
+    }
+    sliderUItheta.value = theta;
+    textUIINUItheta.innerHTML = eval(theta).toPrecision(5);
+    try { onAnimate(); } catch (e) { console.log(e); }
+    UIthetaAnimationId = requestAnimationFrame(UIthetaIncrement);
+}
+ 
+ 
+let sliderUItau;
+let rangeUItau = new Point(0, 60);
+const spanUItau = rangeUItau.y - rangeUItau.x;
+let textUIINUItau;
+let buttonUItau;
+let UItauAnimationId = null;
+let UItauAnimationStartTime = null;
+const UItauDuration = 4000;
+ 
+function UItauIncrement(timestamp) {
+    if (UItauAnimationStartTime === null)
+        UItauAnimationStartTime = timestamp;
+    const elapsed = timestamp - UItauAnimationStartTime;
+    const progress = Math.min(elapsed / UItauDuration, 1);
+    tau = rangeUItau.x + (spanUItau * progress);
+    if (progress >= 1) {
+        tau = rangeUItau.y;
+        UItauAnimationStartTime = timestamp; // resets animation on next frame
+    }
+    sliderUItau.value = tau;
+    textUIINUItau.innerHTML = eval(tau).toPrecision(5);
+    try { onAnimate(); } catch (e) { console.log(e); }
+    UItauAnimationId = requestAnimationFrame(UItauIncrement);
+}
+ 
+ 
+let sliderUIg;
+let rangeUIg = new Point(0, 200);
+const spanUIg = rangeUIg.y - rangeUIg.x;
+let textUIINUIg;
+let buttonUIg;
+let UIgAnimationId = null;
+let UIgAnimationStartTime = null;
+const UIgDuration = 4000;
+ 
+function UIgIncrement(timestamp) {
+    if (UIgAnimationStartTime === null)
+        UIgAnimationStartTime = timestamp;
+    const elapsed = timestamp - UIgAnimationStartTime;
+    const progress = Math.min(elapsed / UIgDuration, 1);
+    g = rangeUIg.x + (spanUIg * progress);
+    if (progress >= 1) {
+        g = rangeUIg.y;
+        UIgAnimationStartTime = timestamp; // resets animation on next frame
+    }
+    sliderUIg.value = g;
+    textUIINUIg.innerHTML = eval(g).toPrecision(5);
+    try { onAnimate(); } catch (e) { console.log(e); }
+    UIgAnimationId = requestAnimationFrame(UIgIncrement);
+}
+ 
+ 
+ 
+let nInteractiveTraces = 0;
+function updateInputs()
+{
+    c = rangeVal(sliderUIc, rangeUIc);
+    textUIINUIc.innerHTML = eval(c).toPrecision(5);
+    a = rangeVal(sliderUIa, rangeUIa);
+    textUIINUIa.innerHTML = eval(a).toPrecision(5);
+    theta = rangeVal(sliderUItheta, rangeUItheta);
+    textUIINUItheta.innerHTML = eval(theta).toPrecision(5);
+    tau = rangeVal(sliderUItau, rangeUItau);
+    textUIINUItau.innerHTML = eval(tau).toPrecision(5);
+    g = rangeVal(sliderUIg, rangeUIg);
+    textUIINUIg.innerHTML = eval(g).toPrecision(5);
+}
+ 
+function updateInputsOnMouseMove(updateAll)
+{
+    if ((commonGlobal.currentDraggable == 0) || updateAll ) {
+    JGOB1X = dragHandlesList[0].x; JGOB1Y = dragHandlesList[0].y; 
+    }
+    if ((commonGlobal.currentDraggable == 1) || updateAll ) {
+    JGOB3X = dragHandlesList[1].x; JGOB3Y = dragHandlesList[1].y; 
+    }
+    if ((commonGlobal.currentDraggable == 2) || updateAll ) {
+    JGOB0X = dragHandlesList[2].x; JGOB0Y = dragHandlesList[2].y; 
+    }
+}
+ 
+function updateOutputs()
+{
+    dragHandlesList[0].x = JGOB1X; dragHandlesList[0].y = JGOB1Y; 
+    dragHandlesList[1].x = JGOB3X; dragHandlesList[1].y = JGOB3Y; 
+    dragHandlesList[2].x = JGOB0X; dragHandlesList[2].y = JGOB0Y; 
+}
+ 
+function recalcGeometry(
+){
+    let u_1 = 0;
+    let u_2 = 0;
+    let v_1 = 0;
+    let v_2 = 0;
+    u_0 = JGOB0X;
+    v_0 = JGOB0Y;
+    theta_0 = Math.atan2(JGOB3Y-JGOB0Y,JGOB3X-JGOB0X);
+    u_1=(u_0+(c*Math.cos(theta_0)));
+    u_2=(u_1+(Math.cos(((Math.PI*0.5)+(Math.PI*0.5)+(theta_0+Math.PI)+((-1.0)*Math.PI)+theta+Math.PI))*(-1.0)*a));
+    v_1=(v_0+(c*Math.sin(theta_0)));
+    v_2=(v_1+(Math.sin(((Math.PI*0.5)+(Math.PI*0.5)+(theta_0+Math.PI)+((-1.0)*Math.PI)+theta+Math.PI))*(-1.0)*a));
+    JGOB0X=u_0;
+    JGOB0Y=v_0;
+    JGOB1X=u_2;
+    JGOB1Y=v_2;
+    JGOB3X=u_1;
+    JGOB3Y=v_1;
+}
+ 
+function computeGeometry( )
+{
+    recalcGeometry();
+    // Compute JGOB0
+    // Compute JGOB1
+    // Compute JGOB2
+    // Compute JGOB3
+    // Compute JGOB4
+    // Compute JGOB5
+}
+ 
+function setMinBounds(wrld)
+{
+    // Bounds JGOB0
+    wrld.extend(JGOB0X, JGOB0Y);
+    // Bounds JGOB1
+    wrld.extend(JGOB1X, JGOB1Y);
+    // Bounds JGOB2
+    // Bounds JGOB3
+    wrld.extend(JGOB3X, JGOB3Y);
+    // Bounds JGOB4
+    // Bounds JGOB5
+    // ILine Bounds JGOB0
+    // ILine Bounds JGOB1
+    // ILine Bounds JGOB2
+    // ILine Bounds JGOB3
+    // ILine Bounds JGOB4
+    // ILine Bounds JGOB5
+}
+ 
+function drawShapes(TranMat, InvTranMat, wrld, ctx)
+{
+    u_0 = JGOB0X;
+    v_0 = JGOB0Y;
+    theta_0 = Math.atan2(JGOB3Y-JGOB0Y,JGOB3X-JGOB0X);
+    // Draw JGOB2
+    drawLine(TranMat, ctx, JGOB0X, JGOB0Y, JGOB1X, JGOB1Y, "#000000", 2, 0);
+    // Draw JGOB4
+    drawLine(TranMat, ctx, JGOB3X, JGOB3Y, JGOB1X, JGOB1Y, "#000000", 2, 0);
+    // Draw JGOB1
+    drawPoint(TranMat, ctx, JGOB1X, JGOB1Y, 5.500000, "#ff0000", false);
+    drawString(wrld, TranMat, ctx, JGOB1X , JGOB1Y , "C", 5.500000, "#000000", '400 16px sans-serif');
+    // Draw JGOB5
+    drawLine(TranMat, ctx, JGOB0X, JGOB0Y, JGOB3X, JGOB3Y, "#000000", 2, 0);
+    // Draw JGOB3
+    drawPoint(TranMat, ctx, JGOB3X, JGOB3Y, 5.500000, "#ff0000", false);
+    drawString(wrld, TranMat, ctx, JGOB3X , JGOB3Y , "B", 5.500000, "#000000", '400 16px sans-serif');
+    // Draw JGOB0
+    drawPoint(TranMat, ctx, JGOB0X, JGOB0Y, 5.500000, "#ff0000", false);
+    drawString(wrld, TranMat, ctx, JGOB0X , JGOB0Y , "A", 5.500000, "#000000", '400 16px sans-serif');
+}
+  
+function init()
+{
+    sliderUIc = document.getElementById("UIc");
+     
+    correctSlider(sliderUIc, rangeUIc);
+     
+    textUIINUIc = document.getElementById("UIINUIc");
+     
+    UIcIntervalDirection = 1;
+     
+    buttonUIc = document.getElementById("UIcButton");
+     
+    buttonUIc.onclick = function() {
+        if (!(buttonUIc.data_running == true))
+        {
+            buttonUIc.data_running = true;
+            buttonUIc.innerHTML = "&#9632";
+            UIcAnimationStartTime = null;
+            UIcAnimationId = requestAnimationFrame(UIcIncrement);
+        } else {
+            buttonUIc.data_running = false;
+            buttonUIc.innerHTML = "&#9654";
+            cancelAnimationFrame(UIcAnimationId);
+            UIcAnimationStartTime = null;
+            UIcAnimationId = null;
+        }
+    };
+    sliderUIa = document.getElementById("UIa");
+     
+    correctSlider(sliderUIa, rangeUIa);
+     
+    textUIINUIa = document.getElementById("UIINUIa");
+     
+    UIaIntervalDirection = 1;
+     
+    buttonUIa = document.getElementById("UIaButton");
+     
+    buttonUIa.onclick = function() {
+        if (!(buttonUIa.data_running == true))
+        {
+            buttonUIa.data_running = true;
+            buttonUIa.innerHTML = "&#9632";
+            UIaAnimationStartTime = null;
+            UIaAnimationId = requestAnimationFrame(UIaIncrement);
+        } else {
+            buttonUIa.data_running = false;
+            buttonUIa.innerHTML = "&#9654";
+            cancelAnimationFrame(UIaAnimationId);
+            UIaAnimationStartTime = null;
+            UIaAnimationId = null;
+        }
+    };
+    sliderUItheta = document.getElementById("UItheta");
+     
+    correctSlider(sliderUItheta, rangeUItheta);
+     
+    textUIINUItheta = document.getElementById("UIINUItheta");
+     
+    UIthetaIntervalDirection = 1;
+     
+    buttonUItheta = document.getElementById("UIthetaButton");
+     
+    buttonUItheta.onclick = function() {
+        if (!(buttonUItheta.data_running == true))
+        {
+            buttonUItheta.data_running = true;
+            buttonUItheta.innerHTML = "&#9632";
+            UIthetaAnimationStartTime = null;
+            UIthetaAnimationId = requestAnimationFrame(UIthetaIncrement);
+        } else {
+            buttonUItheta.data_running = false;
+            buttonUItheta.innerHTML = "&#9654";
+            cancelAnimationFrame(UIthetaAnimationId);
+            UIthetaAnimationStartTime = null;
+            UIthetaAnimationId = null;
+        }
+    };
+    sliderUItau = document.getElementById("UItau");
+     
+    correctSlider(sliderUItau, rangeUItau);
+     
+    textUIINUItau = document.getElementById("UIINUItau");
+     
+    UItauIntervalDirection = 1;
+     
+    buttonUItau = document.getElementById("UItauButton");
+     
+    buttonUItau.onclick = function() {
+        if (!(buttonUItau.data_running == true))
+        {
+            buttonUItau.data_running = true;
+            buttonUItau.innerHTML = "&#9632";
+            UItauAnimationStartTime = null;
+            UItauAnimationId = requestAnimationFrame(UItauIncrement);
+        } else {
+            buttonUItau.data_running = false;
+            buttonUItau.innerHTML = "&#9654";
+            cancelAnimationFrame(UItauAnimationId);
+            UItauAnimationStartTime = null;
+            UItauAnimationId = null;
+        }
+    };
+    sliderUIg = document.getElementById("UIg");
+     
+    correctSlider(sliderUIg, rangeUIg);
+     
+    textUIINUIg = document.getElementById("UIINUIg");
+     
+    UIgIntervalDirection = 1;
+     
+    buttonUIg = document.getElementById("UIgButton");
+     
+    buttonUIg.onclick = function() {
+        if (!(buttonUIg.data_running == true))
+        {
+            buttonUIg.data_running = true;
+            buttonUIg.innerHTML = "&#9632";
+            UIgAnimationStartTime = null;
+            UIgAnimationId = requestAnimationFrame(UIgIncrement);
+        } else {
+            buttonUIg.data_running = false;
+            buttonUIg.innerHTML = "&#9654";
+            cancelAnimationFrame(UIgAnimationId);
+            UIgAnimationStartTime = null;
+            UIgAnimationId = null;
+        }
+    };
+    doFullUpdate(commonGlobal.world, commonGlobal.screenBox, commonGlobal.canvas, commonGlobal.context, commonGlobal.world2Screen, commonGlobal.screen2World);
+     
+    sliderUIc.onchange = function() {
+        doFullUpdate(commonGlobal.world, commonGlobal.screenBox, commonGlobal.canvas, commonGlobal.context, commonGlobal.world2Screen, commonGlobal.screen2World);
+    };
+     
+    sliderUIc.oninput = sliderUIc.onchange;
+    sliderUIc.onchange();
+     
+    sliderUIa.onchange = function() {
+        doFullUpdate(commonGlobal.world, commonGlobal.screenBox, commonGlobal.canvas, commonGlobal.context, commonGlobal.world2Screen, commonGlobal.screen2World);
+    };
+     
+    sliderUIa.oninput = sliderUIa.onchange;
+    sliderUIa.onchange();
+     
+    sliderUItheta.onchange = function() {
+        doFullUpdate(commonGlobal.world, commonGlobal.screenBox, commonGlobal.canvas, commonGlobal.context, commonGlobal.world2Screen, commonGlobal.screen2World);
+    };
+     
+    sliderUItheta.oninput = sliderUItheta.onchange;
+    sliderUItheta.onchange();
+     
+    sliderUItau.onchange = function() {
+        doFullUpdate(commonGlobal.world, commonGlobal.screenBox, commonGlobal.canvas, commonGlobal.context, commonGlobal.world2Screen, commonGlobal.screen2World);
+    };
+     
+    sliderUItau.oninput = sliderUItau.onchange;
+    sliderUItau.onchange();
+     
+    sliderUIg.onchange = function() {
+        doFullUpdate(commonGlobal.world, commonGlobal.screenBox, commonGlobal.canvas, commonGlobal.context, commonGlobal.world2Screen, commonGlobal.screen2World);
+    };
+     
+    sliderUIg.oninput = sliderUIg.onchange;
+    sliderUIg.onchange();
+     
+}
+ 
+function recalcGeometryJGOB1(
+){
+    let u_0 = 0;
+    let u_1 = 0;
+    let v_0 = 0;
+    let v_1 = 0;
+    var theta_0 = Math.atan2(JGOB3Y-JGOB1Y,JGOB3X-JGOB1X);
+    u_0=(JGOB1X+(a*Math.cos(theta_0)));
+    u_1=(u_0+(c*Math.cos(((Math.PI*0.5)+(Math.PI*0.5)+theta_0+Math.PI+((-1.0)*theta)+((-1.0)*Math.PI)))));
+    v_0=(JGOB1Y+(a*Math.sin(theta_0)));
+    v_1=(v_0+(c*Math.sin(((Math.PI*0.5)+(Math.PI*0.5)+theta_0+Math.PI+((-1.0)*theta)+((-1.0)*Math.PI)))));
+    JGOB0X=u_1;
+    JGOB0Y=v_1;
+    JGOB1X=JGOB1X;
+    JGOB1Y=JGOB1Y;
+    JGOB3X=u_0;
+    JGOB3Y=v_0;
+}
+ 
+function recalcGeometryJGOB3(
+){
+    let u_0 = 0;
+    let v_0 = 0;
+    let u_1 = 0;
+    let v_1 = 0;
+    var theta_0 = Math.atan2(JGOB0Y-JGOB3Y,JGOB0X-JGOB3X);
+    u_0=(JGOB3X+(c*Math.cos(theta_0)));
+    v_0=(JGOB3Y+(c*Math.sin(theta_0)));
+    u_1=(JGOB3X+(Math.cos(((Math.PI*0.5)+(Math.PI*0.5)+theta_0+Math.PI+theta+Math.PI))*(-1.0)*a));
+    v_1=(JGOB3Y+(Math.sin(((Math.PI*0.5)+(Math.PI*0.5)+theta_0+Math.PI+theta+Math.PI))*(-1.0)*a));
+    JGOB0X=u_0;
+    JGOB0Y=v_0;
+    JGOB1X=u_1;
+    JGOB1Y=v_1;
+    JGOB3X=JGOB3X;
+    JGOB3Y=JGOB3Y;
+}
+ 
+function recalcGeometryJGOB0(
+){
+    let u_0 = 0;
+    let u_1 = 0;
+    let v_0 = 0;
+    let v_1 = 0;
+    var theta_0 = Math.atan2(JGOB3Y-JGOB0Y,JGOB3X-JGOB0X);
+    u_0=(JGOB0X+(c*Math.cos(theta_0)));
+    u_1=(u_0+(Math.cos(((Math.PI*0.5)+(Math.PI*0.5)+(theta_0+Math.PI)+((-1.0)*Math.PI)+theta+Math.PI))*(-1.0)*a));
+    v_0=(JGOB0Y+(c*Math.sin(theta_0)));
+    v_1=(v_0+(Math.sin(((Math.PI*0.5)+(Math.PI*0.5)+(theta_0+Math.PI)+((-1.0)*Math.PI)+theta+Math.PI))*(-1.0)*a));
+    JGOB0X=JGOB0X;
+    JGOB0Y=JGOB0Y;
+    JGOB1X=u_1;
+    JGOB1Y=v_1;
+    JGOB3X=u_0;
+    JGOB3Y=v_0;
+}
+ 
+function computeGeometry( )
+{
+    if (commonGlobal.dragging)
+    {
+        if (commonGlobal.currentDraggable < 0)  recalcGeometry();
+        if (commonGlobal.currentDraggable == 0)  recalcGeometryJGOB1();
+        if (commonGlobal.currentDraggable == 1)  recalcGeometryJGOB3();
+        if (commonGlobal.currentDraggable == 2)  recalcGeometryJGOB0();
+    } else recalcGeometry();
+}
+
+/*
+ *  Common Section
+ *  - Code common to all generated javascript
+ */
+
+/** **********Math functions***************/
+
+function arccos(x) {
+    return Math.acos(x);
+}
+
+function arcsin(x) {
+    return Math.asin(x);
+}
+
+function arctan(x) {
+    return Math.atan(x);
+}
+
+function arcsec(x) {
+    const u = Math.asin(Math.sqrt(x * x - 1) / x);
+    if (x < -1) {
+        return Math.PI + u;
+    }
+
+    if (x > 1) {
+        return u;
+    }
+
+    return Number.NaN;
+}
+
+function arccsc(x) {
+    const u = Math.acos(Math.sqrt(x * x - 1) / x);
+    if (x < -1) {
+        return -u;
+    }
+
+    if (x > 1) {
+        return u;
+    }
+
+    return Number.NaN;
+}
+
+function sinh(x) {
+    return (((Math.exp(x) + (Math.exp((x * (-1.0))) * (-1.0))) * 0.5));
+}
+
+function cosh(x) {
+    return (((Math.exp(x) + Math.exp((x * (-1.0)))) * 0.5));
+}
+
+function tanh(x) {
+    return (((-1.0) + ((1.0 + Math.exp((x * (-2.0)))) ** -1.0 * 2.0)));
+}
+
+function arcsinh(x) {
+    return (Math.log((x + (1.0 + x ** 2.0) ** 0.5)));
+}
+
+function arccosh(x) {
+    return (Math.log((x + ((-1.0) + x ** 2.0) ** 0.5)));
+}
+
+function arctanh(x) {
+    return (Math.log(((1.0 + (x * (-1.0))) ** -1.0 * (1.0 + x)) ** 0.5));
+}
+
+function log() {
+    if (arguments.length > 1) {
+        return Math.log(arguments[0]) / Math.log(arguments[1]);
+    }
+
+    if (arguments.length === 1) {
+        return Math.log(arguments[0]);
+    }
+
+    return Number.NaN;
+}
+
+function log10(x) {
+    return Math.log(x) / Math.LN10;
+}
+
+// Returns the position of the start of the first operand of the power function
+function PowerOperandStart(str, hat_pos) {
+    let pos;
+    let paren_count = 0;
+    for (pos = hat_pos - 1; pos >= 0; pos--) {
+        const ch = str.charAt(pos);
+        if (ch === ')') {
+            paren_count++;
+        } else if (ch === '(') {
+            paren_count--;
+            if (paren_count < 0) {
+                return pos + 1;
+            }
+        } else if ((ch === '*') || (ch === '+') || (ch === '-') || (ch === '/')) {
+            if (paren_count === 0) {
+                return pos + 1;
+            }
+        }
+    }
+
+    return 0;
+}
+
+// Returns the position of the end of the second operand of the power function
+function PowerOperandEnd(str, hat_pos) {
+    let pos;
+    let paren_count = 0;
+    const nn = str.length;
+    for (pos = hat_pos + 1; pos < nn; pos++) {
+        const ch = str.charAt(pos);
+        if (ch === '(') {
+            paren_count++;
+        } else if (ch === ')') {
+            paren_count--;
+            if (paren_count < 0) {
+                return pos - 1;
+            }
+        } else if ((ch === '*') || (ch === '+') || (ch === '-') || (ch === '/') || (ch === '^')) {
+            if (paren_count === 0) {
+                return pos - 1;
+            }
+        }
+    }
+
+    return nn - 1;
+}
+
+function ReplaceInfixPower(str) {
+    let hat_pos;
+    for (hat_pos = 1; hat_pos < str.length - 1; hat_pos++) {
+        if (str.charAt(hat_pos) === '^') {
+            const pos0 = PowerOperandStart(str, hat_pos);
+            const pos1 = PowerOperandEnd(str, hat_pos);
+            const str0 = str.slice(pos0, hat_pos);
+            const str1 = str.slice(hat_pos + 1, pos1 + 1);
+            let new_str = '';
+            if (pos0 > 0) {
+                new_str = str.slice(0, pos0);
+            }
+
+            new_str = new_str.concat('pow(');
+            new_str = new_str.concat(str0);
+            new_str = new_str.concat(',');
+            new_str = new_str.concat(str1);
+            new_str = new_str.concat(')');
+            if (pos1 < str.length - 1) {
+                new_str = new_str.concat(str.slice(pos1 + 1, str.length));
+            }
+
+            str = new_str;
+            hat_pos = 1;
+        }
+    }
+
+    return str;
+}
+
+/** *************Types*****************/
+function Point(x, y) {
+    this.x = x;
+    this.y = y;
+}
+
+function Circle(x, y, r) {
+    this.x = x;
+    this.y = y;
+    this.radius = r;
+}
+
+function Parabola(vx, vy, fx, fy) {
+    this.type = 'parabola';
+    this.vx = vx;
+    this.vy = vy;
+    this.fx = fx;
+    this.fy = fy;
+}
+
+function LinePair(A0, B0, C0, A1, B1, C1) {
+    this.type = 'line pair';
+    this.A0 = A0;
+    this.B0 = B0;
+    this.C0 = C0;
+    this.A1 = A1;
+    this.B1 = B1;
+    this.C1 = C1;
+}
+
+function Hyperbola(f0x, f0y, f1x, f1y, p0x, p0y) {
+    this.type = 'hyperbola';
+    this.f0x = f0x;
+    this.f0y = f0y;
+    this.f1x = f1x;
+    this.f1y = f1y;
+    this.p0x = p0x;
+    this.p0y = p0y;
+}
+
+function Ellipse(centerx, centery, p0x, p0y, minor) {
+    this.type = 'ellipse';
+    this.centerx = centerx;
+    this.centery = centery;
+    this.p0x = p0x;
+    this.p0y = p0y;
+    this.minor = minor;
+}
+
+function BoundingBox(xmin, ymin, xmax, ymax) {
+    this.xmin = xmin;
+    this.ymin = ymin;
+    this.xmax = xmax;
+    this.ymax = ymax;
+    this.started = false;
+    this.iLinesStarted = false;
+}
+
+BoundingBox.prototype = {
+    constructor: BoundingBox,
+    extend(x, y) {
+        if (isFinite(x) && isFinite(y)) {
+            if (!this.started) {
+                this.xmax = x;
+                this.xmin = x;
+                this.ymax = y;
+                this.ymin = y;
+                this.started = true;
+            } else {
+                if (this.xmin > x) {
+                    this.xmin = x;
+                }
+
+                if (this.ymin > y) {
+                    this.ymin = y;
+                }
+
+                if (this.xmax < x) {
+                    this.xmax = x;
+                }
+
+                if (this.ymax < y) {
+                    this.ymax = y;
+                }
+            }
+        }
+    },
+
+    expand(dx, dy) {
+        const width = this.xmax - this.xmin;
+        const height = this.ymax - this.ymin;
+        const dw = width * dx;
+        const dh = height * dy;
+        this.xmin -= dw / 2;
+        this.xmax += dw / 2;
+        this.ymin -= dh / 2;
+        this.ymax += dh / 2;
+    },
+};
+
+function Tran2DMatrix(m11, m12, m21, m22, dx, dy) {
+    // Dest and source must be of type BoundingBox
+    this.m11 = m11; this.m12 = m12;
+    this.m21 = m21; this.m22 = m22;
+    this.dx = dx;
+    this.dy = dy;
+}
+
+Tran2DMatrix.prototype = {
+    constructor: Tran2DMatrix,
+    setMatrix(source, dest)// Note this sets matrix to invert y direction
+    { // When changing World to Screen and vice-versa
+        this.m11 = (dest.xmax - dest.xmin) / (source.xmax - source.xmin);
+        this.m12 = 0;
+        this.m21 = 0;
+        this.m22 = (dest.ymax - dest.ymin) / (source.ymin - source.ymax);
+        this.dx = -this.m11 * source.xmin + dest.xmin;
+        this.dy = -this.m22 * source.ymax + dest.ymin;
+    },
+};
+
+/** *************Variables (Constiables)**************/
+
+const commonGlobal = {};
+let firstTimeIn = 1;
+const smallnumber = 1e-6;
+/** *************Functions**************/
+
+function isTiny(x) {
+    return Math.abs(x) < smallnumber;
+}
+
+function safePow(a, b) {
+    if (Math.abs(a) < 1E-8) {
+        return 0;
+    }
+
+    return a ** b;
+}
+
+function lerp(x0, x1, y0, y1, x) {
+    if (x1 === x) {
+        return y1;
+    }
+
+    return y0 + (x - x0) * (y1 - y0) / (x1 - x0);
+}
+
+function getArrowDim() {
+    const dim = 10;
+    return new Point(dim * 0.8, dim * 3.2);
+}
+
+function getGCD(val1, val2) {
+    let w; let x; let y;
+    x = val1;
+    y = val2;
+    while (y != 0) {
+        w = x % y;
+        x = y;
+        y = w;
+    }
+
+    return x;
+}
+
+function setCvsOffset() {
+    const rect = commonGlobal.canvas.getBoundingClientRect();
+    commonGlobal.cvsMinX = rect.x;
+    commonGlobal.cvsMinY = rect.y;
+}
+
+function rangeVal(slider, rng) {
+    return eval(slider.value);
+}
+
+function correctSlider(slider, range) {
+    slider.step = (slider.max - slider.min) / 100000000; // Based on default precision value
+}
+
+function parameterOnCircle(x, y, cx, cy) {
+    const dx = x - cx;
+    const dy = y - cy;
+    return Math.atan2(dy, dx);
+}
+
+function parameterOnFunction(x, y) {
+    return x;
+}
+
+function parameterOnLine(x, y, A, B, C) {
+    return (B * x - A * y) / (A * A + B * B);
+}
+
+function parameterOnSegment(x, y, x0, y0, x1, y1) {
+    const ux = x1 - x0;
+    const uy = y1 - y0;
+    const vx = x - x0;
+    const vy = y - y0;
+    const len2 = ux * ux + uy * uy;
+    if (isTiny(len2)) {
+        return 0;
+    }
+
+    return (ux * vx + uy * vy) / len2;
+}
+
+function distanceToPointSquared(x, y, x0, y0) {
+    const vx = x - x0;
+    const vy = y - y0;
+    return vx * vx + vy * vy;
+}
+
+function distanceToPoint(x, y, x0, y0) {
+    const dd = distanceToPointSquared(x, y, x0, y0);
+    if (isTiny(dd)) {
+        return 0;
+    }
+
+    return Math.sqrt(dd);
+}
+
+function parameterOnCurveRecursive(x, y, f, g, start, end, NUM_SEGS, level) {
+    let lvl = level;
+    let t = start;
+    const dt = (end - start) / (NUM_SEGS);
+    let i;
+    let have_solution = false;
+    let best_t;
+    let best_distance;
+    for (i = 0; i < NUM_SEGS + 1; i++) {
+        const xx = f(t);
+        const yy = g(t);
+        if (isFinite(xx) && isFinite(yy)) {
+            const d2 = distanceToPointSquared(x, y, xx, yy);
+            if ((!have_solution) || (d2 < best_distance)) {
+                have_solution = true;
+                best_t = t;
+                best_distance = d2;
+            }
+        }
+
+        t += dt;
+    }
+
+    if (lvl > 0) {
+        lvl--;
+        let t0 = best_t - dt;
+        let t1 = best_t + dt;
+        if (t0 < start) {
+            t0 = start;
+        }
+
+        if (t1 > end) {
+            t1 = end;
+        }
+
+        best_t = parameterOnCurveRecursive(x, y, f, g, t0, t1, 10, lvl);
+    }
+
+    return best_t;
+}
+
+function parameterOnCurve(x, y, f, g, start, end) {
+    return parameterOnCurveRecursive(x, y, f, g, start, end, 100, 2);
+}
+
+function transformCoord(mat, x, y) {
+    return new Point(
+        mat.m11 * x + mat.m12 * y + mat.dx,
+        mat.m21 * x + mat.m22 * y + mat.dy,
+    );
+}
+
+function iLineExtend(wrld, A, B, C) {
+    if (wrld.iLinesStarted || (!wrld.started || ((wrld.xmax - wrld.xmin) === 0 || (wrld.ymax - wrld.ymin) === 0))) {
+        wrld.iLinesStarted = true;
+        const x = (-A * C / (A * A + B * B));
+        const y = (-B * C / (A * A + B * B));
+        wrld.extend(x, y);
+    }
+}
+
+function setMargin(wrld, margin) {
+    const dx = eval(margin * (wrld.xmax - wrld.xmin));
+    const dy = eval(margin * (wrld.ymax - wrld.ymin));
+    wrld.xmin -= eval(dx);
+    wrld.ymin -= eval(dy);
+    wrld.xmax = eval(wrld.xmax) + eval(dx);
+    wrld.ymax = eval(wrld.ymax) + eval(dy);
+}
+
+// Correct world bounding box if it has no width or height
+function correctDegenerate(wrld) {
+    if (wrld.xmax <= wrld.xmin) {
+        wrld.xmin -= 0.5;
+        wrld.xmax = eval(wrld.xmax) + eval(0.5);
+    }
+
+    if (wrld.ymax <= wrld.ymin) {
+        wrld.ymin -= 0.5;
+        wrld.ymax = eval(wrld.ymax) + eval(0.5);
+    }
+}
+
+function correctAspectRatio(wrld, scrn) {
+    if (((scrn.xmax - scrn.xmin) != 0) && ((scrn.ymax - scrn.ymin) != 0)) {
+        let dx = wrld.xmax - wrld.xmin;
+        let dy = wrld.ymax - wrld.ymin;
+        const xratio = dx / (scrn.xmax - scrn.xmin);
+        const yratio = dy / (scrn.ymax - scrn.ymin);
+
+        if (xratio > yratio) {
+            const ymid = (wrld.ymin + wrld.ymax) / 2;
+            dy = (xratio * (scrn.ymax - scrn.ymin)) / 2;
+            wrld.ymin = ymid - dy;
+            wrld.ymax = ymid + dy;
+        } else {
+            const xmid = (wrld.xmin + wrld.xmax) / 2;
+            dx = (yratio * (scrn.xmax - scrn.xmin)) / 2;
+            wrld.xmin = xmid - dx;
+            wrld.xmax = xmid + dx;
+        }
+    }
+}
+
+function setMatrices(wrld, scrn, TranMat, InvTranMat) {
+    TranMat.setMatrix(wrld, scrn);
+
+    InvTranMat.setMatrix(scrn, wrld);
+}
+
+function resetBounds(wrld, scrn, TranMat, InvTranMat) {
+    wrld.started = false;
+    if ((!FIXED_BOUNDS) || firstTimeIn) {
+        setMinBounds(wrld);
+        correctDegenerate(wrld);
+        if (!FIXED_BOUNDS) {
+            setMargin(wrld, 0.2);
+        }
+
+        firstTimeIn = 0;
+    }
+
+    if (FIXED_ASPECT_RATIO) {
+        correctAspectRatio(wrld, scrn);
+    }
+
+    setMatrices(wrld, scrn, TranMat, InvTranMat);
+}
+
+// Dx dy are proportions of world extent
+function panWorld(dx, dy) {
+    const wrld = commonGlobal.world;
+    const w = wrld.xmax - wrld.xmin;
+    const h = wrld.ymax - wrld.ymin;
+    const u = w * dx;
+    const v = h * dy;
+    wrld.xmax += u;
+    wrld.xmin += u;
+    wrld.ymax += v;
+    wrld.ymin += v;
+}
+
+function zoomCoordinate(x, x0, k) {
+    return x * k + x0 * (1 - k);
+}
+
+// Dx dy are proportions of world extent
+function zoomWorld(x0, y0, scale) {
+    commonGlobal.dragging = false;
+    commonGlobal.panning = false;
+
+    const wrld = commonGlobal.world;
+    wrld.xmax = zoomCoordinate(wrld.xmax, x0, scale);
+    wrld.xmin = zoomCoordinate(wrld.xmin, x0, scale);
+    wrld.ymax = zoomCoordinate(wrld.ymax, y0, scale);
+    wrld.ymin = zoomCoordinate(wrld.ymin, y0, scale);
+}
+
+// Functions for working with auxiliary canvases, used for drawing traces
+
+// Return an auxiliary context to draw on with the same dimensions as the given
+// context
+function submitCreateAux(ctx, alpha) {
+    const auxCanvas = document.createElement('canvas');
+    if (auxCanvas.getContext) {
+        auxCanvas.setAttribute('width', ctx.canvas.width);
+        auxCanvas.setAttribute('height', ctx.canvas.height);
+        return auxCanvas.getContext('2d');
+    }
+
+    // XXX: ExplorerCanvas does not support auxiliary canvases, so just set
+    // the globalAlpha here and return the same context we were given. The
+    // results won't look exactly like they should, but it will show
+    // something.
+    ctx.globalAlpha = alpha;
+    return ctx;
+}
+
+// Draw image data from a previously-created auxiliary canvas
+function submitDrawAux(ctx, aux, alpha) {
+    if (ctx != aux) {
+        // XXX: ExplorerCanvas does not support drawImage from other canvases.
+        ctx.globalAlpha = alpha;
+        ctx.drawImage(aux.canvas, 0, 0);
+    }
+
+    ctx.globalAlpha = 1;
+}
+
+// Functions for specifying drawing paths
+
+function submitBeginPath(ctx) {
+    ctx.beginPath();
+}
+
+function submitMoveTo(mat, ctx, point) {
+    const tpoint = transformCoord(mat, point.x, point.y);
+    ctx.moveTo(tpoint.x, tpoint.y);
+}
+
+function submitLineTo(mat, ctx, point) {
+    const tpoint = transformCoord(mat, point.x, point.y);
+    ctx.lineTo(tpoint.x, tpoint.y);
+}
+
+function submitPolyLine(mat, ctx, points) {
+    for (let i = 0; i < points.length; ++i) {
+        if (isFinite(points[i].x) && isFinite(points[i].y)) {
+            const point = transformCoord(mat, points[i].x, points[i].y);
+            ctx.lineTo(point.x, point.y);
+        }
+    }
+}
+
+function submitPolyLineReverse(mat, ctx, points) {
+    for (let i = 0; i < points.length; ++i) {
+        const point = points[points.length - 1 - i];
+        if (isFinite(point.x) && isFinite(point.y)) {
+            const tpoint = transformCoord(mat, point.x, point.y);
+            ctx.lineTo(tpoint.x, tpoint.y);
+        }
+    }
+}
+
+// Functions for drawing paths specified using the functions above
+
+// TODO: Allow specifying a fill pattern
+function submitFill(ctx, red, green, blue, alpha) {
+    ctx.fillStyle = 'rgba(' + red + ', ' + green + ', ' + blue + ', ' + alpha + ')';
+    ctx.fill();
+    ctx.fillStyle = '#000000';
+}
+
+// TODO: Allow specifying a line pattern
+function submitStroke(ctx, color, thickness) {
+    ctx.strokeStyle = color;
+    ctx.lineWidth = thickness;
+    ctx.stroke();
+    ctx.strokeStyle = '#000000';
+    ctx.lineWidth = 1;
+}
+
+// Functions for drawing normal geometry objects
+
+function drawAxis(wrld, mat, invMat, ctx, A, B, C, clrStr, thickness, type, units, labels, clrTxt) {
+    drawInfiniteLine(wrld, mat, ctx, A, B, C, clrStr, thickness);
+    const label = {};
+    label.symbol = '';
+    label.divisor = 1;
+    label.magnitude = 1;
+    const dist = getGridSpacing(wrld, units, label);
+    const ticHalf = 5;
+
+    if (type % 2 === 0) // X-axis
+    {
+        if (((wrld.ymin < 0) && (wrld.ymax > 0)) || type > 1) {
+            const posLo = Math.ceil(wrld.xmin / dist);
+            const posHi = Math.ceil(wrld.xmax / dist);
+            for (let i = posLo; i < posHi; ++i) {
+                const pos = i * dist;
+                drawAxisTic(mat, ctx, type, pos, clrStr, thickness, ticHalf);
+                if (labels) {
+                    drawTicLabel(mat, ctx, type, pos, dist, units, label, clrTxt, ticHalf);
+                }
+            }
+        }
+    } else // Y axis
+        if (((wrld.xmin < 0) && (wrld.xmax > 0)) || type > 1) {
+            const posLo = Math.ceil(wrld.ymin / dist);
+            const posHi = Math.ceil(wrld.ymax / dist);
+            for (let i = posLo; i < posHi; ++i) {
+                const pos = i * dist;
+                drawAxisTic(mat, ctx, type, pos, clrStr, thickness, ticHalf);
+                if (labels) {
+                    drawTicLabel(mat, ctx, type, pos, dist, units, label, clrTxt, ticHalf);
+                }
+            }
+        }
+}
+
+function getSingleAxisGridSpacing(size, idealcount) {
+    let gspacing = 0;
+
+    // See what the ideal spacing would be if we wanted AXIS_IDEAL_LABEL_COUNT on the screen
+    let idealspacing = (size / idealcount);
+
+    // Idealspacing needs to be in the range of 1 to 10 in order for spacing to work
+    // save the magnitude and apply it to gspacing at the end
+    let magnitude = 1.0;
+    const power = Math.floor(Math.log(Math.abs(idealspacing)) / Math.log(10));
+    magnitude = 10.0 ** power;
+    idealspacing /= magnitude;
+
+    // Tics will be some magnitude of 10, 5, 2 or 1
+    // see which division is closest to the ideal spacing
+    const tics10 = Math.abs(idealspacing - (10.0));
+    const tics5 = Math.abs(idealspacing - (5.0));
+    const tics2 = Math.abs(idealspacing - (2.0));
+    const tics1 = Math.abs(idealspacing - (1.0));
+
+    if (tics10 < tics5 && tics10 < tics2 && tics10 < tics1) {
+        gspacing = 10.0;
+    } else if (tics5 < tics2 && tics5 < tics1) {
+        gspacing = 5.0;
+    } else if (tics2 < tics1) {
+        gspacing = 2.0;
+    } else {
+        gspacing = 1.0;
+    }
+
+    // Apply the magnitude to spacing
+    gspacing *= magnitude;
+    return gspacing;
+}
+
+function getGridSpacing(wrld, units, label) {
+    let gspacing = 0;
+    const width = wrld.xmax - wrld.xmin;
+    const height = wrld.ymax - wrld.ymin;
+    const size = (width > height) ? width : height;
+    const degToRad = (2.0 * Math.PI) / 360.0;
+
+    // See what the ideal spacing would be if we wanted AXIS_IDEAL_LABEL_COUNT on the screen
+    let idealspacing = (size / commonGlobal.axisIdealLabelCount);
+
+    // Idealspacing needs to be in the range of 1 to 10 in order for spacing to work
+    // save the magnitude and apply it to gspacing at the end
+    let magnitude = 1.0;
+
+    if (units === 0) // Decimal spacing
+    {
+        const power = Math.floor(Math.log(Math.abs(idealspacing)) / Math.log(10));
+        magnitude = 10.0 ** power;
+        label.magnitude = magnitude;
+        idealspacing /= magnitude;
+
+        // Tics will be some magnitude of 10, 5, 2 or 1
+        // see which division is closest to the ideal spacing
+        const tics10 = Math.abs(idealspacing - (10.0));
+        const tics5 = Math.abs(idealspacing - (5.0));
+        const tics2 = Math.abs(idealspacing - (2.0));
+        const tics1 = Math.abs(idealspacing - (1.0));
+
+        if (tics10 < tics5 && tics10 < tics2 && tics10 < tics1) {
+            gspacing = 10.0;
+        } else if (tics5 < tics2 && tics5 < tics1) {
+            gspacing = 5.0;
+        } else if (tics2 < tics1) {
+            gspacing = 2.0;
+        } else {
+            gspacing = 1.0;
+        }
+    } else if (units === 1) // Pi and degree spacing for degrees
+    {
+        label.symbol = '\u00B0';
+        if (idealspacing <= (5 * degToRad)) {
+            gspacing = 5 * degToRad;
+        } else if (idealspacing <= (15 * degToRad)) {
+            gspacing = 15 * degToRad;
+        } else if (idealspacing <= (45 * degToRad)) {
+            gspacing = 45 * degToRad;
+        } else if (idealspacing <= (90 * degToRad)) {
+            gspacing = 90 * degToRad;
+        } else if (idealspacing < (360 * degToRad)) {
+            gspacing = 180 * degToRad;
+        } else {
+            const n = idealspacing / (360 * degToRad);
+            gspacing = n * (360 * degToRad);
+        }
+    } else if (units === 2) // Pi spacing for radians
+    {
+        label.symbol = '\u03c0';
+        if (idealspacing <= (Math.PI / 32.0)) {
+            gspacing = Math.PI / 32.0;
+            label.divisor = 32;
+        } else if (idealspacing <= (Math.PI / 16.0)) {
+            gspacing = Math.PI / 16.0;
+            label.divisor = 16;
+        } else if (idealspacing <= (Math.PI / 8.0)) {
+            gspacing = Math.PI / 8.0;
+            label.divisor = 8;
+        } else if (idealspacing <= (Math.PI / 4.0)) {
+            gspacing = Math.PI / 4.0;
+            label.divisor = 4;
+        } else if (idealspacing <= (Math.PI / 2.0)) {
+            gspacing = Math.PI / 2.0;
+            label.divisor = 2;
+        } else if (idealspacing < (2.0 * Math.PI)) {
+            gspacing = Math.PI;
+        } else {
+            const n = idealspacing / (Math.PI * 2.0);
+            gspacing = n * (Math.PI * 2.0);
+        }
+    } else if (units === 3) // Pi/3 spacing for radians
+    {
+        label.symbol = '\u03c0';
+        if (idealspacing <= (Math.PI / 36.0)) {
+            gspacing = Math.PI / 36.0;
+            label.divisor = 36;
+        }
+
+        if (idealspacing <= (Math.PI / 18.0)) {
+            gspacing = Math.PI / 18.0;
+            label.divisor = 18;
+        } else if (idealspacing <= (Math.PI / 6.0)) {
+            gspacing = Math.PI / 6.0;
+            label.divisor = 6;
+        } else if (idealspacing <= (Math.PI / 3.0)) {
+            gspacing = Math.PI / 3.0;
+            label.divisor = 3;
+        } else if (idealspacing <= (Math.PI / 2.0)) {
+            gspacing = Math.PI / 2.0;
+            label.divisor = 2;
+        } else if (idealspacing < (2.0 * Math.PI)) {
+            gspacing = Math.PI;
+        } else {
+            const n = idealspacing / (Math.PI * 2.0);
+            gspacing = n * (Math.PI * 2.0);
+        }
+    }
+
+    // Apply the magnitude to spacing
+    gspacing *= magnitude;
+    return gspacing;
+}
+
+function drawAxisTic(mat, ctx, type, pos, clrStr, thickness, ticHalf) {
+    let point;
+    if (type === 0) {
+        point = transformCoord(mat, pos, 0);
+        ctx.beginPath();
+        ctx.moveTo(point.x, point.y - ticHalf);
+        ctx.lineTo(point.x, point.y + ticHalf);
+
+        ctx.lineWidth = thickness;
+        ctx.strokeStyle = clrStr;
+        ctx.stroke();
+        ctx.lineWidth = 1.0;
+        ctx.strokeStyle = '#000000';
+    } else {
+        point = transformCoord(mat, 0, pos);
+        ctx.beginPath();
+        ctx.moveTo(point.x - ticHalf, point.y);
+        ctx.lineTo(point.x + ticHalf, point.y);
+
+        ctx.lineWidth = thickness;
+        ctx.strokeStyle = clrStr;
+        ctx.stroke();
+        ctx.lineWidth = 1.0;
+        ctx.strokeStyle = '#000000';
+    }
+}
+
+function drawTicLabel(mat, ctx, type, pos, dist, units, label, clrStr, ticHalf) {
+    const offset = ticHalf + 3;
+    let text = '';
+    if (Math.abs(pos) > 0.5 * dist) {
+        if ((units === 2) || (units === 3)) {
+            let spacing = dist;
+            if (spacing > Math.PI) {
+                spacing = Math.PI;
+            }
+
+            let dividend = Math.round(pos / spacing);
+            let {divisor} = label;
+            const gcd = Math.abs(getGCD(dividend, divisor));
+            dividend /= gcd;
+            divisor /= gcd;
+            if (dividend < 0) {
+                text += '-';
+            }
+
+            if (Math.abs(dividend) > 1) {
+                text += Math.abs(dividend);
+            }
+
+            text += label.symbol;
+            if (divisor > 1) {
+                text += '/' + divisor;
+            }
+        } else if (units === 1) {
+            text = Math.round((360.0 / (2.0 * Math.PI)) * pos) + label.symbol;
+        } else
+            if (label.magnitude < 100000) {
+                const pow = Math.round(Math.log(label.magnitude) * Math.LOG10E);
+                if (pow < 0) {
+                    text = pos.toFixed(-pow);
+                } else {
+                    text = pos;
+                }
+            } else {
+                text = pos.toExponential(1);
+            }
+
+        let point;
+        if (type === 0) {
+            point = transformCoord(mat, pos, 0);
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+            ctx.fillStyle = clrStr;
+            ctx.font = '10px sans-serif';
+            ctx.fillText(text, point.x, point.y + offset);
+            ctx.fillStyle = '#000000';
+        } else {
+            point = transformCoord(mat, 0, pos);
+            ctx.textAlign = 'left';
+            ctx.textBaseline = 'middle';
+            ctx.fillStyle = clrStr;
+            ctx.font = '10px sans-serif';
+            ctx.fillText(text, point.x + offset, point.y);
+            ctx.fillStyle = '#000000';
+        }
+    }
+}
+
+function clipInfiniteLine(wrld, A, B, C) {
+    const p0 = new Point();
+    const p1 = new Point();
+
+    if (Math.abs(B) < 0.000001) {
+        p0.x = (-C / A);
+        p1.x = (-C / A);
+        p0.y = wrld.ymin;
+        p1.y = wrld.ymax;
+    } else if (Math.abs(A) < 0.000001) {
+        p0.y = (-C / B);
+        p1.y = (-C / B);
+        p0.x = wrld.xmin;
+        p1.x = wrld.xmax;
+    } else {
+        const xtop = ((-B * wrld.ymax) - C) / A;
+        const xbottom = ((-B * wrld.ymin) - C) / A;
+        const yleft = ((-A * wrld.xmin) - C) / B;
+        const yright = ((-A * wrld.xmax) - C) / B;
+
+        if (-B / A > 0) {
+            p0.x = xbottom;
+            p0.y = yleft;
+            p1.x = xtop;
+            p1.y = yright;
+        } else {
+            p0.x = xtop;
+            p0.y = yleft;
+            p1.x = xbottom;
+            p1.y = yright;
+        }
+
+        if (p0.x < wrld.xmin) {
+            p0.x = wrld.xmin;
+        } else if (p0.x > wrld.xmax) {
+            p0.x = wrld.xmax;
+        }
+
+        if (p0.y < wrld.ymin) {
+            p0.y = wrld.ymin;
+        } else if (p0.y > wrld.ymax) {
+            p0.y = wrld.ymax;
+        }
+
+        if (p1.x < wrld.xmin) {
+            p1.x = wrld.xmin;
+        } else if (p1.x > wrld.xmax) {
+            p1.x = wrld.xmax;
+        }
+
+        if (p1.y < wrld.ymin) {
+            p1.y = wrld.ymin;
+        } else if (p1.y > wrld.ymax) {
+            p1.y = wrld.ymax;
+        }
+    }
+
+    return [p0, p1];
+}
+
+function drawInfiniteLine(wrld, mat, ctx, A, B, C, clrStr, thickness) {
+    const pts = clipInfiniteLine(wrld, A, B, C);
+    drawLine(mat, ctx, pts[0].x, pts[0].y, pts[1].x, pts[1].y, clrStr, thickness, 0);
+}
+
+function drawLine(mat, ctx, x0, y0, x1, y1, clrStr, thickness, arrow) {
+    if (isFinite(x0) && isFinite(y0) && isFinite(x1) && isFinite(y1)) {
+        const begin = transformCoord(mat, x0, y0);
+        const end = transformCoord(mat, x1, y1);
+        ctx.beginPath();
+        ctx.moveTo(begin.x, begin.y);
+        ctx.lineTo(end.x, end.y);
+
+        ctx.lineWidth = thickness;
+        ctx.strokeStyle = clrStr;
+        ctx.stroke();
+        ctx.lineWidth = 1.0;
+        ctx.strokeStyle = '#000000';
+
+        if (arrow != 0) {
+            drawArrow(mat, ctx, begin, end, clrStr, thickness, arrow);
+        }
+    }
+}
+
+function drawScreenLine(ctx, x0, y0, x1, y1, clrStr, thickness) {
+    if (isFinite(x0) && isFinite(y0) && isFinite(x1) && isFinite(y1)) {
+        ctx.beginPath();
+        ctx.moveTo(x0, y0);
+        ctx.lineTo(x1, y1);
+
+        ctx.lineWidth = thickness;
+        ctx.strokeStyle = clrStr;
+        ctx.stroke();
+        ctx.lineWidth = 1.0;
+        ctx.strokeStyle = '#000000';
+    }
+}
+
+function drawScreenLineOffset(mat, ctx, left, top, x0, y0, x1, y1, clrStr, thickness) {
+    const tl = transformCoord(mat, left, top);
+    drawScreenLine(ctx, x0 + tl.x, y0 + tl.y, x1 + tl.x, y1 + tl.y, clrStr, thickness);
+}
+
+function drawParenthesisOffset(mat, ctx, left, top, x0, y0, x1, y1, clrStr, thickness) {
+    const tl = transformCoord(mat, left, top);
+    x0 += tl.x;
+    x1 += tl.x;
+    y0 += tl.y;
+    y1 += tl.y;
+    ctx.beginPath();
+    ctx.lineWidth = thickness;
+    ctx.strokeStyle = clrStr;
+    ctx.moveTo(x0, y0);
+    ctx.bezierCurveTo(x1, y0, x1, y1, x0, y1);
+    ctx.stroke();
+    ctx.lineWidth = 1.0;
+    ctx.strokeStyle = '#000000';
+}
+
+function drawCurlyBracketOffset(mat, ctx, left, top, x0, y0, x1, y1, clrStr, thickness) {
+    const tl = transformCoord(mat, left, top);
+    x0 += tl.x;
+    x1 += tl.x;
+    y0 += tl.y;
+    y1 += tl.y;
+
+    const ym = (y0 + y1) / 2;
+    const dy = (y0 - ym) * 0.15;
+
+    ctx.beginPath();
+    ctx.lineWidth = thickness;
+    ctx.strokeStyle = clrStr;
+    ctx.moveTo(x0, y0);
+    ctx.bezierCurveTo(x1, y0, x0, ym + dy, x1, ym);
+    ctx.bezierCurveTo(x0, ym - dy, x1, y1, x0, y1);
+    ctx.stroke();
+    ctx.lineWidth = 1.0;
+    ctx.strokeStyle = '#000000';
+}
+
+function drawArrow(mat, ctx, begin, end, clrStr, thickness, arrow) {
+    const dirVec = new Point(end.x - begin.x, end.y - begin.y);
+    const dirMag = Math.sqrt(dirVec.x ** 2 + dirVec.y ** 2);
+    const unitVec = new Point(dirVec.x / dirMag, dirVec.y / dirMag);
+    const arrowDim = getArrowDim(); // .x has half-width, .y has height
+
+    const invVec = new Point(-unitVec.y, unitVec.x);
+    let start; let corner1; let corner2; let tip;
+
+    if (arrow === 1 || arrow === 4) // Draw arrow directed at & touching start point
+    {
+        start = new Point(
+            begin.x + (arrowDim.y * unitVec.x),
+            begin.y + (arrowDim.y * unitVec.y),
+        );
+
+        corner1 = new Point(
+            start.x + (arrowDim.x * invVec.x),
+            start.y + (arrowDim.x * invVec.y),
+        );
+        corner2 = new Point(
+            start.x - (arrowDim.x * invVec.x),
+            start.y - (arrowDim.x * invVec.y),
+        );
+
+        ctx.beginPath();
+        ctx.moveTo(start.x, start.y);
+        ctx.lineTo(corner1.x, corner1.y);
+        ctx.lineTo(begin.x, begin.y);
+        ctx.lineTo(corner2.x, corner2.y);
+        ctx.lineTo(start.x, start.y);
+    }
+
+    if (arrow != 1) // Draw arrow directed at end point
+    {
+        if (arrow === 3) // Draw arrow at midpoint, directed at end point
+        {
+            const midpoint = new Point((end.x + begin.x) / 2, (end.y + begin.y) / 2);
+            tip = new Point(
+                midpoint.x + (arrowDim.y * unitVec.x) / 2,
+                midpoint.y + (arrowDim.y * unitVec.y) / 2,
+            );
+        } else // Draw arrow at end point
+        {
+            tip = end;
+        }
+
+        start = new Point(
+            tip.x - (arrowDim.y * unitVec.x),
+            tip.y - (arrowDim.y * unitVec.y),
+        );
+        corner1 = new Point(
+            start.x + (arrowDim.x * invVec.x),
+            start.y + (arrowDim.x * invVec.y),
+        );
+        corner2 = new Point(
+            start.x - (arrowDim.x * invVec.x),
+            start.y - (arrowDim.x * invVec.y),
+        );
+
+        ctx.moveTo(start.x, start.y);
+        ctx.lineTo(corner1.x, corner1.y);
+        ctx.lineTo(tip.x, tip.y);
+        ctx.lineTo(corner2.x, corner2.y);
+        ctx.lineTo(start.x, start.y);
+    }
+
+    // Draw arrow at midpoint, directed at end point
+
+    ctx.lineWidth = thickness;
+    ctx.fillStyle = clrStr;
+    ctx.fill();
+    ctx.lineWidth = 1.0;
+    ctx.fillStyle = '#000000';
+}
+
+function drawForceArrow(mat, ctx, x, y, xf, yf, thick, strokeCol, fillCol) {
+    const arrowPts = [{x: 0, y: 0},
+        {x: -20, y: 15},
+        {x: -20, y: 5},
+        {x: -50, y: 5},
+        {x: -50, y: -5},
+        {x: -20, y: -5},
+        {x: -20, y: -15},
+        {x: 0, y: 0}];
+    const theta = Math.atan2(-yf, xf);
+    const sinth = Math.sin(theta); const costh = Math.cos(theta);
+    for (let i = 0; i < arrowPts.length; ++i) {
+        const arrowPt = arrowPts[i];
+        arrowPts[i] = {
+            x: costh * arrowPt.x - sinth * arrowPt.y,
+            y: sinth * arrowPt.x + costh * arrowPt.y,
+        };
+    }
+
+    const center = transformCoord(mat, x, y);
+    ctx.beginPath();
+    ctx.moveTo(center.x, center.y);
+    for (let i = 1; i < arrowPts.length; ++i) {
+        ctx.lineTo(arrowPts[i].x + center.x, arrowPts[i].y + center.y);
+    }
+
+    submitStroke(ctx, strokeCol, thick);
+    ctx.fillStyle = fillCol;
+    ctx.fill();
+    ctx.fillStyle = '#000000';
+}
+
+function drawSDA(mat, ctx, x1, y1, x2, y2, col, thick, isspring) {
+    const SPRING_LENGTH = 50;
+    const dx = x2 - x1; const dy = y2 - y1;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    const sp1 = transformCoord(mat, x1, y1);
+    const sp2 = transformCoord(mat, x2, y2);
+    let sdx = sp2.x - sp1.x; const sdy = sp2.y - sp1.y;
+    const sdist = Math.sqrt(sdx * sdx + sdy * sdy);
+    let startpt = {x: x1, y: y1}; 
+    let endpt = {x: x2, y: y2};
+    
+    if (sdist > SPRING_LENGTH) {
+        const armlen = (sdist - SPRING_LENGTH) / 2.0;
+        const armdx = (armlen / sdist) * dx;
+        const armdy = (armlen / sdist) * dy;
+        startpt = {x: x1 + armdx, y: y1 + armdy};
+        endpt = {x: x2 - armdx, y: y2 - armdy};
+        drawLine(mat, ctx, x1, y1, startpt.x, startpt.y, col, thick, false);
+        drawLine(mat, ctx, x2, y2, endpt.x, endpt.y, col, thick, false);
+    }
+
+    const drawpts = !isspring 
+        ? [{x: 1, y: -6},
+            {x: 3, y: 6},
+            {x: 5, y: -6},
+            {x: 7, y: 6},
+            {x: 9, y: -6},
+            {x: 11, y: 6},
+            {x: 13, y: -6},
+            {x: 15, y: 6},
+            {x: 16, y: 0}]
+
+        :	[{x: 0, y: -6},
+            {x: 16, y: -6},
+            {x: 16, y: 6},
+            {x: 0, y: 6},
+            {x: 0, y: 0},
+            {x: 0, y: -6},
+            {x: 16, y: 6},
+            {x: 16, y: -6},
+            {x: 0, y: 6}];
+
+    startpt = transformCoord(mat, startpt.x, startpt.y);
+    endpt = transformCoord(mat, endpt.x, endpt.y);
+    sdx = distanceToPoint(startpt.x, startpt.y, endpt.x, endpt.y) / 16;
+    const theta = Math.atan2(-dy, dx);
+    const sinth = Math.sin(theta); const costh = Math.cos(theta);
+    ctx.beginPath();
+    ctx.moveTo(startpt.x, startpt.y);
+    for (let i = 0; i < drawpts.length; ++i) {
+        let pt = drawpts[i];
+        pt = {
+            x: sdx * pt.x * costh - pt.y * sinth,
+            y: sdx * pt.x * sinth + pt.y * costh,
+        };
+        ctx.lineTo(pt.x + startpt.x, pt.y + startpt.y);
+    }
+
+    submitStroke(ctx, col, thick);
+}
+
+function drawMass(mat, ctx, x, y, thick, strokeCol, fillCol) {
+    const center = transformCoord(mat, x, y);
+    const R = 20;
+    ctx.beginPath();
+    ctx.arc(center.x, center.y, R, 0, Math.PI * 2, true);
+    submitStroke(ctx, strokeCol, thick);
+    ctx.fillStyle = fillCol;
+    ctx.fill();
+    ctx.fillStyle = '#000000';
+}
+
+function drawInfiniteLineAppliedTorque(wrld, mat, ctx, A, B, C, thick, strokeCol, fillCol) {
+    const pts = clipInfiniteLine(wrld, A, B, C);
+    drawAppliedTorque(mat, ctx, pts[0].x, pts[0].y, pts[1].x, pts[1].y, thick, strokeCol, fillCol);
+}
+
+function drawAppliedTorque(mat, ctx, x0, y0, x1, y1, thick, strokeCol, fillCol) {
+    const center = transformCoord(mat, (x0 + x1) / 2.0, (y0 + y1) / 2.0);
+    const slope = Math.atan2(y0 - y1, x1 - x0);
+    const R_IN = 12;
+    const R_OUT = 18;
+    const ARROWHEAD_WIDTH = 5;
+    ctx.save();
+    ctx.fillStyle = fillCol;
+    ctx.translate(center.x, center.y);
+    ctx.rotate(slope);
+    let pass = 1;
+    while (pass <= 2) {
+        ctx.beginPath();
+        ctx.arc(0, 0, R_IN, Math.PI * 5 / 4.0, 0, false);
+        ctx.lineTo(R_OUT, 0);
+        ctx.arc(0, 0, R_OUT, 0, Math.PI * 5 / 4.0, true);
+        ctx.lineTo(-(R_OUT + ARROWHEAD_WIDTH) * Math.SQRT1_2, -(R_OUT + ARROWHEAD_WIDTH) * Math.SQRT1_2);
+        ctx.lineTo(-(R_OUT + ARROWHEAD_WIDTH) * Math.SQRT1_2, -(R_IN - ARROWHEAD_WIDTH) * Math.SQRT1_2);
+        ctx.lineTo(-(R_IN - ARROWHEAD_WIDTH) * Math.SQRT1_2, -(R_IN - ARROWHEAD_WIDTH) * Math.SQRT1_2);
+        ctx.lineTo(-(R_IN) * Math.SQRT1_2, -(R_IN) * Math.SQRT1_2);
+        submitStroke(ctx, strokeCol, thick);
+        ctx.fill();
+        ctx.rotate(Math.PI);
+        pass += 1;
+    }
+
+    ctx.restore();
+}
+
+function drawPicture(mat, ctx, img, left, top, right, bottom, alpha, angle) {
+    const ul = transformCoord(mat, left, top);
+    const lr = transformCoord(mat, right, bottom);
+    ctx.globalAlpha = alpha;
+    // TODO: Pay attention to angle
+    ctx.drawImage(img, ul.x, ul.y, lr.x - ul.x, lr.y - ul.y);
+    ctx.globalAlpha = 1.0;
+}
+
+function drawPolyLine(mat, ctx, points, clrStr, thickness) {
+    let started = false;
+
+    ctx.beginPath();
+    for (let i = 0; i < points.length; ++i) {
+        if (isFinite(points[i].x) && isFinite(points[i].y)) {
+            const point = transformCoord(mat, points[i].x, points[i].y);
+            if (!started) {
+                ctx.moveTo(point.x, point.y);
+                started = true;
+            } else {
+                ctx.lineTo(point.x, point.y);
+            }
+        }
+    }
+
+    ctx.lineWidth = thickness;
+    ctx.strokeStyle = clrStr;
+    ctx.stroke();
+    ctx.lineWidth = 1.0;
+    ctx.strokeStyle = '#000000';
+}
+
+function drawPolygon(mat, ctx, points, numPoints, red, green, blue, alpha, fill) {
+    const begin = transformCoord(mat, points[0].x, points[0].y);
+
+    ctx.beginPath();
+    ctx.moveTo(begin.x, begin.y);
+    for (let i = 1; i < numPoints; ++i) {
+        const point = transformCoord(mat, points[i].x, points[i].y);
+        ctx.lineTo(point.x, point.y);
+    }
+
+    if (fill) {
+        ctx.fillStyle = 'rgba(' + red + ', ' + green + ', ' + blue + ', ' + alpha + ')';
+        ctx.fill();
+        ctx.fillStyle = 'rgba(0, 0, 0, 1.0)';
+    }
+}
+
+function drawCircle(mat, ctx, x0, y0, r, filled, red, green, blue, alpha, thickness) {
+    const center = transformCoord(mat, x0, y0);
+    const wpoint = new Point(x0 + Math.abs(r), y0);
+    const point = transformCoord(mat, wpoint.x, wpoint.y);
+    const dist = Math.sqrt((point.x - center.x) ** 2 + (point.y - center.y) ** 2);
+    ctx.beginPath();
+    ctx.arc(center.x, center.y, dist, 0, Math.PI * 2, true);
+
+    if (filled) {
+        ctx.fillStyle = 'rgba(' + red + ', ' + green + ', ' + blue + ', ' + alpha + ')';
+        ctx.fill();
+        ctx.fillStyle = 'rgba(0, 0, 0, 1.0)';
+    } else {
+        ctx.lineWidth = thickness;
+        ctx.strokeStyle = 'rgba(' + red + ', ' + green + ', ' + blue + ', ' + alpha + ')';
+        ctx.stroke();
+        ctx.lineWidth = 1.0;
+        ctx.strokeStyle = 'rgba(0, 0, 0, 1.0)';
+    }
+}
+
+function addCurveBounds(wrld, fx, fy, t0, t1) {
+    const NPOINTS = 50;
+    let tt = t0;
+    const dt = (t1 - t0) / (NPOINTS - 1);
+    for (let i = 0; i < NPOINTS; i++) {
+        const xx = fx(tt);
+        const yy = fy(tt);
+        if (isFinite(xx) && isFinite(yy)) {
+            wrld.extend(xx, yy);
+        }
+
+        tt += dt;
+    }
+}
+
+function addFunctionBounds(wrld, fy, t0, t1) {
+    const NPOINTS = 50;
+    let tt = t0;
+    const dt = (t1 - t0) / (NPOINTS - 1);
+    let x0 = t0;
+    let y0 = fy(t0);
+    for (let i = 1; i < NPOINTS; i++) {
+        const xx = tt;
+        const yy = fy(tt);
+        if (isFinite(xx) && isFinite(yy)) {
+            if (Math.abs(yy - y0) / dt < 2) // Rule out really steep rises
+            {
+                wrld.extend(xx, yy);
+            }
+        }
+
+        tt += dt;
+        x0 = xx;
+        y0 = yy;
+    }
+}
+
+function drawCurve(mat, ctx, fx, fy, t0, t1, clrStr, thickness) {
+    let started = false;
+    const NPOINTS = 224;
+    ctx.beginPath();
+    let tt = t0;
+    const dt = (t1 - t0) / (NPOINTS - 1);
+    for (let i = 0; i < NPOINTS; i++) {
+        const xx = fx(tt);
+        const yy = fy(tt);
+        if (isFinite(yy) && isFinite(yy)) {
+            const point = transformCoord(mat, xx, yy);
+            if (!started) {
+                ctx.moveTo(point.x, point.y);
+                started = true;
+            } else {
+                ctx.lineTo(point.x, point.y);
+            }
+        } else {
+            started = false;
+        }
+
+        tt += dt;
+    }
+
+    ctx.lineWidth = thickness;
+    ctx.strokeStyle = clrStr;
+    ctx.stroke();
+    ctx.lineWidth = 1.0;
+    ctx.strokeStyle = '#000000';
+}
+
+function drawFunctionInner(mat, ctx, fn, x0, x1, NPOINTS, allow_recursion, started) {
+//	Const started = false;
+    const scrn = commonGlobal.screenBox;
+    let xx = x0;
+    const dx = (x1 - x0) / (NPOINTS - 1);
+    let oldy = fn(xx);
+    let oldpoint = transformCoord(mat, xx, oldy);
+    for (let i = 0; i < NPOINTS; i++) {
+        const yy = fn(xx);
+        if (isFinite(yy)) {
+            const point = transformCoord(mat, xx, yy);
+            if (!started) {
+                ctx.moveTo(point.x, point.y);
+                started = true;
+            } else {
+                const slope = Math.abs(yy - oldy) / dx;
+                if ((slope > 50) && (allow_recursion) && ((point.y < scrn.ymax && point.y > scrn.ymin) || (oldpoint.y < scrn.ymax && oldpoint.y > scrn.ymin))) // Primitive refinement
+                {
+                    started = drawFunctionInner(mat, ctx, fn, xx - dx, xx, 24, false, started);
+                } else if (slope > 500) // Primitive asymptote removal
+                {
+                    started = false;
+                } else {
+                    ctx.lineTo(point.x, point.y);
+                }
+            }
+
+            oldy = yy;
+            oldpoint = point;
+        } else {
+            started = false;
+        }
+
+        xx += dx;
+    }
+
+    return started;
+}
+
+function drawFunction(wrld, mat, ctx, fn, min, max, clrStr, thickness) {
+    if (min === max) // Boundless function
+    {
+        min = wrld.xmin;
+        max = wrld.xmax;
+    } else {
+        if (wrld.xmin > min) {
+            min = wrld.xmin;
+        }
+
+        if (wrld.xmax < max) {
+            max = wrld.xmax;
+        }
+    }
+
+    ctx.beginPath();
+    drawFunctionInner(mat, ctx, fn, min, max, 224, true, false);
+
+    ctx.lineWidth = thickness;
+    ctx.strokeStyle = clrStr;
+    ctx.stroke();
+    ctx.lineWidth = 1.0;
+    ctx.strokeStyle = '#000000';
+}
+
+function findConic(A, B, C, D, E, F) {
+    // Normalize first...
+    let u = Math.max(Math.abs(A), Math.abs(B), Math.abs(C));
+    if (!isTiny(u)) {
+        u = 1.0 / u;
+        A *= u;
+        B *= u;
+        C *= u;
+        D *= u;
+        E *= u;
+        F *= u;
+    }
+
+    // Determinant is used to figure out the type of conic
+    const detACCB = A * B - C * C; // Used later to find type
+    //	ctx.fillText("detACCB: " + detACCB, 2, 64);
+
+    const detFDDA = F * A - D * D;
+    const detCDBE = C * E - D * B;
+    const detDAEC = D * C - A * E;
+
+    // FIXME: Conics are so numerically unstable!
+    const EPSILON = 1e-5;
+    if (Math.abs(detACCB) < EPSILON) {
+        // Parabola
+
+        // Find vertex and focus from ABCDEF
+
+        const detBEEF = B * F - E * E;
+        const detEFCD = E * D - F * C;
+        const detCDBE2 = detCDBE * detCDBE;
+        const detCDBE3 = detCDBE2 * detCDBE;
+        const detDAEC2 = detDAEC * detDAEC;
+        const detDAEC3 = detDAEC2 * detDAEC;
+
+        const fdenom = detCDBE2 + detDAEC2;
+        const vdenom = 2 * fdenom * fdenom;
+
+        const vx = (detCDBE3 * detBEEF + 2 * detDAEC3 * detEFCD + detDAEC2 * detCDBE * (2 * detBEEF - detFDDA)) / vdenom;
+        const vy = (detDAEC3 * detFDDA + 2 * detCDBE3 * detEFCD + detCDBE2 * detDAEC * (2 * detFDDA - detBEEF)) / vdenom;
+
+        const fx = (detEFCD * detDAEC + 0.5 * detCDBE * (detBEEF - detFDDA)) / fdenom;
+        const fy = (detEFCD * detCDBE + 0.5 * detDAEC * (detFDDA - detBEEF)) / fdenom;
+
+        return new Parabola(vx, vy, fx, fy);
+    }
+
+    // Find center and two foci, used for drawing
+    const center = new Point(detCDBE / detACCB, detDAEC / detACCB);
+    //	DrawPoint(mat, ctx, center.x, center.y, 3, "#008000");
+
+    let cr = A * A + B * B + 4 * C * C - 2 * A * B;
+    cr = Math.sqrt(cr);
+
+    let uu;
+    let vv;
+    if (C === 0) {
+        u = new Point(1, 0);
+        uu = A;
+        vv = B;
+    } else {
+        u = new Point(0.5 * (A - B + cr) / C, 1);
+        const ul = Math.sqrt(u.x * u.x + u.y * u.y);
+        u = new Point(u.x / ul, u.y / ul);
+        uu = 0.5 * (A + B + cr);
+        vv = 0.5 * (A + B - cr);
+    }
+
+    if (uu === 0 || vv === 0) {
+        return;
+    } // FIXME: Error? No viable conic type?
+
+    const ff = F + D * center.x + E * center.y;
+    if (Math.abs(ff) < EPSILON) {
+        // Line pair
+        // Ported from coregeom.cpp -> quadratic_form::split_into_lines
+
+        //		ctx.textAlign = "left";
+        //		ctx.textBaseline = "top";
+        //		ctx.fillText("Line pair", 2, 16);
+
+        let B0 = C + Math.sqrt(-detACCB);
+        let C0 = D - Math.sqrt(-detFDDA);
+        let B1 = C - Math.sqrt(-detACCB);
+        let C1 = D + Math.sqrt(-detFDDA);
+
+        uu = B0 * C1 + B1 * C0;
+        vv = 2 * A * E;
+        //		Ctx.fillText("uu-vv: " + (uu-vv), 2, 80);
+        if (!(Math.abs(uu - vv) < EPSILON)) {
+            // "Chosen the wrong root"
+            B0 = C + Math.sqrt(-detACCB);
+            C0 = D + Math.sqrt(-detFDDA);
+            B1 = C - Math.sqrt(-detACCB);
+            C1 = D - Math.sqrt(-detFDDA);
+        }
+
+        //		Ctx.fillText("A: " + A, 2, 24);
+        //		ctx.fillText("B0: " + B0, 2, 32);
+        //		ctx.fillText("C0: " + C0, 2, 40);
+        //		ctx.fillText("B1: " + B1, 2, 48);
+        //		ctx.fillText("C1: " + C1, 2, 56);
+        //		ctx.fillText("detACCB: " + detACCB, 2, 64);
+
+        return new LinePair(A, B0, C0, A, B1, C1);
+    }
+
+    const fuu = -ff / uu;
+    const fvv = -ff / vv;
+    uu = Math.sqrt(Math.abs(fuu));
+    vv = Math.sqrt(Math.abs(fvv));
+
+    const v = new Point(-u.y, u.x); // U-perp
+
+    // TODO: Do we need the thing with m_flip_foci?
+
+    let p0;
+    let p1;
+    // Extract the two foci!
+    if (fuu < 0) // Hyperbola needs foci swapped
+    {
+        p0 = new Point(center.x + vv * v.x, center.y + vv * v.y);
+        p1 = new Point(center.x + uu * u.x, center.y + uu * u.y);
+    } else if (fvv > fuu) {
+        p0 = new Point(center.x + vv * v.x, center.y + vv * v.y);
+        p1 = new Point(center.x - uu * u.x, center.y - uu * u.y);
+    } else {
+        // Assert((u^v) >= 0);
+        p0 = new Point(center.x + uu * u.x, center.y + uu * u.y);
+        p1 = new Point(center.x + vv * v.x, center.y + vv * v.y);
+    }
+
+    //	DrawPoint(mat, ctx, p0.x, p0.y, 3, "#000080");
+    //	drawPoint(mat, ctx, p1.x, p1.y, 3, "#000080");
+
+    // Find foci (see coregeom.cpp -> s_ellipse::get_foci)
+    const cp0 = new Point(p0.x - center.x, p0.y - center.y);
+    const cp1 = new Point(p1.x - center.x, p1.y - center.y);
+    const d0 = Math.sqrt(cp0.x * cp0.x + cp0.y * cp0.y);
+    const d1 = Math.sqrt(cp1.x * cp1.x + cp1.y * cp1.y);
+
+    // Axis unit vector
+    const cp0u = new Point(cp0.x / d0, cp0.y / d0);
+
+    if (detACCB < 0) {
+        // Hyperbola
+
+        const alpha = Math.sqrt(d0 * d0 + d1 * d1);
+        const f0 = new Point(center.x - alpha * cp0u.x, center.y - alpha * cp0u.y);
+        const f1 = new Point(center.x + alpha * cp0u.x, center.y + alpha * cp0u.y);
+
+        return new Hyperbola(f0.x, f0.y, f1.x, f1.y, p0.x, p0.y);
+    }
+
+    // Ellipse
+
+    const minor = Math.sqrt(cp1.x * cp1.x + cp1.y * cp1.y);
+    return new Ellipse(center.x, center.y, p0.x, p0.y, minor);
+}
+
+// Conic equation: Ax^2 + By^2 + 2Cxy + 2Dx + 2Ey + F = 0
+function parameterOnConic(x, y, A, B, C, D, E, F, ff, gg) {
+    const conic = findConic(A, B, C, D, E, F);
+    if (!conic) { return; }
+    if (conic.type == 'parabola') {
+        return parameterOnParabola(x, y, conic.vx, conic.vy, conic.fx, conic.fy);
+    }
+
+    if (conic.type == 'hyperbola') {
+        return parameterOnHyperbola(x, y, ff, gg);
+    }
+
+    return parameterOnCurve(x, y, ff, gg, 0, 2 * Math.PI);
+}
+
+function parameterOnParabola(x, y, vx, vy, fx, fy) {
+    const u = fx - vx;
+    const v = fy - vy;
+    const a = x - vx;
+    const b = y - vy;
+    const dd = u * u + v * v;
+    if (isTiny(dd)) {
+        return 0;
+    }
+
+    return (a * v - b * u) / (2 * dd);
+}
+
+function parameterOnHyperbola(x, y, ff, gg) {
+    const s0 = 1.57; // Deliberately a bit under pi/2 to avoid degenerate situation
+    let t0 = parameterOnCurve(x, y, ff, gg, -s0, s0);
+    if (t0 < 0) {
+        t0 += 2 * Math.PI;
+    }
+
+    const t1 = parameterOnCurve(x, y, ff, gg, Math.PI - s0, Math.PI + s0);
+    const x0 = ff(t0);
+    const y0 = gg(t0);
+    const d0 = distanceToPointSquared(x, y, x0, y0);
+    const x1 = ff(t1);
+    const y1 = gg(t1);
+    const d1 = distanceToPointSquared(x, y, x1, y1);
+    if (d0 < d1) {
+        return t0;
+    }
+
+    return t1;
+}
+
+// Conic equation: Ax^2 + By^2 + 2Cxy + 2Dx + 2Ey + F = 0
+function drawConic(wrld, mat, ctx, A, B, C, D, E, F, filled, red, green, blue, alpha, thickness) {
+    const conic = findConic(A, B, C, D, E, F);
+    if (!conic) { return; }
+    if (conic.type == 'ellipse') {
+        drawEllipse(wrld, mat, ctx, conic.centerx, conic.centery, conic.p0x, conic.p0y, conic.minor, filled, red, green, blue, alpha, thickness);
+    } else if (!filled) {
+        const clrStr = 'rgba(' + red + ', ' + green + ', ' + blue + ', ' + alpha + ')';
+        if (conic.type == 'parabola') {
+            drawParabola(wrld, mat, ctx, conic.vx, conic.vy, conic.fx, conic.fy, clrStr, thickness);
+        } else if (conic.type == 'line pair') {
+            drawInfiniteLine(wrld, mat, ctx, conic.A0, conic.B0, conic.C0, clrStr, thickness);
+            drawInfiniteLine(wrld, mat, ctx, conic.A1, conic.B1, conic.C1, clrStr, thickness);
+        } else if (conic.type == 'hyperbola') {
+            drawHyperbola(wrld, mat, ctx, conic.f0x, conic.f0y, conic.f1x, conic.f1y, conic.p0x, conic.p0y, clrStr, thickness);
+        }
+    }
+}
+
+// Draw an ellipse at center (cx,cy); major point on ellipse (mx,my), minor
+function drawEllipse(wrld, mat, ctx, cx, cy, mx, my, minor, filled, red, green, blue, alpha, thickness) {
+    // HTML5 2D context doesn't have native ellipses, so emulate one using a
+    // circle with a transformation matrix applied...
+
+    ctx.save();
+
+    // Transforms:
+    // SCALE followed by ROTATE followed by TRANSLATE followed by SCREEN
+
+    // Apply world-to-screen transform
+    ctx.setTransform(mat.m11, mat.m12, mat.m21, mat.m22, mat.dx, mat.dy);
+
+    const cm = new Point(mx - cx, my - cy);
+    const major = Math.sqrt(cm.x * cm.x + cm.y * cm.y);
+    const angle = Math.atan2(cm.y, cm.x);
+
+    // Translate it to the center of the ellipse
+    ctx.translate(cx, cy);
+    // Rotate to correct axis
+    ctx.rotate(angle);
+    // Scale to make an ellipse with specified major and minor axis...
+    ctx.scale(major, minor);
+
+    // Draw the "circle"
+    ctx.beginPath();
+    ctx.arc(0, 0, 1, 0, Math.PI * 2, true);
+
+    // Restore identity matrix so that stroke draws with correct thickness
+    ctx.restore();
+    if (filled) {
+        ctx.fillStyle = 'rgba(' + red + ', ' + green + ', ' + blue + ', ' + alpha + ')';
+        ctx.fill();
+        ctx.fillStyle = 'rgba(0, 0, 0, 1.0)';
+    } else {
+        ctx.lineWidth = thickness;
+        ctx.strokeStyle = 'rgba(' + red + ', ' + green + ', ' + blue + ', ' + alpha + ')';
+        ctx.stroke();
+        ctx.lineWidth = 1.0;
+        ctx.strokeStyle = 'rgba(0, 0, 0, 1.0)';
+    }
+}
+
+// Find the parameter of parabola with vertex V, focus F where it intersects
+// with line L = Q + sD
+function intersectParabola(V, F, Q, D) {
+    const result = [];
+
+    const VF = new Point(F.x - V.x, F.y - V.y);
+    const R = Math.sqrt(VF.x * VF.x + VF.y * VF.y);
+
+    // Axis
+    const A = new Point(VF.x / R, VF.y / R);
+    // D perpendicular
+    const Dp = new Point(-D.y, D.x);
+
+    // Quadratic equation
+    const ADotD = A.x * D.x + A.y * D.y;
+    const ADotDp = A.x * Dp.x + A.y * Dp.y;
+    const QV = new Point(V.x - Q.x, V.y - Q.y);
+    const DpDotQV = Dp.x * QV.x + Dp.y * QV.y;
+    const oneOverR = 1 / R;
+    const oneOver2R = 0.5 * oneOverR;
+
+    const discrim = ADotD * ADotD - oneOverR * ADotDp * DpDotQV;
+    if (discrim < 0) {
+        return result;
+    } // No intersections
+
+    const denom = oneOver2R * ADotDp;
+    if (denom === 0) {
+        return result;
+    } // No intersections
+
+    const sqrtDiscrim = Math.sqrt(discrim);
+
+    result[0] = (-ADotD - sqrtDiscrim) / denom;
+    result[1] = (-ADotD + sqrtDiscrim) / denom;
+
+    return result;
+}
+
+// Draw section (left->right) of parabola with vertex V and focus F
+function drawParabolaSection(wrld, mat, ctx, V, F, left, right, clrStr, thickness) {
+    // Parabola "radius" is the distance between focus and vertex
+    const oldAxis = new Point(F.x - V.x, F.y - V.y);
+    const radius = Math.sqrt(oldAxis.x * oldAxis.x + oldAxis.y * oldAxis.y);
+    const axis = new Point(oldAxis.x / radius, oldAxis.y / radius);
+    const perpAxis = new Point(-axis.y, axis.x);
+
+    const x0 = left;
+    const x1 = 0.5 * (left + right);
+    const x2 = right;
+
+    const denom = 0.25 / radius; // 1 / (4 * radius)
+    const y0 = left * left * denom;
+    const y1 = left * right * denom;
+    const y2 = right * right * denom;
+
+    const a = new Point(x0, y0);
+    const b = new Point(x1, y1);
+    const c = new Point(x2, y2);
+
+    // Control points, rotated
+    // pWorld = vertex + p.x * perpAxis + p.y * axis
+    const aWorld = new Point(V.x + a.x * perpAxis.x + a.y * axis.x, V.y + a.x * perpAxis.y + a.y * axis.y);
+    const bWorld = new Point(V.x + b.x * perpAxis.x + b.y * axis.x, V.y + b.x * perpAxis.y + b.y * axis.y);
+    const cWorld = new Point(V.x + c.x * perpAxis.x + c.y * axis.x, V.y + c.x * perpAxis.y + c.y * axis.y);
+
+    const aScreen = transformCoord(mat, aWorld.x, aWorld.y);
+    const bScreen = transformCoord(mat, bWorld.x, bWorld.y);
+    const cScreen = transformCoord(mat, cWorld.x, cWorld.y);
+
+    // Draw the parabola as a quadratic bezier curve
+    ctx.beginPath();
+    ctx.moveTo(aScreen.x, aScreen.y);
+    ctx.quadraticCurveTo(bScreen.x, bScreen.y, cScreen.x, cScreen.y);
+
+    ctx.lineWidth = thickness;
+    ctx.strokeStyle = clrStr;
+    ctx.stroke();
+    ctx.lineWidth = 1.0;
+    ctx.strokeStyle = '#000000';
+
+//	DrawPoint(mat, ctx, aWorld.x, aWorld.y, 4, "#008000");
+//	drawPoint(mat, ctx, bWorld.x, bWorld.y, 4, "#008000");
+//	drawPoint(mat, ctx, cWorld.x, cWorld.y, 4, "#008000");
+}
+
+// Draw parabola with vertex (vx,vy) and focus (fx,fy)
+function drawParabola(wrld, mat, ctx, vx, vy, fx, fy, clrStr, thickness) {
+    const vertex = new Point(vx, vy);
+    const focus = new Point(fx, fy);
+
+    // Parabola "radius" is the distance between focus and vertex
+    const oldAxis = new Point(fx - vx, fy - vy);
+    const radius = Math.sqrt(oldAxis.x * oldAxis.x + oldAxis.y * oldAxis.y);
+    const axis = new Point(oldAxis.x / radius, oldAxis.y / radius);
+    const perpAxis = new Point(-axis.y, axis.x);
+
+    // Find min and max intersect for left and right
+    const intersects = [];
+    let curIntersect = 0;
+
+    const V = new Point(vx, vy);
+    const F = new Point(fx, fy);
+
+    // Left
+    let Q = new Point(wrld.xmin, wrld.ymin);
+    let dir = new Point(0, 1);
+    let newIntersects = intersectParabola(V, F, Q, dir);
+    for (let i = 0; i < newIntersects.length; ++i) {
+        intersects[curIntersect++] = newIntersects[i];
+    }
+
+    // Top
+    Q = new Point(wrld.xmin, wrld.ymax);
+    dir = new Point(1, 0);
+    newIntersects = intersectParabola(V, F, Q, dir);
+    for (let i = 0; i < newIntersects.length; ++i) {
+        intersects[curIntersect++] = newIntersects[i];
+    }
+
+    // Right
+    Q = new Point(wrld.xmax, wrld.ymin);
+    dir = new Point(0, 1);
+    newIntersects = intersectParabola(V, F, Q, dir);
+    for (let i = 0; i < newIntersects.length; ++i) {
+        intersects[curIntersect++] = newIntersects[i];
+    }
+
+    // Bottom
+    Q = new Point(wrld.xmin, wrld.ymin);
+    dir = new Point(1, 0);
+    newIntersects = intersectParabola(V, F, Q, dir);
+    for (let i = 0; i < newIntersects.length; ++i) {
+        intersects[curIntersect++] = newIntersects[i];
+    }
+
+    // Sort intersects from leftmost to rightmost
+    intersects.sort((a, b) => a - b);
+
+    // Draw all sections between the intersections; this should at least allow
+    // high-quality drawing of parabola sections in the visible regions
+    // TODO: Ideally we would only try to draw the visible sections
+    for (let i = 0; i < intersects.length - 1; ++i) {
+        drawParabolaSection(wrld, mat, ctx, vertex, focus, intersects[i], intersects[i + 1], clrStr, thickness);
+    }
+}
+
+// Draw hyperbola with focus 0 (f0x,f0y), focus 1 (f1x,f1y) and point (px,py)
+function drawHyperbola(wrld, mat, ctx, f0x, f0y, f1x, f1y, px, py, clrStr, thickness) {
+    // Gather parameters
+    const f0 = new Point(f0x, f0y);
+    const f1 = new Point(f1x, f1y);
+    const p = new Point(px, py);
+
+    const f0f1 = new Point(f1.x - f0.x, f1.y - f0.y);
+    const f0f1Len = Math.sqrt(f0f1.x * f0f1.x + f0f1.y * f0f1.y);
+    const f0f1Unit = new Point(f0f1.x / f0f1Len, f0f1.y / f0f1Len);
+    const f0f1UnitPerp = new Point(-f0f1Unit.y, f0f1Unit.x);
+
+    const f0p = new Point(p.x - f0.x, p.y - f0.y);
+    const f1p = new Point(p.x - f1.x, p.y - f1.y);
+    const d0 = Math.sqrt(f0p.x * f0p.x + f0p.y * f0p.y);
+    const d1 = Math.sqrt(f1p.x * f1p.x + f1p.y * f1p.y);
+
+    // Major?
+    const a = 0.5 * Math.abs(d0 - d1);
+    // Minor?
+    const f = 0.5 * f0f1Len;
+    const b = Math.sqrt(f * f - a * a);
+
+    // Get "virtual origin" which is halfway between the foci
+    const ctr = new Point(0.5 * (f0.x + f1.x), 0.5 * (f0.y + f1.y));
+
+    // Array of points that approximate the hyperbola
+    const arm1 = [];
+    const arm2 = [];
+
+    // Number of points to approximate with...
+    const NUM_STEPS = 128;
+
+    // Generate points
+    // TODO: Based on world bounds; only draw the parts that are visible
+    const EPSILON = 1e-6;
+    const umin = -0.5 * Math.PI + EPSILON;
+    const umax = 0.5 * Math.PI - EPSILON;
+
+    for (let i = 0; i < NUM_STEPS; ++i) {
+        const u = lerp(0, NUM_STEPS - 1, umin, umax, i);
+
+        const origX = a / Math.cos(u);
+        const origY = b * Math.tan(u);
+
+        // Rotate the "x axis" along f0f1
+        let x = ctr.x + origX * f0f1Unit.x + origY * f0f1UnitPerp.x;
+        let y = ctr.y + origX * f0f1Unit.y + origY * f0f1UnitPerp.y;
+        arm1[i] = new Point(x, y);
+
+        x = ctr.x - origX * f0f1Unit.x - origY * f0f1UnitPerp.x;
+        y = ctr.y - origX * f0f1Unit.y - origY * f0f1UnitPerp.y;
+        arm2[i] = new Point(x, y);
+    }
+
+    // Draw all points as a polyline
+    drawPolyLine(mat, ctx, arm1, clrStr, thickness);
+    drawPolyLine(mat, ctx, arm2, clrStr, thickness);
+}
+
+function drawPoint(mat, ctx, x, y, radius, clrStr, drag) {
+    if (isFinite(x) && isFinite(y)) {
+        const center = transformCoord(mat, x, y);
+        if (drag) {
+            ctx.beginPath();
+            ctx.strokeStyle = '#000000';
+            ctx.lineWidth = 1.0;
+            ctx.moveTo(center.x - (1.5 * radius), center.y);
+            ctx.lineTo(center.x + (1.5 * radius), center.y);
+            ctx.moveTo(center.x, center.y - (1.5 * radius));
+            ctx.lineTo(center.x, center.y + (1.5 * radius));
+            ctx.stroke();
+            ctx.lineWidth = 1.0;
+            ctx.strokeStyle = '#000000';
+        }
+
+        ctx.beginPath();
+        ctx.fillStyle = clrStr;
+        ctx.arc(center.x, center.y, radius, 0, Math.PI * 2, true);
+        ctx.fill();
+        ctx.fillStyle = '#000000';
+    }
+}
+
+function drawScreenString(ctx, x, y, message, clrStr, align, base, font) {
+    if (isFinite(x) && isFinite(y)) {
+        ctx.textAlign = align;
+        ctx.fillStyle = clrStr;
+        const oldfont = ctx.font;
+        ctx.font = font;
+        ctx.textAlign = align;
+        ctx.textBaseline = base;
+        ctx.fillText(message, x, y);
+        ctx.fillStyle = '#000000';
+        ctx.font = oldfont;
+    }
+}
+
+function drawScreenStringOffset(mat, ctx, left, top, x, y, message, clrStr, font) {
+    if (isFinite(left) && isFinite(top)) {
+        const tl = transformCoord(mat, left, top);
+        drawScreenString(ctx, tl.x + x, tl.y + y, message, clrStr, 'left', 'top', font);
+    }
+}
+
+function screenTextWidth(ctx, message, font) {
+    ctx.font = font;
+    const w = ctx.measureText(message).width;
+    return w;
+}
+
+function drawString(wrld, mat, ctx, x, y, message, radius, clrStr, font) {
+    if (isFinite(x) && isFinite(y)) {
+        let xoffset; let yoffset;
+        const offset = 1.5 * radius;
+        const center = new Point((wrld.xmax + wrld.xmin) / 2, (wrld.ymax + wrld.ymin) / 2);
+        if (x <= center.x) {
+            xoffset = -1 * offset;
+            ctx.textAlign = 'right';
+        } else {
+            xoffset = offset;
+            ctx.textAlign = 'left';
+        }
+
+        if (y >= center.y) {
+            yoffset = -1 * offset;
+            ctx.textBaseline = 'bottom';
+        } else {
+            yoffset = offset;
+            ctx.textBaseline = 'top';
+        }
+
+        ctx.fillStyle = clrStr;
+        ctx.font = font;
+        const coord = transformCoord(mat, x, y);
+        ctx.fillText(message, coord.x + xoffset, coord.y + yoffset);
+        ctx.fillStyle = '#000000';
+    }
+}
+
+function paint(ctx, cnvs, scrn, wrld, TranMat, InvTranMat) {
+    // Call generated Draw function
+    if (wrld) {
+    // Clear screen by setting canvas size
+        cnvs.width = cnvs.width;
+        drawShapes(TranMat, InvTranMat, wrld, ctx);
+    }
+}
+
+let simulationOn = false;
+
+function doSimulationUpdate(wrld, scrn, cnvs, ctx, TranMat, InvTranMat, dt) {
+    advanceSimulation(MechanicsDelta * dt / 1000);
+    computeGeometry();
+    paint(ctx, cnvs, scrn, wrld, TranMat, InvTranMat);
+    updateOutputs();
+}
+
+let simulationAnimationId = null;
+let lastSimulationStep = 0;
+
+function simulationStep(timestamp) {
+    const dt = lastSimulationStep > 0 ? timestamp - lastSimulationStep : 0;
+    lastSimulationStep = timestamp;
+    doSimulationUpdate(commonGlobal.world, commonGlobal.screenBox, commonGlobal.canvas, commonGlobal.context, commonGlobal.world2Screen, commonGlobal.screen2World, dt);
+    simulationAnimationId = requestAnimationFrame(simulationStep);
+}
+
+function StopSimulation() {
+    cancelAnimationFrame(simulationAnimationId);
+    simulationOn = false;
+    resetSimulation();
+}
+
+function StartSimulation() {
+    ClearDataSets();
+    simulationAnimationId = requestAnimationFrame(simulationStep);
+    simulationOn = true;
+}
+
+function ToggleSimulation() {
+    if (simulationOn) {
+        StopSimulation();
+    } else {
+        StartSimulation();
+    }
+}
+
+function RestartSimulation() {
+    cancelAnimationFrame(simulationAnimationId);
+    ClearDataSets();
+    simulationAnimationId = requestAnimationFrame(simulationStep);
+    simulationOn = true;
+}
+
+let timerAnimationId = null;
+
+function timerStep(timestamp) {
+    updateTimers();
+    onAnimate();
+    timerAnimationId = requestAnimationFrame(timerStep);
+}
+
+function doFullUpdate(wrld, scrn, cnvs, ctx, TranMat, InvTranMat) {
+    updateInputs();
+    updateInputsOnMouseMove(true);
+    computeGeometry();
+    resetBounds(wrld, scrn, TranMat, InvTranMat);
+    paint(ctx, cnvs, scrn, wrld, TranMat, InvTranMat);
+    updateOutputs();
+}
+
+function doMoveUpdate(wrld, scrn, cnvs, ctx, TranMat, InvTranMat) {
+    updateInputs();
+    updateInputsOnMouseMove(true);
+    computeGeometry();
+    paint(ctx, cnvs, scrn, wrld, TranMat, InvTranMat);
+    updateOutputs();
+}
+
+function doMouseMoveUpdate(wrld, scrn, cnvs, ctx, TranMat, InvTranMat) {
+    updateInputsOnMouseMove(false);
+    computeGeometry();
+    paint(ctx, cnvs, scrn, wrld, TranMat, InvTranMat);
+    updateOutputs();
+}
+
+function doAnimationUpdate(wrld, scrn, cnvs, ctx, TranMat, InvTranMat) {
+    computeGeometry();
+    paint(ctx, cnvs, scrn, wrld, TranMat, InvTranMat);
+    updateOutputs();
+}
+
+function onAnimate() {
+    doAnimationUpdate(commonGlobal.world, commonGlobal.screenBox, commonGlobal.canvas, commonGlobal.context, commonGlobal.world2Screen, commonGlobal.screen2World);
+}
+
+function onTime() {
+    doMoveUpdate(commonGlobal.world, commonGlobal.screenBox, commonGlobal.canvas, commonGlobal.context, commonGlobal.world2Screen, commonGlobal.screen2World);
+}
+
+function onChangeView() {
+    ResetTraceArrays();
+
+    setMatrices(commonGlobal.world, commonGlobal.screenBox, commonGlobal.world2Screen, commonGlobal.screen2World);
+
+    paint(commonGlobal.context, commonGlobal.canvas, commonGlobal.screenBox, commonGlobal.world, commonGlobal.world2Screen, commonGlobal.screen2World);
+}
+
+function mouseCoord(ev, mousePoint) {
+    let evnt = ev;
+    // Safest to call getBoundingClientRect here
+    const rect = commonGlobal.canvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    evnt ||= window.event;
+    if (evnt.clientX || evnt.clientY) {
+        mousePoint.x = (evnt.clientX - rect.x) * dpr + 0.5;
+        mousePoint.y = (evnt.clientY - rect.y) * dpr + 0.5;
+    }
+}
+
+function onMouseDownCanvas(ev) {
+    mouseCoord(ev, commonGlobal.mouseScrn);
+
+    const worldCoord = transformCoord(commonGlobal.screen2World, commonGlobal.mouseScrn.x, commonGlobal.mouseScrn.y);
+    commonGlobal.mouseWrld.x = worldCoord.x;
+    commonGlobal.mouseWrld.y = worldCoord.y;
+
+    let foundHandle = false;
+    for (let i = 0; i < dragHandlesList.length; ++i) {
+        const testDrag = transformCoord(commonGlobal.world2Screen, dragHandlesList[i].x, dragHandlesList[i].y);
+        const offset = new Point(commonGlobal.mouseScrn.x - testDrag.x, commonGlobal.mouseScrn.y - testDrag.y);
+        const distance2 = offset.x * offset.x + offset.y * offset.y;
+        const r = dragHandlesList[i].radius;
+        if (distance2 <= r * r) {
+            commonGlobal.dragStart = dragHandlesList[i];
+            commonGlobal.currentDraggable = i;
+            commonGlobal.dragging = true;
+            foundHandle = true;
+        }
+    }
+
+    // If no handle found, start panning
+    if (!foundHandle) {
+        commonGlobal.panning = true;
+        commonGlobal.panStartWorld = {x: worldCoord.x, y: worldCoord.y};
+        commonGlobal.canvas.style.cursor = 'grabbing';
+    }
+}
+
+function onMouseMoveCanvas(ev) {
+    mouseCoord(ev, commonGlobal.mouseScrn);
+
+    const worldCoord = transformCoord(commonGlobal.screen2World, commonGlobal.mouseScrn.x, commonGlobal.mouseScrn.y);
+    commonGlobal.mouseWrld.x = worldCoord.x;
+    commonGlobal.mouseWrld.y = worldCoord.y;
+
+    if (commonGlobal.dragging) {
+        dragHandlesList[commonGlobal.currentDraggable].x = commonGlobal.mouseWrld.x;
+        dragHandlesList[commonGlobal.currentDraggable].y = commonGlobal.mouseWrld.y;
+
+        doMouseMoveUpdate(commonGlobal.world, commonGlobal.screenBox, commonGlobal.canvas, commonGlobal.context, commonGlobal.world2Screen, commonGlobal.screen2World);
+    } else if (commonGlobal.panning) {
+    // Pans relative to world coordinates to prevent dislocation
+        const wrld = commonGlobal.world;
+        const worldWidth = wrld.xmax - wrld.xmin;
+        const worldHeight = wrld.ymax - wrld.ymin;
+
+        const dx = worldCoord.x - commonGlobal.panStartWorld.x;
+        const dy = worldCoord.y - commonGlobal.panStartWorld.y;
+
+        const panDx = -dx / worldWidth;
+        const panDy = -dy / worldHeight;
+
+        panWorld(panDx, panDy);
+
+        onChangeView();
+    }
+}
+
+function onMouseUpCanvas(ev) {
+    mouseCoord(ev, commonGlobal.mouseScrn);
+
+    const worldCoord = transformCoord(commonGlobal.screen2World, commonGlobal.mouseScrn.x, commonGlobal.mouseScrn.y);
+    commonGlobal.mouseWrld.x = worldCoord.x;
+    commonGlobal.mouseWrld.y = worldCoord.y;
+
+    commonGlobal.dragging = false;
+    commonGlobal.panning = false;
+    commonGlobal.canvas.style.cursor = 'auto';
+
+    doMouseMoveUpdate(commonGlobal.world, commonGlobal.screenBox, commonGlobal.canvas, commonGlobal.context, commonGlobal.world2Screen, commonGlobal.screen2World);
+}
+
+function onScrollCanvas(ev) {
+    ev.preventDefault();
+
+    let zoomFactor;
+    if (ev.deltaY < 0) {
+        zoomFactor = 0.9;
+    } else {
+        zoomFactor = 1.1;
+    }
+
+    mouseCoord(ev, commonGlobal.mouseScrn);
+
+    const worldCoord = transformCoord(commonGlobal.screen2World, commonGlobal.mouseScrn.x, commonGlobal.mouseScrn.y);
+
+    zoomWorld(worldCoord.x, worldCoord.y, zoomFactor);
+    onChangeView();
+}
+
+function onKeyPressCanvas(evt) {
+    const charCode = evt.which;
+    const wrld = commonGlobal.world;
+    if (charCode == 43 || charCode == 61) // + and =
+    {
+        zoomWorld((wrld.xmin + wrld.xmax) / 2, (wrld.ymin + wrld.ymax) / 2, 0.8);
+        onChangeView();
+        evt.preventDefault();
+    }
+
+    if (charCode == 45 || charCode == 95) // - and _
+    {
+        zoomWorld((wrld.xmin + wrld.xmax) / 2, (wrld.ymin + wrld.ymax) / 2, 1.2);
+        onChangeView();
+        evt.preventDefault();
+    }
+}
+
+function onKeyDownCanvas(evt) {
+    const keyCode = evt.which;
+    const wrld = commonGlobal.world;
+    switch (keyCode) {
+        case 37: //  Left arrow
+            panWorld(-0.1, 0);
+            onChangeView();
+            evt.preventDefault();
+            break;
+        case 38: //  Up arrow
+            panWorld(0, 0.1);
+            onChangeView();
+            evt.preventDefault();
+            break;
+        case 39: //  Right arrow
+            panWorld(0.1, 0);
+            onChangeView();
+            evt.preventDefault();
+            break;
+        case 40: //  Down arrow
+            panWorld(0, -0.1);
+            onChangeView();
+            evt.preventDefault();
+            break;
+    }
+}
+
+function onKeyUpCanvas(evt) {
+    const keyCode = evt.which;
+    switch (keyCode) {
+        case 37: //  Left arrow
+        case 38: //  Up arrow
+        case 39: //  Right arrow
+        case 40: //  Down arrow
+        case 187: //  Plus
+        case 189: // Minus
+            evt.preventDefault();
+            break;
+    }
+}
+
+function onResize() {
+    setCvsOffset();
+    resizeDisplay();
+}
+
+function resizeCanvas() {
+    const gap = 20;
+    const canv = commonGlobal.canvas;
+    const ww = canv.parentNode.offsetWidth;
+    const hh = canv.parentNode.offsetHeight;
+    const aspect_ratio = canv.width / canv.height;
+    if (ww - gap < canv.width) {
+        canv.width = ww - gap;
+        canv.height = (ww - gap) / aspect_ratio;
+    } else if (hh - gap < canv.height) {
+        canv.height = hh - gap;
+        canv.width = (hh - gap) * aspect_ratio;
+    }
+}
+
+function load() {
+    // Variables
+
+    commonGlobal.canvas = document.getElementById('display');
+    commonGlobal.context = commonGlobal.canvas.getContext('2d');
+
+    setCvsOffset();
+
+    commonGlobal.screenBox = new BoundingBox();
+    commonGlobal.screenBox.extend(0, 0);
+    commonGlobal.screenBox.extend(commonGlobal.canvas.width, commonGlobal.canvas.height);
+    commonGlobal.world = new BoundingBox();
+    commonGlobal.mouseScrn = new Point(0.5, 0.5);
+    commonGlobal.mouseWrld = new Point(0, 0);
+    commonGlobal.world2Screen = new Tran2DMatrix();
+    commonGlobal.screen2World = new Tran2DMatrix();
+
+    commonGlobal.currentDraggable = 0;
+    commonGlobal.dragStart;
+    commonGlobal.dragging = false;
+
+    commonGlobal.panning = false;
+    commonGlobal.panStart = new Point(0, 0);
+    commonGlobal.panTouchGap = 0; // For double touch panning
+    commonGlobal.zooming = false;
+    commonGlobal.zoomUpperLimit = 1.001; // Lower limit to actually zoom
+    commonGlobal.zoomLowerLimit = 0.999; // Lower limit to actually zoom
+    commonGlobal.panLimit = 2; // Lower limit to actually do pan
+
+    // min axis tic spacing in pixels could move to generated code later.
+    commonGlobal.axisIdealLabelCount = 10;
+
+    init();
+
+    commonGlobal.canvas.addEventListener('wheel', onScrollCanvas);
+
+    resizeDisplay();
+    initResizePanel();
+
+    // Touchscreen controls
+    commonGlobal.canvas.ontouchstart = function (ev) {
+        if (ev.touches.length === 1) {
+            const touch = ev.touches[0];
+            commonGlobal.mouseScrn.x = touch.pageX - commonGlobal.cvsMinX;
+            commonGlobal.mouseScrn.y = touch.pageY - commonGlobal.cvsMinY;
+
+            const worldCoord = transformCoord(commonGlobal.screen2World, commonGlobal.mouseScrn.x, commonGlobal.mouseScrn.y);
+            commonGlobal.mouseWrld.x = worldCoord.x;
+            commonGlobal.mouseWrld.y = worldCoord.y;
+
+            for (let i = 0; i < dragHandlesList.length; ++i) {
+                const testDrag = transformCoord(commonGlobal.world2Screen, dragHandlesList[i].x, dragHandlesList[i].y);
+                const offset = new Point(commonGlobal.mouseScrn.x - testDrag.x, commonGlobal.mouseScrn.y - testDrag.y);
+                const distance2 = offset.x * offset.x + offset.y * offset.y;
+                const rSquared = 400; // This is to make all touch events equally likely to register as dragging
+                if (distance2 <= rSquared) {
+                    ev.preventDefault();
+                    commonGlobal.dragStart = dragHandlesList[i];
+                    commonGlobal.currentDraggable = i;
+                    commonGlobal.dragging = true;
+                }
+            }
+        } else if (ev.touches.length === 2) {
+            ev.preventDefault();
+
+            const touch = ev.touches[0];
+            const touch1 = ev.touches[1];
+            const x0 = touch.pageX - commonGlobal.cvsMinX;
+            const y0 = touch.pageY - commonGlobal.cvsMinY;
+            const x1 = touch1.pageX - commonGlobal.cvsMinX;
+            const y1 = touch1.pageY - commonGlobal.cvsMinY;
+            commonGlobal.panStart.x = 0.5 * (x0 + x1);
+            commonGlobal.panStart.y = 0.5 * (y0 + y1);
+            const dx = x1 - x0;
+            const dy = y1 - y0;
+            commonGlobal.panTouchGap = Math.sqrt(dx * dx + dy * dy);
+
+            commonGlobal.panning = true;
+        }
+    };
+
+    commonGlobal.canvas.ontouchmove = function (ev) {
+        if (ev.touches.length === 1) {
+            const touch = ev.touches[0];
+            commonGlobal.mouseScrn.x = touch.pageX - commonGlobal.cvsMinX;
+            commonGlobal.mouseScrn.y = touch.pageY - commonGlobal.cvsMinY;
+
+            const worldCoord = transformCoord(commonGlobal.screen2World, commonGlobal.mouseScrn.x, commonGlobal.mouseScrn.y);
+            commonGlobal.mouseWrld.x = worldCoord.x;
+            commonGlobal.mouseWrld.y = worldCoord.y;
+
+            if (commonGlobal.dragging) {
+                ev.preventDefault();
+                dragHandlesList[commonGlobal.currentDraggable].x = commonGlobal.mouseWrld.x;
+                dragHandlesList[commonGlobal.currentDraggable].y = commonGlobal.mouseWrld.y;
+                doMouseMoveUpdate(commonGlobal.world, commonGlobal.screenBox, commonGlobal.canvas, commonGlobal.context, commonGlobal.world2Screen, commonGlobal.screen2World);
+            }
+        } else if (ev.touches.length === 2) {
+            ev.preventDefault();
+
+            const touch = ev.touches[0];
+            const touch1 = ev.touches[1];
+            const x0 = touch.pageX - commonGlobal.cvsMinX;
+            const y0 = touch.pageY - commonGlobal.cvsMinY;
+            const x1 = touch1.pageX - commonGlobal.cvsMinX;
+            const y1 = touch1.pageY - commonGlobal.cvsMinY;
+            const xc = 0.5 * (x0 + x1);
+            const yc = 0.5 * (y0 + y1);
+            let dx = x1 - x0;
+            let dy = y1 - y0;
+            const tg = Math.sqrt(dx * dx + dy * dy);
+            if (commonGlobal.panning) {
+                const scrn = commonGlobal.screenBox;
+                dx = xc - commonGlobal.panStart.x;
+                dy = yc - commonGlobal.panStart.y;
+                if (Math.abs(dx) > commonGlobal.panLimit || Math.abs(dy) > commonGlobal.panLimit) {
+                    const sw = scrn.xmax - scrn.xmin;
+                    const sh = scrn.ymax - scrn.ymin;
+                    dx /= sw;
+                    dy /= sh;
+                    panWorld(-dx, dy);
+                    onChangeView();
+                    commonGlobal.panStart.x = xc;
+                    commonGlobal.panStart.y = yc;
+                }
+
+                const scale = commonGlobal.panTouchGap / tg;
+                let z1;
+                let z0;
+                if (commonGlobal.zooming) {
+                    z1 = commonGlobal.zoomUpperLimit;
+                    z0 = commonGlobal.zoomLowerLimit;
+                } else {
+                    z1 = commonGlobal.zoomUpperLimit;
+                    z0 = commonGlobal.zoomLowerLimit;
+                }
+
+                if ((scale > z1) || (scale < z0)) {
+                    commonGlobal.zooming = true;
+                    const wc = transformCoord(commonGlobal.screen2World, xc, yc);
+                    zoomWorld(wc.x, wc.y, scale);
+                    onChangeView();
+                    commonGlobal.panTouchGap = tg;
+                }
+            }
+        }
+    };
+
+    commonGlobal.canvas.ontouchend = function (ev) {
+        ev.preventDefault();
+
+        if (commonGlobal.dragging) {
+            doMouseMoveUpdate(commonGlobal.world, commonGlobal.screenBox, commonGlobal.canvas, commonGlobal.context, commonGlobal.world2Screen, commonGlobal.screen2World);
+        }
+
+        commonGlobal.dragging = false;
+        commonGlobal.panning = false;
+        commonGlobal.zooming = false;
+    };
+}
+
+function resizeDisplay() {
+    const {canvas} = commonGlobal;
+    const container = document.getElementById('gxCanvas');
+
+    const containerWidth = container.clientWidth;
+    const containerHeight = container.clientHeight;
+    const size = Math.min(containerWidth, containerHeight);
+
+    // Account for device pixel ratio
+    const dpr = window.devicePixelRatio || 1;
+
+    canvas.width = containerWidth * dpr;
+    canvas.height = containerHeight * dpr;
+
+    canvas.style.width = containerWidth + 'px';
+    canvas.style.height = containerHeight + 'px';
+
+    commonGlobal.screenBox = new BoundingBox();
+    commonGlobal.screenBox.extend(0, 0);
+    commonGlobal.screenBox.extend(containerWidth * dpr, containerHeight * dpr);
+
+    const context = canvas.getContext('2d');
+    context.scale(dpr, dpr);
+
+    const sidePanel = document.getElementById('gxSidePanel');
+
+    if (sidePanel) {
+        const isNarrow = window.matchMedia('(max-aspect-ratio: 1/1)').matches;
+        if (isNarrow) {
+            sidePanel.style.width = '100%';
+        } else {
+            sidePanel.style.height = '100%';
+        }
+    }
+
+    resetBounds(commonGlobal.world, commonGlobal.screenBox, commonGlobal.world2Screen, commonGlobal.screen2World);
+    paint(context, canvas, commonGlobal.screenBox, commonGlobal.world, commonGlobal.world2Screen, commonGlobal.screen2World);
+}
+
+function initResizePanel() {
+    const resizeHandle = document.getElementById('gxResizeHandle');
+
+    if (resizeHandle) {
+        const sidePanel = document.getElementById('gxSidePanel');
+        let isResizing = false;
+        let startPos = 0;
+        let startSize = 0;
+
+        resizeHandle.addEventListener('mousedown', e => {
+            isResizing = true;
+            const isNarrow = window.matchMedia('(max-aspect-ratio: 1/1)').matches;
+
+            if (isNarrow) {
+                startPos = e.clientY;
+                startSize = sidePanel.offsetHeight;
+                document.body.style.cursor = 'ns-resize';
+            } else {
+                startPos = e.clientX;
+                startSize = sidePanel.offsetWidth;
+                document.body.style.cursor = 'ew-resize';
+            }
+
+            document.body.style.userSelect = 'none';
+            e.preventDefault();
+        });
+
+        document.addEventListener('mousemove', e => {
+            if (!isResizing) {
+                return;
+            }
+
+            const isNarrow = window.matchMedia('(max-aspect-ratio: 1/1)').matches;
+
+            if (isNarrow) {
+                // Vertical resize (narrow screens)
+                const height = startSize - (e.clientY - startPos);
+                const minHeight = window.innerHeight * 0.2; // 20vh
+                const maxHeight = window.innerHeight * 0.5; // 50vh
+
+                if (height >= minHeight && height <= maxHeight) {
+                    sidePanel.style.height = height + 'px';
+                    resizeDisplay();
+                }
+            } else {
+                // Horizontal resize (wide screens)
+                const width = startSize + (e.clientX - startPos);
+                const minWidth = 200;
+                const maxWidth = 600;
+
+                if (width >= minWidth && width <= maxWidth) {
+                    sidePanel.style.width = width + 'px';
+                    resizeDisplay();
+                }
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            if (isResizing) {
+                isResizing = false;
+                document.body.style.cursor = '';
+                document.body.style.userSelect = '';
+            }
+        });
+
+        // Also handle touch events for mobile
+        resizeHandle.addEventListener('touchstart', e => {
+            isResizing = true;
+            const isNarrow = window.matchMedia('(max-aspect-ratio: 1/1)').matches;
+            const touch = e.touches[0];
+
+            if (isNarrow) {
+                startPos = touch.clientY;
+                startSize = sidePanel.offsetHeight;
+            } else {
+                startPos = touch.clientX;
+                startSize = sidePanel.offsetWidth;
+            }
+
+            document.body.style.userSelect = 'none';
+            e.preventDefault();
+        });
+
+        document.addEventListener('touchmove', e => {
+            if (!isResizing) {
+                return;
+            }
+
+            const isNarrow = window.matchMedia('(max-aspect-ratio: 1/1)').matches;
+            const touch = e.touches[0];
+
+            if (isNarrow) {
+                const height = startSize - (touch.clientY - startPos);
+                const minHeight = window.innerHeight * 0.2;
+                const maxHeight = window.innerHeight * 0.5;
+
+                if (height >= minHeight && height <= maxHeight) {
+                    sidePanel.style.height = height + 'px';
+                    resizeDisplay();
+                }
+            } else {
+                const width = startSize + (touch.clientX - startPos);
+                const minWidth = 200;
+                const maxWidth = 600;
+
+                if (width >= minWidth && width <= maxWidth) {
+                    sidePanel.style.width = width + 'px';
+                    resizeDisplay();
+                }
+            }
+        });
+
+        document.addEventListener('touchend', () => {
+            if (isResizing) {
+                isResizing = false;
+                document.body.style.userSelect = '';
+            }
+        });
+    }
+}
+
+function isSmall(x) {
+    const dx = commonGlobal.world.xmax - commonGlobal.world.xmin;
+    return Math.abs(x) < 0.01 * dx;
+}
+
+const InteractiveTraceArrayMax = 400;
+let InteractiveTraceArrayN = 0;
+
+function interactiveTrace(n, evalx, evaly, color, thickness, visible) {
+    this.n = n;
+    this.evalx = evalx;
+    this.evaly = evaly;
+    this.pt = new Array(n);
+    this.color = color;
+    this.thickness = thickness;
+    this.visible = visible;
+    this.last_pt = new Point(0, 0);
+
+    this.update = function (mat) {
+        const xx = this.evalx();
+        const yy = this.evaly();
+        if (isFinite(yy) && isFinite(yy)) {
+            this.last_pt = new Point(this.evalx(), this.evaly());
+            this.pt[InteractiveTraceArrayN] = transformCoord(mat, this.last_pt.x, this.last_pt.y);
+        } else {
+            this.last_pt = this.pt[InteractiveTraceArrayN] = new Point(xx, yy);
+        }
+    };
+
+    this.needtoupdate = function () {
+        if (isSmall(this.last_pt.x - this.evalx()) && isSmall(this.last_pt.y - this.evaly())) {
+            return false;
+        }
+
+        return true;
+    };
+
+    this.draw = function (TranMat, ctx) {
+        if (!this.visible()) {
+            return;
+        }
+
+        //        DrawPolyLine(TranMat,ctx,this.pt,this.color,this.thickness);
+        ctx.beginPath();
+        let started = false;
+        for (let i = 0; i < InteractiveTraceArrayN; i++) {
+            const pp = this.pt[i];
+            const xx = pp.x;
+            const yy = pp.y;
+            if (isFinite(yy) && isFinite(yy)) {
+                //			    Const point = transformCoord(TranMat, xx,yy);
+                if (!started) {
+                    ctx.moveTo(xx, yy);
+                    started = true;
+                } else {
+                    ctx.lineTo(xx, yy);
+                }
+            } else {
+                started = false;
+            }
+        }
+
+        ctx.lineWidth = this.thickness;
+        ctx.strokeStyle = this.color;
+        ctx.stroke();
+        ctx.lineWidth = 1.0;
+        ctx.strokeStyle = '#000000';
+    };
+}
+
+function SlideTraceArray(A, n, k) {
+    for (let i = 0; i < n - k; i++) {
+        A[i] = A[i + k];
+    }
+}
+
+function SlideTraceArrays() {
+    const slideby = 10;
+    for (let j = 0; j < nInteractiveTraces; j++) {
+        SlideTraceArray(interactiveTraces[j].pt, InteractiveTraceArrayN, slideby);
+        //		SlideTraceArray(interactiveTraces[j].x,InteractiveTraceArrayN,slideby);
+        //		SlideTraceArray(interactiveTraces[j].y,InteractiveTraceArrayN,slideby);
+    }
+
+    InteractiveTraceArrayN -= slideby;
+}
+
+function NeedToUpdateTraceArrays() {
+    for (let j = 0; j < nInteractiveTraces; j++) {
+        if (interactiveTraces[j].needtoupdate()) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function UpdateTraceArrays(mat) {
+    for (let j = 0; j < nInteractiveTraces; j++) {
+        interactiveTraces[j].update(mat);
+    }
+}
+
+function ResetTraceArrays() {
+    InteractiveTraceArrayN = 0;
+}
+
+function AddToTraceArrays() {
+    if (InteractiveTraceArrayN >= InteractiveTraceArrayMax) {
+        SlideTraceArrays();
+    }
+
+    let need_to_update = false;
+    if (InteractiveTraceArrayN === 0) {
+        need_to_update = true;
+    } else {
+        need_to_update = NeedToUpdateTraceArrays();
+    }
+
+    if (need_to_update) {
+        UpdateTraceArrays(commonGlobal.world2Screen);
+        InteractiveTraceArrayN++;
+    }
+}
+
+function drawInteractiveTraces(TranMat, ctx) {
+    if (InteractiveTraceArrayN > 1) {
+        for (let j = 0; j < nInteractiveTraces; j++) {
+            interactiveTraces[j].draw(TranMat, ctx);
+        }
+    }
+}
+
+/*
+*	End of common section
+*/
+	</script>
+	<!-- #EndEditable -->
+</head>
+<body onload="load()" onresize="onResize()">
+	<div id="gxWrapper">
+		<div id="gxSidePanel">
+			<div id="gxResizeHandle"></div>
+			<div id="gxInputOutput">
+				<p>
+
+				</p>
+				<table>
+                    <tr>
+                     <td >c</td>
+                     <td colspan="3"> <input id="UIc" type="range" style="width:100%" min="0" max="11.754" step="0.1175409505" value="5.877" /> </td>
+                     <td class="gxInputButton"> <button id="UIcButton" type="button">&#9654;</button> </td>
+                    </tr>
+                    <tr>
+                    <td></td>
+                     <td class="gxInputLowerLimit">0</td>
+                     <td class="gxInputCurrentValue"> <span style="display: contents;" id="UIINUIc">0</span> </td>
+                     <td class="gxInputUpperLimit">11.754</td>
+                    </tr>
+                    <tr>
+                     <td >a</td>
+                     <td colspan="3"> <input id="UIa" type="range" style="width:100%" min="0" max="22.922" step="0.2292184499" value="11.461" /> </td>
+                     <td class="gxInputButton"> <button id="UIaButton" type="button">&#9654;</button> </td>
+                    </tr>
+                    <tr>
+                    <td></td>
+                     <td class="gxInputLowerLimit">0</td>
+                     <td class="gxInputCurrentValue"> <span style="display: contents;" id="UIINUIa">0</span> </td>
+                     <td class="gxInputUpperLimit">22.922</td>
+                    </tr>
+                    <tr>
+                     <td >theta</td>
+                     <td colspan="3"> <input id="UItheta" type="range" style="width:100%" min="0" max="6.2832" step="0.0628318531" value="0.61887" /> </td>
+                     <td class="gxInputButton"> <button id="UIthetaButton" type="button">&#9654;</button> </td>
+                    </tr>
+                    <tr>
+                    <td></td>
+                     <td class="gxInputLowerLimit">0</td>
+                     <td class="gxInputCurrentValue"> <span style="display: contents;" id="UIINUItheta">0</span> </td>
+                     <td class="gxInputUpperLimit">6.2832</td>
+                    </tr>
+                    <tr>
+                     <td >tau</td>
+                     <td colspan="3"> <input id="UItau" type="range" style="width:100%" min="0" max="60" step="0.6000000000" value="0" /> </td>
+                     <td class="gxInputButton"> <button id="UItauButton" type="button">&#9654;</button> </td>
+                    </tr>
+                    <tr>
+                    <td></td>
+                     <td class="gxInputLowerLimit">0</td>
+                     <td class="gxInputCurrentValue"> <span style="display: contents;" id="UIINUItau">0</span> </td>
+                     <td class="gxInputUpperLimit">60</td>
+                    </tr>
+                    <tr>
+                     <td >g</td>
+                     <td colspan="3"> <input id="UIg" type="range" style="width:100%" min="0" max="200" step="2.0000000000" value="9.8066" /> </td>
+                     <td class="gxInputButton"> <button id="UIgButton" type="button">&#9654;</button> </td>
+                    </tr>
+                    <tr>
+                    <td></td>
+                     <td class="gxInputLowerLimit">0</td>
+                     <td class="gxInputCurrentValue"> <span style="display: contents;" id="UIINUIg">0</span> </td>
+                     <td class="gxInputUpperLimit">200</td>
+                    </tr>
+
+				</table>
+				<p>
+
+				</p>
+			</div>
+			<div id="gxFooter">
+                <p class="gxCredit">App generated by <a href="https://www.mechanicalexpressions.com">Mechanical Expressions</a></p>
+			</div>
+		</div>
+		<div id="gxCanvas">
+			<canvas id="display" tabindex="1" onkeypress="onKeyPressCanvas(event)" onkeydown="onKeyDownCanvas(event)" onkeyup="onKeyUpCanvas(event)" onmousedown="onMouseDownCanvas(event)" onmousemove="onMouseMoveCanvas(event)" onmouseup="onMouseUpCanvas(event)">
+				This document requires an HTML5-compliant browser.
+			</canvas>
+		</div>
+	</div>
+</body>
+</html>
+
