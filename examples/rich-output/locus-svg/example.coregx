@@ -1,0 +1,11 @@
+polygon A B C D
+coordinates A 0 0
+coordinates D 4 0
+distance A B 1
+distance B C 3
+distance C D 3
+direction AB t
+point M
+midpoint M B C
+locus loc M t 0 6.283
+value t 1.05

@@ -1,14 +1,19 @@
 #!/usr/bin/env python3
-"""Minimal working example: CoreGX source to SVG.
+"""Working example: CoreGX source to SymPy to TEX.
 
 Usage:
     COREGX_API_KEY=your-key python minimal.py < program.coregx > output.svg
+
+    Powershell:
+    Get-Content -Raw .\example.coregx | py -3.12 -X utf8 .\solve.py | Set-Content -Encoding UTF8 output.json
 """
 
 import json
 import os
 import sys
 import urllib.request
+from sympy.parsing.latex import parse_latex
+import sympy as sp
 
 program = sys.stdin.read()
 
@@ -20,7 +25,7 @@ request = urllib.request.Request(
         {
             "apikey": os.environ["COREGX_API_KEY"],
             "program": program,
-            "svg": True,
+            "all": True,
         }
     ).encode(),
 )
@@ -31,4 +36,13 @@ with urllib.request.urlopen(request) as response:
 if not result["ok"]:
     raise SystemExit(f"CoreGX error: {result['error']}")
 
-print(result["value"]["svg"])
+area_tex = result["value"]["tex"][0]["valueTex"]
+
+area = parse_latex(area_tex)
+
+print("Area expression:")
+print(area)
+
+print("Simplified:")
+print(sp.simplify(area))
+

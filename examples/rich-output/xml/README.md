@@ -7,6 +7,7 @@ export COREGX_API_KEY=your-api-key
 
 # Python 3
 ./minimalxml.py  < example.coregx > output.xml
+
 ```
 
 This usage may require `chmod +x minimal.*` to make the files executable. You can always pass the file directly to the interpreter as well, e.g. `python3 minimalxml.py`.
