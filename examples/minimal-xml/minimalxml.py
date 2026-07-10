@@ -29,9 +29,7 @@ request = urllib.request.Request(
 )
 
 with urllib.request.urlopen(request) as response:
-    raw = response.read().decode("utf-8")
-    print(raw)
-    result = json.loads(raw)
+    result = json.load(response)
 
 if not result["ok"]:
     raise SystemExit(f"CoreGX error: {result['error']}")
