@@ -7,7 +7,7 @@ set -euo pipefail
 
 program=$(cat)
 
-response=$(curl -s -X POST "https://api.coregx.dev/run-coregx" \
+response=$(curl -s -X POST "https://api.coregx.dev/dev/api/run-coregx" \
   -H "Content-Type: application/json" \
   -d "$(jq -n --arg apikey "$COREGX_API_KEY" --arg program "$program" '{apikey: $apikey, program: $program, svg: true}')")
 

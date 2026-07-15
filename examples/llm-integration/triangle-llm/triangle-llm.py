@@ -8,7 +8,7 @@ import urllib.request
 import openai
 
 
-COREGX_BASE_URL = "https://api.coregx.dev"
+COREGX_BASE_URL = "https://api.coregx.dev/dev/api/run-coregx"
 
 def build_system_prompt() -> str:
     """Give the model specialized instructions"""

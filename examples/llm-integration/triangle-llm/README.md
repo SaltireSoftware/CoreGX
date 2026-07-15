@@ -1,6 +1,6 @@
-# Full Pipeline Example
+# Small Prompt Pipeline Example
 
-A workflow example showing a complete pipeline using the CoreGX API and an LLM to take a natural language description and generate a diagram.
+A workflow example showing a complete pipeline using the CoreGX API, a small constrained prompt, and an LLM to take a natural language description and generate a diagram.
 
 ```
 [natural language]  ── LLM ─➤  [CoreGX program]  ── CoreGX API ─➤  [diagram]
@@ -31,38 +31,34 @@ The natural language description can be provided as a positional argument, a fil
 
 ```bash
 # argument
-python pipeline.py "A right triangle with legs 3 and 4, showing the area"
+python triangle-llm.py "A right triangle with legs 3 and 4, showing the area"
 
 # stdin
-echo "A right triangle with legs 3 and 4, showing the area" | python pipeline.py
+echo "A right triangle with legs 3 and 4, showing the area" | python triangle-llm.py
 
 # file
-python pipeline.py --file description.txt
+python triangle-llm.py --file description.txt
 ```
 
 The output format is chosen with `--format`: `svg` (default), `xml`, `equations`, or `json`. With JSON, you get the full CoreGX response, including all formats. It's written to stdout by default. To write to a file instead use `-o`/`--output` with the desired filename:
 
 ```bash
 # stdout
-python pipeline.py --file description.txt --format svg > output.svg
+python triangle-llm.py --file description.txt --format svg > output.svg
 
 # file output
-python pipeline.py --file description.txt --format xml -o result.xml
-python pipeline.py --file description.txt --format json --output result.json
+python triangle-llm.py --file description.txt --format xml -o result.xml
+python triangle-llm.py --file description.txt --format json --output result.json
 ```
 
 By default the script only prints the requested output (or writes it to `-o`), which keeps output pipeable. Pass `-v`/`--verbose` to see more details about the process.
 
 ```bash
-python pipeline.py --file description.txt -o output.svg -v
+python triangle-llm.py --file description.txt -o output.svg -v
 ```
 
 If CoreGX rejects the program, it's retried with the error fed back to the LLM, up to `--max-tries` times (default: 1):
 
 ```bash
-python pipeline.py --file description.txt --max-tries 5
+python triangle-llm.py --file description.txt --max-tries 5
 ```
-
-## How the system prompt is built
-
-The script reads the [authoring guide](reference/authoring-guide.md) and the [syntax reference](reference/syntax.md) from this repo at runtime and uses them as the LLM's system prompt — the same guidance that powers the agent skill available in [skills/coregx-api/](skills/coregx-api/SKILL.md).

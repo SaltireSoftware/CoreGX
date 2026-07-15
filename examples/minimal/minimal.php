@@ -19,7 +19,7 @@ $context = stream_context_create([
         "ignore_errors" => true,
     ],
 ]);
-$response = file_get_contents("https://api.coregx.dev/run-coregx", false, $context);
+$response = file_get_contents("https://api.coregx.dev/dev/api/run-coregx", false, $context);
 
 $result = json_decode($response, true);
 

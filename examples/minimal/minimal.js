@@ -8,7 +8,7 @@ const chunks = [];
 for await (const chunk of process.stdin) chunks.push(chunk);
 const program = Buffer.concat(chunks).toString("utf8");
 
-const response = await fetch("https://api.coregx.dev/run-coregx", {
+const response = await fetch("https://api.coregx.dev/dev/api/run-coregx", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({ apikey: process.env.COREGX_API_KEY, program, svg: true }),

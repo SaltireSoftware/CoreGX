@@ -1,5 +1,5 @@
 triangle A B C
 perpendicular AB BC
-distance A B 
-distance B C
+distance A B 3
+distance B C 4
 measure distance(A,C)
