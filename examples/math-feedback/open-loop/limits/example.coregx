@@ -1,0 +1,5 @@
+triangle A B C
+perpendicular AB BC
+distance A B 1
+distance B C h
+measure length(AC)
