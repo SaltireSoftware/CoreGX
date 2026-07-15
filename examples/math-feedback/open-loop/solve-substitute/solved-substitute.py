@@ -39,7 +39,7 @@ with open(solutions_file) as f:
 
 
 expr = parse_latex(
-    equations["equations"][0]["valueTex"]
+    equations[0]["valueTex"]
 )
 
 variable = sp.Symbol(

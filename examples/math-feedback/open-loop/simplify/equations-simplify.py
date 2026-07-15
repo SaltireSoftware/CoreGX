@@ -29,6 +29,6 @@ from sympy.parsing.latex import parse_latex
 
 data = json.load(sys.stdin)
 
-expr = parse_latex(data["equations"][0]["valueTex"])
+expr = parse_latex(data[0]["valueTex"])
 
 print(sp.latex(sp.simplify(expr)))

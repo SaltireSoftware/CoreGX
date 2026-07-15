@@ -29,7 +29,7 @@ from sympy.parsing.latex import parse_latex
 
 data = json.load(sys.stdin)
 
-expr = parse_latex(data["equations"][0]["valueTex"])
+expr = parse_latex(data[0]["valueTex"])
 
 symbols = list(expr.free_symbols)
 if len(symbols) != 1:
