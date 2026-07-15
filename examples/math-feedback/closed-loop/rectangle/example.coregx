@@ -1,0 +1,10 @@
+polygon A B C D
+
+parallel AB CD
+parallel BC AD
+perpendicular AB BC
+
+distance A B x
+distance B C 12-x
+
+measure area(A,B,C,D)

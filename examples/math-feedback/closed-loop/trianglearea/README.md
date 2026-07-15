@@ -1,6 +1,6 @@
-# Minimal Working Example
+# Open Loop Math Example
 
-A CoreGX program goes in on stdin, SymPy is used to solve, and TEX comes out on stdout. 
+A CoreGX program goes in on stdin, SymPy is used to solve for a critical point to maximize area, and TEX comes out on stdout. 
 
 ```bash
 export COREGX_API_KEY=your-api-key

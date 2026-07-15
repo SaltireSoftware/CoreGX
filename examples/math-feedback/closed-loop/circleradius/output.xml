@@ -1,0 +1,40 @@
+﻿<?xml version='1.0' encoding='UTF-8' ?><sg app='GXWeb' version='1.2.01'>
+<document name='xml' id='0' type='geometry' title='xml'>
+<point id='O' name='O' x='0' y='0'>
+<point_properties color='#A463BF'/>
+<visible_properties visible='1'/>
+</point>
+<point id='O_r' name='O_r' x='2.49350932826669' y='2.20844341907675'>
+<point_properties color='#A463BF'/>
+<visible_properties visible='0'/>
+</point>
+<line_axis id = 'XAXIS' type = '0'/>
+<line_axis id = 'YAXIS' type = '1'/>
+<circle id='C0' center='O' radius='O_r'>
+<line_properties color='#3398DB'/>
+<visible_properties visible='1'/>
+</circle>
+<coordinate_constraint id='foo'>
+<visible_properties visible='1'/>
+<parent id='O'/>
+<symscalar name='value' evaluate='1' as_string='(0,0)'/>
+</coordinate_constraint>
+<radius_constraint id='foo'>
+<visible_properties visible='1'/>
+<parent id='C0'/>
+<symscalar name='value' evaluate='1' as_string='81*pi/r**2'/>
+</radius_constraint>
+<variable name='╧ä' value='0.000000' min='0.000000' max='60.000000' locked='0'/>
+<variable name='g' value='9.806650' min='0.000000' max='200.000000' locked='0'/>
+<draw_view>
+<geometry scale='50.000000' originx='0.000000' originy='0.000000' />
+</draw_view>
+<settings index='16'>
+<math_properties angle_mode='radians' />
+</settings>
+</document>
+<query_history>
+<query input ='area(C0)' output='\pi\cdot \left (u_{0}^{2}+v_{0}^{2}\right )'/>
+</query_history>
+</sg>
+

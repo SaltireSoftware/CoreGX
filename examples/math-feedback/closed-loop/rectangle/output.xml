@@ -1,0 +1,71 @@
+﻿<?xml version='1.0' encoding='UTF-8' ?><sg app='GXWeb' version='1.2.01'>
+<document name='xml' id='0' type='geometry' title='xml'>
+<point id='A' name='A' x='5.20156314769545' y='-3.43668373366464'>
+<point_properties color='#A463BF'/>
+<visible_properties visible='1'/>
+</point>
+<point id='B' name='B' x='-0.727529050409722' y='-2.51697415647824'>
+<point_properties color='#A463BF'/>
+<visible_properties visible='1'/>
+</point>
+<point id='C' name='C' x='0.192180526776671' y='3.41211804162693'>
+<point_properties color='#A463BF'/>
+<visible_properties visible='1'/>
+</point>
+<point id='D' name='D' x='6.12127272488184' y='2.49240846444054'>
+<point_properties color='#A463BF'/>
+<visible_properties visible='1'/>
+</point>
+<line_segment id='AB' pt1='A' pt2='B'>
+<line_properties color='#000000'/>
+<visible_properties visible='1'/>
+</line_segment>
+<line_segment id='BC' pt1='B' pt2='C'>
+<line_properties color='#000000'/>
+<visible_properties visible='1'/>
+</line_segment>
+<line_segment id='CD' pt1='C' pt2='D'>
+<line_properties color='#000000'/>
+<visible_properties visible='1'/>
+</line_segment>
+<line_segment id='AD' pt1='A' pt2='D'>
+<line_properties color='#000000'/>
+<visible_properties visible='1'/>
+</line_segment>
+<line_axis id = 'XAXIS' type = '0'/>
+<line_axis id = 'YAXIS' type = '1'/>
+<parallel_constraint index='1'>
+<visible_properties visible='1'/>
+<child id='AB'/>
+<child id='CD'/>
+</parallel_constraint><parallel_constraint index='1'>
+<visible_properties visible='1'/>
+<child id='BC'/>
+<child id='AD'/>
+</parallel_constraint><perpendicular id='foo' line1='AB' line2='BC'/>
+<distance_constraint id='foo'>
+<visible_properties visible='1'/>
+<parent id='A'/>
+<parent id='B'/>
+<symscalar name='value' evaluate='1' as_string='6'/>
+</distance_constraint>
+<distance_constraint id='foo'>
+<visible_properties visible='1'/>
+<parent id='B'/>
+<parent id='C'/>
+<symscalar name='value' evaluate='1' as_string='6'/>
+</distance_constraint>
+<variable name='╧ä' value='0.000000' min='0.000000' max='60.000000' locked='0'/>
+<variable name='g' value='9.806650' min='0.000000' max='200.000000' locked='0'/>
+<draw_view>
+<geometry scale='50.000000' originx='0.000000' originy='0.000000' />
+</draw_view>
+<settings index='16'>
+<math_properties angle_mode='radians' />
+</settings>
+</document>
+<query_history>
+<query input ='area({A,B,C,D})' output='36'/>
+</query_history>
+</sg>
+

@@ -1,0 +1,8 @@
+point O
+coordinates O 0 0
+
+circle C0 O
+
+radius C0 r
+
+measure area(C0)

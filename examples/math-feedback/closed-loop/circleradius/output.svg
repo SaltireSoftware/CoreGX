@@ -1,0 +1,39 @@
+﻿<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 500 500'>
+<g transform='translate(0 500) scale(1,-1)'>
+<g transform='scale(39.67531881) translate(6.35842975 6.24386344)'>
+<defs>
+<marker id = 'arrowhead'
+markerWidth = '10'
+markerHeight = '7'
+refX = '10'
+refY = '3.5'
+orient = 'auto'
+markerUnits = 'strokeWidth'>
+<polygon points = '0 0, 10 3.5, 0 7' fill = 'currentColor'/>
+</marker>
+<marker id = 'distance-arrowhead-end'
+markerWidth = '5'
+markerHeight = '5'
+refX = '5'
+refY = '2.5'
+orient = 'auto'
+markerUnits = 'strokeWidth'>
+<polygon points = '0 0, 5 2.5, 0 5' style = 'fill: context-stroke'/>
+</marker>
+<marker id = 'distance-arrowhead-start'
+markerWidth = '5'
+markerHeight = '5'
+refX = '0'
+refY = '2.5'
+orient = 'auto'
+markerUnits = 'strokeWidth'>
+<polygon points = '5 0, 0 2.5, 5 5' style = 'fill: context-stroke'/>
+</marker>
+</defs>
+<circle id='O' cx='0.000000' cy='0.000000' r='0.126023' fill='#A463BF' />
+<g transform='translate(0.271922,0.347536) scale(1,-1)'><text x='0' y='0' font-size='0.378069' fill='black' font-style='normal' text-anchor='start' dominant-baseline='middle'>O</text></g>
+<circle id='C0' cx='0' cy='0' r='5.72831508603185' stroke='#3398DB' stroke-width='0.050409' fill='none' visibility='visible' />
+
+</g>
+</g>
+</svg>

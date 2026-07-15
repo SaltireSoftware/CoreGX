@@ -1,0 +1,55 @@
+﻿<?xml version='1.0' encoding='UTF-8' ?><sg app='GXWeb' version='1.2.01'>
+<document name='xml' id='0' type='geometry' title='xml'>
+<point id='A' name='A' x='-5.71464790410663' y='0.0540596232350818'>
+<point_properties color='#A463BF'/>
+<visible_properties visible='1'/>
+</point>
+<point id='B' name='B' x='-1.57095664281936' y='4.39339398821913'>
+<point_properties color='#A463BF'/>
+<visible_properties visible='1'/>
+</point>
+<point id='C' name='C' x='-5.9102910078034' y='8.5370852495064'>
+<point_properties color='#A463BF'/>
+<visible_properties visible='1'/>
+</point>
+<line_segment id='AB' pt1='A' pt2='B'>
+<line_properties color='#000000'/>
+<visible_properties visible='1'/>
+</line_segment>
+<line_segment id='BC' pt1='B' pt2='C'>
+<line_properties color='#000000'/>
+<visible_properties visible='1'/>
+</line_segment>
+<line_segment id='AC' pt1='A' pt2='C'>
+<line_properties color='#000000'/>
+<visible_properties visible='1'/>
+</line_segment>
+<line_axis id = 'XAXIS' type = '0'/>
+<line_axis id = 'YAXIS' type = '1'/>
+<perpendicular id='foo' line1='AB' line2='BC'/>
+<distance_constraint id='foo'>
+<visible_properties visible='1'/>
+<parent id='A'/>
+<parent id='B'/>
+<symscalar name='value' evaluate='1' as_string='6'/>
+</distance_constraint>
+<distance_constraint id='foo'>
+<visible_properties visible='1'/>
+<parent id='B'/>
+<parent id='C'/>
+<symscalar name='value' evaluate='1' as_string='6'/>
+</distance_constraint>
+<variable name='╧ä' value='0.000000' min='0.000000' max='60.000000' locked='0'/>
+<variable name='g' value='9.806650' min='0.000000' max='200.000000' locked='0'/>
+<draw_view>
+<geometry scale='50.000000' originx='0.000000' originy='0.000000' />
+</draw_view>
+<settings index='16'>
+<math_properties angle_mode='radians' />
+</settings>
+</document>
+<query_history>
+<query input ='area({A,B,C})' output='18'/>
+</query_history>
+</sg>
+
