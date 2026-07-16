@@ -65,6 +65,8 @@ def solve_equation(equation):
         symbol
     )
 
+    solutions = [s for s in solutions if s.is_real and s >= 0]
+
     if not solutions:
         raise RuntimeError(
             "No solution"
