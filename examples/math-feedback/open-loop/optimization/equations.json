@@ -3,7 +3,7 @@
     "expression": "area(A,B,C)",
     "actionscript": "Math.abs(((12.0+(c*(-1.0)))*c*-0.5))",
     "c": "fabs(((12.0+(c*(-1.0)))*c*-0.5))",
-    "contentmathml": "<math><apply><abs/><apply><divide/><apply><times/><apply><plus/><cn type = 'integer'>12</cn><apply><times/><ci variable-value = \"8.10828034621657\">c</ci><cn type = 'integer'>(-1)</cn></apply></apply><ci variable-value = \"8.10828034621657\">c</ci><cn type = 'integer'>(-1)</cn></apply><cn type = 'integer'>2</cn></apply></apply></math>",
+    "contentmathml": "<math><apply><abs/><apply><divide/><apply><times/><apply><plus/><cn type = 'integer'>12</cn><apply><times/><ci variable-value = \"6.83309417386678\">c</ci><cn type = 'integer'>(-1)</cn></apply></apply><ci variable-value = \"6.83309417386678\">c</ci><cn type = 'integer'>(-1)</cn></apply><cn type = 'integer'>2</cn></apply></apply></math>",
     "cpp": "fabs(((12.0+(c*(-1.0)))*c*-0.5))",
     "csharp": "Math.Abs(((12.0+(c*(-1.0)))*c*-0.5))",
     "derive": "abs(((12+(c*(-1)))*c*(-1/2)))",
@@ -21,7 +21,7 @@
     "string": "abs(((12+(c*(-1)))*c*(-1/2)))",
     "expressionTex": "area({A,B,C})",
     "valueTex": "\\dfrac{c\\cdot (12-c)}{2}",
-    "valueRealAsTex": "15.77758",
+    "valueRealAsTex": "17.65298",
     "vb": "Math.Abs(((12.0+(c*(-1.0)))*c*-0.5))"
   }
 ]

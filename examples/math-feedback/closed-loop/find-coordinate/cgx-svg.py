@@ -1,27 +1,24 @@
-#!/usr/bin/env python3
-#!/usr/bin/env python3
-"""Example: CoreGX source to JSON.
+"""Example: CoreGX source to SVG.
 
 Usage:
-
     Linux / macOS / WSL (bash, zsh):
-        COREGX_API_KEY=your-key python3 cgx-json.py < example.coregx > output.json
+        COREGX_API_KEY=your-key python3 cgx-svg.py < program.coregx > output.svg
 
     Windows PowerShell:
         $env:COREGX_API_KEY="your-key"
-        Get-Content .\example.coregx -Raw | python .\cgx-json.py | Out-File .\output.json -Encoding utf8
+        Get-Content .\program.coregx -Raw | python .\cgx-svg.py | Out-File .\output.svg -Encoding utf8
 
     Windows Command Prompt (cmd.exe):
         set COREGX_API_KEY=your-key
-        type example.coregx | python cgx-json.py > output.json
+        type program.coregx | python cgx-svg.py > output.svg
 
     Windows Git Bash:
         export COREGX_API_KEY=your-key
-        ./cgx-json.py < example.coregx > output.json
+        ./cgx-svg.py < program.coregx > output.svg
 
 Notes:
     - The script reads CoreGX source from standard input.
-    - The generated JSON is written to standard output.
+    - The generated SVG is written to standard output.
     - Set COREGX_API_KEY in your environment before running.
 """
 
@@ -40,7 +37,7 @@ request = urllib.request.Request(
         {
             "apikey": os.environ["COREGX_API_KEY"],
             "program": program,
-            "all": True,
+            "svg": True,
         }
     ).encode(),
 )
@@ -51,4 +48,4 @@ with urllib.request.urlopen(request) as response:
 if not result["ok"]:
     raise SystemExit(f"CoreGX error: {result['error']}")
 
-print(json.dumps(result, indent=2))
+print(result["value"]["svg"])

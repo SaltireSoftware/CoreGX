@@ -16,15 +16,15 @@ PROGRAM=program.coregx
 
 if [ $# -eq 0 ]; then
     echo "Usage:"
-    echo "  ./nl-svg-fourbar.sh \"description\""
+    echo "  ./nl-svg-fourbar.sh /"description/""
     echo "  ./nl-svg-fourbar.sh description.txt"
     exit 1
 fi
 
 if [ -f "$1" ]; then
-    python3 nl-xgc-fourbar.py --file "$1" > "$PROGRAM"
+    python3 nl-cgx-fourbar.py --file "$1" > "$PROGRAM"
 else
-    python3 nl-xgc-fourbar.py "$*" > "$PROGRAM"
+    python3 nl-cgx-fourbar.py "$*" > "$PROGRAM"
 fi
 
-python3 nl-xgc-fourbar < "$PROGRAM" > "$OUTPUT"
+python3 cgx-svg.py < "$PROGRAM" > "$OUTPUT"

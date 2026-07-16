@@ -1,27 +1,26 @@
 #!/usr/bin/env python3
-#!/usr/bin/env python3
-"""Example: CoreGX source to JSON.
+"""Example: CoreGX source to equations JSON.
 
 Usage:
 
     Linux / macOS / WSL (bash, zsh):
-        COREGX_API_KEY=your-key python3 cgx-json.py < example.coregx > output.json
+        COREGX_API_KEY=your-key python3 cgx-equations.py < program.coregx > output.json
 
     Windows PowerShell:
         $env:COREGX_API_KEY="your-key"
-        Get-Content .\example.coregx -Raw | python .\cgx-json.py | Out-File .\output.json -Encoding utf8
+        Get-Content .\program.coregx -Raw | py -3.12 -X utf8 .\cgx-equations.py | Set-Content -Encoding UTF8 .\output.tex
 
     Windows Command Prompt (cmd.exe):
         set COREGX_API_KEY=your-key
-        type example.coregx | python cgx-json.py > output.json
+        type program.coregx | py -3.12 -X utf8 cgx-equations.py > output.json
 
     Windows Git Bash:
         export COREGX_API_KEY=your-key
-        ./cgx-json.py < example.coregx > output.json
+        ./cgx-equations.py < program.coregx > output.json
 
 Notes:
     - The script reads CoreGX source from standard input.
-    - The generated JSON is written to standard output.
+    - The generated JSON equations output is written to standard output.
     - Set COREGX_API_KEY in your environment before running.
 """
 
@@ -29,6 +28,8 @@ import json
 import os
 import sys
 import urllib.request
+from sympy.parsing.latex import parse_latex
+import sympy as sp
 
 program = sys.stdin.read()
 
@@ -51,4 +52,4 @@ with urllib.request.urlopen(request) as response:
 if not result["ok"]:
     raise SystemExit(f"CoreGX error: {result['error']}")
 
-print(json.dumps(result, indent=2))
+print(json.dumps(result["value"]["equations"], indent=2))

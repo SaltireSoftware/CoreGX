@@ -1,0 +1,4 @@
+triangle A B C
+distance A B 2
+distance B C 2
+distance A C 2

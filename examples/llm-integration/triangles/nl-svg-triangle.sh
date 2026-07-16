@@ -12,7 +12,7 @@ PROGRAM=program.coregx
 
 if [ $# -eq 0 ]; then
     echo "Usage:"
-    echo "  ./nl-svg-triangle.sh \"description\""
+    echo "  ./nl-svg-triangle.sh /"description/""
     echo "  ./nl-svg-triangle.sh description.txt"
     exit 1
 fi
@@ -23,4 +23,4 @@ else
     python3 nl-cgx-triangle.py "$*" > "$PROGRAM"
 fi
 
-python3 nl-cgx-triangle < "$PROGRAM" > "$OUTPUT"
+python3 cgx-svg.py < "$PROGRAM" > "$OUTPUT"

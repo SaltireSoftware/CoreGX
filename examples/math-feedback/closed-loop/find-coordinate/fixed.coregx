@@ -1,0 +1,8 @@
+point A
+coordinates A x 0
+point B
+coordinates B 3 4
+segment A B
+measure length(AB) 6
+value x -2.73903568260601
+

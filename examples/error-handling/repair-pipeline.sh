@@ -1,15 +1,18 @@
 #!/usr/bin/env bash
 #
-# Working example: CoreGX overconstraint repair.
+# Working example: CoreGX overconstraint repair pipeline.
 #
 # Usage:
 #
-#   ./repair_pipeline.sh
+#   Linux / macOS / WSL / Git Bash:
+#       ./repair_pipeline.sh
 #
 # Notes:
-#   - Runs CoreGX.
-#   - Solves overconstraint equations.
-#   - Replaces variables in the original IR.
+#   - Reads CoreGX source from example.coregx.
+#   - Runs CoreGX and captures JSON output.
+#   - Solves overconstraint equations using SymPy.
+#   - Replaces solved variables in the original IR.
+#   - Generates SVG from the repaired CoreGX program.
 #
 
 set -euo pipefail
@@ -17,7 +20,8 @@ set -euo pipefail
 INPUT=example.coregx
 ERROR_JSON=coregx.json
 REPAIR_JSON=repair.json
-OUTPUT=fixed.coregx
+FIXED=fixed.coregx
+OUTPUT=output.svg
 
 
 python3 cgx-json.py \
@@ -33,4 +37,12 @@ python3 error-solver.py \
 python3 replacer.py \
     "$REPAIR_JSON" \
     < "$INPUT" \
+    > "$FIXED"
+
+
+python3 cgx-svg.py \
+    < "$FIXED" \
     > "$OUTPUT"
+
+echo "Repaired CoreGX: $FIXED"
+echo "SVG output:      $OUTPUT"

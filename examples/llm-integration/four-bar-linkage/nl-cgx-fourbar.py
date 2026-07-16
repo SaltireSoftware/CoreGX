@@ -13,11 +13,11 @@ Usage:
 
     Windows PowerShell:
 
-        py -3 -X utf8 .\nl-cgx-fourbar.py "draw a 3,4,5 triangle" |
+        py -3 -X utf8 ./nl-cgx-fourbar.py "draw a 3,4,5 triangle" |
             Set-Content -Encoding UTF8 program.coregx
 
-        Get-Content .\description.txt -Raw |
-            py -3 -X utf8 .\nl-cgx-fourbar.py |
+        Get-Content ./description.txt -Raw |
+            py -3 -X utf8 ./nl-cgx-fourbar.py |
             Set-Content -Encoding UTF8 program.coregx
 
     Windows Command Prompt (cmd.exe):

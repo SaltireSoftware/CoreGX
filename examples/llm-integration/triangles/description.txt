@@ -1,1 +1,1 @@
-A triangle with sides ABC and side lengths A=4 and B=3. 
+An equilateral triangle with sides ABC and side lengths A=2 and B=2. 

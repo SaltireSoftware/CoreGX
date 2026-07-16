@@ -6,7 +6,7 @@ Usage:
 
     Windows PowerShell:
         $env:COREGX_API_KEY="your-key"
-        Get-Content .\program.coregx -Raw | python .\cgx-svg.py | Out-File .\output.svg -Encoding utf8
+        Get-Content ./program.coregx -Raw | python ./cgx-svg.py | Out-File ./output.svg -Encoding utf8
 
     Windows Command Prompt (cmd.exe):
         set COREGX_API_KEY=your-key

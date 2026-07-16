@@ -1,0 +1,20 @@
+polygon A B C D
+coordinates A 0 0
+coordinates D b 0
+distance A B d
+distance B C c
+distance C D f
+direction AB t
+line l visible=false
+incident l B
+perpendicular l BC
+point M distance M BC u
+distance M l v
+locus loc M t 0 6.283
+value d 1
+value c 3.7
+value f 3
+value b 3.5
+value u 3.2
+value v -1.2
+clockwise B C D

@@ -1,0 +1,27 @@
+[
+  {
+    "expression": "length(AB)",
+    "actionscript": "Math.sqrt((16.0+Math.pow((3.0+(x*(-1.0))),2.0)))",
+    "c": "sqrt((16.0+pow((3.0+(x*(-1.0))),2.0)))",
+    "contentmathml": "<math><apply><root/><apply><plus/><cn type = 'integer'>16</cn><apply><power/><apply><plus/><cn type = 'integer'>3</cn><apply><times/><ci variable-value = \"-2.73903622547075\">x</ci><cn type = 'integer'>(-1)</cn></apply></apply><cn type = 'integer'>2</cn></apply></apply></apply></math>",
+    "cpp": "sqrt((16.0+pow((3.0+(x*(-1.0))),2.0)))",
+    "csharp": "Math.Sqrt((16.0+Math.Pow((3.0+(x*(-1.0))),2.0)))",
+    "derive": "((16+((3+(x*(-1))))^(2)))^(1/2)",
+    "displaymathml": "<math><msqrt><mrow> <mrow><mn>16</mn><mo>+</mo></mrow><msup> <mrow><mo>(</mo><mn>3</mn><mo>-</mo><mi>x</mi><mo>)</mo></mrow><mrow><mn>2</mn></mrow></msup></mrow></msqrt></math>",
+    "java": "Math.sqrt((16.0+Math.pow((3.0+(x*(-1.0))),2.0)))",
+    "javascript": "Math.sqrt((16.0+Math.pow((3.0+(x*(-1.0))),2.0)))",
+    "lua": "math.sqrt((16.0+math.pow((3.0+(x*(-1.0))),2.0)))",
+    "maple": "((16+((3+(x*(-1))))^(2)))^(1/2)",
+    "mathematica": "((16+((3+(x*(-1))))^(2)))^(1/2)",
+    "matlab": "sqrt((16.0+power((3.0+(x*(-1.0))),2.0)))",
+    "maxima": "((16+((3+(x*(-1))))^(2)))^(1/2)",
+    "mupad": "((16+((3+(x*(-1))))^(2)))^(1/2)",
+    "nspire": "((16+((3+(x*(-1))))^(2)))^(1/2)",
+    "python": "math.sqrt((16.0+math.pow((3.0+(x*(-1.0))),2.0)))",
+    "string": "((16+((3+(x*(-1))))^(2)))^(1/2)",
+    "expressionTex": "length(AB)",
+    "valueTex": "\\sqrt{16+(3-x)^{2}}",
+    "valueRealAsTex": "6.995465",
+    "vb": "Math.Sqrt((16.0+Math.Pow((3.0+(x*(-1.0))),2.0)))"
+  }
+]
