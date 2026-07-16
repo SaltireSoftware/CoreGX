@@ -54,20 +54,6 @@ The pipeline automatically:
 
 The intermediate CoreGX program is preserved in the output folder, making it easy to inspect or edit before rendering.
 
-## Folder Layout
-
-```
-.
-├── nl-svg-fourbar.sh
-├── scripts/
-│   ├── nl-cgx-fourbar.py
-│   ├── cgx-svg.py
-│   └── requirements.txt
-└── outputs/
-    ├── program.coregx
-    └── output.svg
-```
-
 ## Windows
 
 Run the shell script using Git Bash.
