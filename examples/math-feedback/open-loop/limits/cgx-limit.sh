@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 #
 # Working example: CoreGX source to symbolic limit.
 #
@@ -9,15 +10,39 @@
 #       ./cgx-limit.sh
 #
 # Notes:
-#   - Reads CoreGX source from example.coregx.
-#   - Writes the computed limit as TeX to output.tex.
+#   - Installs Python dependencies from scripts/requirements.txt.
+#   - Suppresses Python SyntaxWarning messages.
+#   - Uses Python scripts from the scripts directory.
+#   - Writes intermediate equations and final TeX output to the outputs directory.
 #
 
 set -euo pipefail
 
-INPUT=example.coregx
-EQUATIONS=equations.json
-OUTPUT=output.tex
+SCRIPTS=scripts
+OUTPUT_DIR=outputs
 
-python3 cgx-equations.py < "$INPUT" > "$EQUATIONS"
-python3 equations-limit.py < "$EQUATIONS" > "$OUTPUT"
+pip install -r "$SCRIPTS/requirements.txt"
+
+export PYTHONWARNINGS="ignore::SyntaxWarning"
+
+INPUT=example.coregx
+
+EQUATIONS="$OUTPUT_DIR/equations.json"
+OUTPUT="$OUTPUT_DIR/output.tex"
+
+
+mkdir -p "$OUTPUT_DIR"
+
+
+python3 "$SCRIPTS/cgx-equations.py" \
+    < "$INPUT" \
+    > "$EQUATIONS"
+
+
+python3 "$SCRIPTS/equations-limit.py" \
+    < "$EQUATIONS" \
+    > "$OUTPUT"
+
+
+echo "Equations:     $EQUATIONS"
+echo "Limit output:  $OUTPUT"

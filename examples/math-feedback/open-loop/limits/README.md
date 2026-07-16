@@ -1,14 +1,47 @@
-# Example
+# CoreGX Symbolic Limit Pipeline Example
 
-A CoreGX program is read from `example.coregx`, the equations are extracted, and the symbolic limit is computed with SymPy. The resulting limit is written to `output.tex`.
+A workflow example showing a complete pipeline where a CoreGX program is read from `example.coregx`, geometric equations are extracted through the CoreGX API, and a symbolic limit is computed using SymPy. The resulting TeX output is written to the `outputs` directory.
+
+```
+[CoreGX program] ── CoreGX API ─➤ [equations] ── SymPy ─➤ [TeX limit]
+```
+
+## Setup
+
+Set your CoreGX API key:
 
 ```bash
 export COREGX_API_KEY=your-api-key
+```
 
+Python dependencies are installed automatically by the shell script from:
+
+```
+scripts/requirements.txt
+```
+
+The shell script also suppresses Python `SyntaxWarning` messages during execution.
+
+## Run
+
+```bash
 ./cgx-limit.sh
 ```
 
-This usage may require `chmod +x *.sh` to make the shell scripts executable.
+This usage may require:
+
+```bash
+chmod +x *.sh
+```
+
+to make the shell scripts executable.
+
+The pipeline automatically:
+
+1. Installs Python dependencies from `scripts/requirements.txt`.
+2. Extracts equations from the CoreGX program.
+3. Computes the symbolic limit using SymPy.
+4. Writes intermediate and final outputs into the `outputs` directory.
 
 ## Pipeline
 
@@ -16,16 +49,16 @@ This usage may require `chmod +x *.sh` to make the shell scripts executable.
 example.coregx
       │
       ▼
-cgx-equations.py
+scripts/cgx-equations.py
       │
       ▼
-equations.json
+outputs/equations.json
       │
       ▼
-equations-limit.py
+scripts/equations-limit.py
       │
       ▼
-output.tex
+outputs/output.tex
 ```
 
 ## Windows
@@ -38,4 +71,4 @@ export COREGX_API_KEY=your-api-key
 ./cgx-limit.sh
 ```
 
-If you prefer not to use a Bash-compatible shell, see the corresponding Python examples for PowerShell and Command Prompt usage.
+If you prefer not to use a Bash-compatible shell, run the individual Python scripts directly from PowerShell or Command Prompt.

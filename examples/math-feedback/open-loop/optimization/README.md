@@ -1,14 +1,47 @@
-# Example
+# CoreGX Critical Points Pipeline Example
 
-A CoreGX program is read from `example.coregx`, the equations are extracted, and the critical points of the resulting expression are calculated using SymPy. The critical points and their corresponding values are written to `output.json`.
+A workflow example showing a complete pipeline where a CoreGX program is read from `example.coregx`, equations are extracted through the CoreGX API, and the critical points of the resulting expression are calculated using SymPy. The critical points and their corresponding values are written to the `outputs` directory.
+
+```
+[CoreGX program] ── CoreGX API ─➤ [equations] ── SymPy ─➤ [critical points]
+```
+
+## Setup
+
+Set your CoreGX API key:
 
 ```bash
 export COREGX_API_KEY=your-api-key
+```
 
+Python dependencies are installed automatically by the shell script from:
+
+```
+scripts/requirements.txt
+```
+
+The shell script also suppresses Python `SyntaxWarning` messages during execution.
+
+## Run
+
+```bash
 ./cgx-critical_points.sh
 ```
 
-This usage may require `chmod +x *.sh` to make the shell scripts executable.
+This usage may require:
+
+```bash
+chmod +x *.sh
+```
+
+to make the shell scripts executable.
+
+The pipeline automatically:
+
+1. Installs Python dependencies from `scripts/requirements.txt`.
+2. Extracts equations from the CoreGX program.
+3. Computes critical points using SymPy.
+4. Writes intermediate and final outputs into the `outputs` directory.
 
 ## Pipeline
 
@@ -16,16 +49,16 @@ This usage may require `chmod +x *.sh` to make the shell scripts executable.
 example.coregx
       │
       ▼
-cgx-equations.py
+scripts/cgx-equations.py
       │
       ▼
-equations.json
+outputs/equations.json
       │
       ▼
-equations-critical_points.py
+scripts/equations-critical_points.py
       │
       ▼
-output.json
+outputs/output.json
 ```
 
 ## Windows
@@ -38,4 +71,4 @@ export COREGX_API_KEY=your-api-key
 ./cgx-critical_points.sh
 ```
 
-If you prefer not to use a Bash-compatible shell, see the corresponding Python examples for PowerShell and Command Prompt usage.
+If you prefer not to use a Bash-compatible shell, run the individual Python scripts directly from PowerShell or Command Prompt.
