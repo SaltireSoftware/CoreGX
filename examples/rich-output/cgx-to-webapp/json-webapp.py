@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
-"""Example: Read JSON from stdin and output SVG.
+"""Example: Read JSON from stdin and output HTML web app.
 
 Usage:
     Linux / macOS / WSL (bash, zsh):
-        python3 json-svg.py < input.json > output.svg
+        python3 json-webapp.py < input.json > output.html
 
     Windows PowerShell:
-        Get-Content .\input.json -Raw | python .\json-svg.py | Out-File .\output.svg -Encoding utf8
+        Get-Content .\input.json -Raw | python .\json-webapp.py | Out-File .\output.html -Encoding utf8
 
     Windows Command Prompt (cmd.exe):
-        type input.json | python json-svg.py > output.svg
+        type input.json | python json-webapp.py > output.html
 
 Notes:
     - The script reads JSON from standard input.
-    - It prints the SVG found at result["value"]["svg"].
+    - It prints the HTML found at result["value"]["app"].
 """
 
 import json

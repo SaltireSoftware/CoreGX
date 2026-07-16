@@ -14,7 +14,7 @@
 #   - Solves the symbolic equation.
 #   - Substitutes the solution back into the expression.
 #   - Writes final TeX output.
-#
+
 
 set -euo pipefail
 
@@ -26,5 +26,3 @@ OUTPUT=output.tex
 python3 cgx-equations.py < "$INPUT" > "$EQUATIONS"
 python3 equations-solve.py < "$EQUATIONS" > "$SOLUTIONS"
 python3 solved-substitute.py "$EQUATIONS" "$SOLUTIONS" > "$OUTPUT"
-
-echo "Wrote $OUTPUT"

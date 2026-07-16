@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Example: CoreGX source to TEX.
+"""Example: CoreGX source to equations JSON.
 
 Usage:
 
     Linux / macOS / WSL (bash, zsh):
-        COREGX_API_KEY=your-key python3 cgx-equations.py < program.coregx > output.tex
+        COREGX_API_KEY=your-key python3 cgx-equations.py < program.coregx > output.json
 
     Windows PowerShell:
         $env:COREGX_API_KEY="your-key"
@@ -12,15 +12,15 @@ Usage:
 
     Windows Command Prompt (cmd.exe):
         set COREGX_API_KEY=your-key
-        type program.coregx | py -3.12 -X utf8 cgx-equations.py > output.tex
+        type program.coregx | py -3.12 -X utf8 cgx-equations.py > output.json
 
     Windows Git Bash:
         export COREGX_API_KEY=your-key
-        ./cgx-equations.py < program.coregx > output.tex
+        ./cgx-equations.py < program.coregx > output.json
 
 Notes:
     - The script reads CoreGX source from standard input.
-    - The generated TeX output is written to standard output.
+    - The generated JSON equations output is written to standard output.
     - Set COREGX_API_KEY in your environment before running.
 """
 

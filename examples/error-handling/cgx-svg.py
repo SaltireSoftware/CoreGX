@@ -1,19 +1,25 @@
 #!/usr/bin/env python3
-"""Example: CoreGX source to HTML web app.
+"""Example: CoreGX source to SVG.
 
 Usage:
     Linux / macOS / WSL (bash, zsh):
-        python3 cgx-webapp.py < program.coregx > output.html
+        COREGX_API_KEY=your-key python3 cgx-svg.py < program.coregx > output.svg
 
     Windows PowerShell:
-        Get-Content .\program.coregx -Raw | python .\cgx-webapp.py | Out-File .\output.html -Encoding utf8
+        $env:COREGX_API_KEY="your-key"
+        Get-Content .\program.coregx -Raw | python .\cgx-svg.py | Out-File .\output.svg -Encoding utf8
 
     Windows Command Prompt (cmd.exe):
-        type program.coregx | python cgx-webapp.py > output.html
+        set COREGX_API_KEY=your-key
+        type program.coregx | python cgx-svg.py > output.svg
+
+    Windows Git Bash:
+        export COREGX_API_KEY=your-key
+        ./cgx-svg.py < program.coregx > output.svg
 
 Notes:
     - The script reads CoreGX source from standard input.
-    - The generated HTML web app output is written to standard output.
+    - The generated SVG is written to standard output.
     - Set COREGX_API_KEY in your environment before running.
 """
 
@@ -21,8 +27,6 @@ import json
 import os
 import sys
 import urllib.request
-from sympy.parsing.latex import parse_latex
-import sympy as sp
 
 program = sys.stdin.read()
 
@@ -34,7 +38,7 @@ request = urllib.request.Request(
         {
             "apikey": os.environ["COREGX_API_KEY"],
             "program": program,
-            "all": True,
+            "svg": True,
         }
     ).encode(),
 )
@@ -45,4 +49,4 @@ with urllib.request.urlopen(request) as response:
 if not result["ok"]:
     raise SystemExit(f"CoreGX error: {result['error']}")
 
-print((result["value"]["app"]))
+print(result["value"]["svg"])

@@ -1,19 +1,27 @@
 #!/usr/bin/env python3
-"""Example: CoreGX source to HTML web app.
+#!/usr/bin/env python3
+"""Example: CoreGX source to JSON.
 
 Usage:
+
     Linux / macOS / WSL (bash, zsh):
-        python3 cgx-webapp.py < program.coregx > output.html
+        COREGX_API_KEY=your-key python3 cgx-json.py < program.coregx > output.json
 
     Windows PowerShell:
-        Get-Content .\program.coregx -Raw | python .\cgx-webapp.py | Out-File .\output.html -Encoding utf8
+        $env:COREGX_API_KEY="your-key"
+        Get-Content .\program.coregx -Raw | python .\cgx-json.py | Out-File .\output.json -Encoding utf8
 
     Windows Command Prompt (cmd.exe):
-        type program.coregx | python cgx-webapp.py > output.html
+        set COREGX_API_KEY=your-key
+        type program.coregx | python cgx-json.py > output.json
+
+    Windows Git Bash:
+        export COREGX_API_KEY=your-key
+        ./cgx-json.py < program.coregx > output.json
 
 Notes:
     - The script reads CoreGX source from standard input.
-    - The generated HTML web app output is written to standard output.
+    - The generated JSON is written to standard output.
     - Set COREGX_API_KEY in your environment before running.
 """
 
@@ -21,8 +29,6 @@ import json
 import os
 import sys
 import urllib.request
-from sympy.parsing.latex import parse_latex
-import sympy as sp
 
 program = sys.stdin.read()
 
@@ -45,4 +51,4 @@ with urllib.request.urlopen(request) as response:
 if not result["ok"]:
     raise SystemExit(f"CoreGX error: {result['error']}")
 
-print((result["value"]["app"]))
+print(json.dumps(result, indent=2))
