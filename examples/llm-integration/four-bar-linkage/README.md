@@ -12,17 +12,19 @@ Works with any OpenAI-compatible chat completions API. Pass your API key, model 
 
 ```bash
 export LLM_API_KEY=your-llm-api-key
-export LLM_BASE_URL=https://your-url  
+export LLM_BASE_URL=https://your-url
 export LLM_MODEL=your-model-name
 
 export COREGX_API_KEY=your-coregx-api-key
 ```
 
-Requires the `openai` Python package:
+Python dependencies are installed automatically by the shell script from:
 
-```bash
-pip install openai
 ```
+scripts/requirements.txt
+```
+
+The requirements file contains the dependencies needed for LLM integration.
 
 ## Run
 
@@ -33,24 +35,38 @@ The shell script accepts either a description file or a description passed direc
 Place your prompt in `description.txt` and run:
 
 ```bash
-./nl-svg-fourbar.sh
+./nl-svg-fourbar.sh description.txt
 ```
 
 ### Using a command-line description
 
 ```bash
-./nl-svg-fourbar.sh ./nl-svg-fourbar.sh "Give me a crank-rocker four-bar linkage with crank AB length 1, rocker DC length 3, base AD length 3.5, connector BC length 3.7. Show the coupler curve of a point 3.2 to the right of A and 1.2 below BC."
-
+./nl-svg-fourbar.sh "Give me a crank-rocker four-bar linkage with crank AB length 1, rocker DC length 3, base AD length 3.5, connector BC length 3.7. Show the coupler curve of a point 3.2 to the right of A and 1.2 below BC."
 ```
 
 The pipeline automatically:
 
-1. Generates a CoreGX program using the LLM.
-2. Saves the generated program to `program.coregx`.
-3. Sends the program to the CoreGX API.
-4. Writes the resulting SVG to `output.svg`.
+1. Installs Python dependencies from `scripts/requirements.txt`.
+2. Generates a CoreGX program using the LLM.
+3. Saves the generated program to `outputs/program.coregx`.
+4. Sends the program to the CoreGX API.
+5. Writes the resulting SVG to `outputs/output.svg`.
 
-The intermediate CoreGX program is preserved, making it easy to inspect or edit before rendering.
+The intermediate CoreGX program is preserved in the output folder, making it easy to inspect or edit before rendering.
+
+## Folder Layout
+
+```
+.
+├── nl-svg-fourbar.sh
+├── scripts/
+│   ├── nl-cgx-fourbar.py
+│   ├── cgx-svg.py
+│   └── requirements.txt
+└── outputs/
+    ├── program.coregx
+    └── output.svg
+```
 
 ## Windows
 
@@ -66,7 +82,7 @@ $env:LLM_MODEL = "your-model-name"
 $env:COREGX_API_KEY = "your-coregx-api-key"
 
 # Using description.txt
-bash .\nl-svg-fourbar.sh
+bash .\nl-svg-fourbar.sh description.txt
 
 # Or provide the description directly
 bash .\nl-svg-fourbar.sh "Give me a crank-rocker four-bar linkage with crank AB length 1, rocker DC length 3, base AD length 3.5, connector BC length 3.7. Show the coupler curve of a point 3.2 to the right of A and 1.2 below BC."
@@ -82,7 +98,7 @@ set LLM_MODEL=your-model-name
 set COREGX_API_KEY=your-coregx-api-key
 
 REM Using description.txt
-bash nl-svg-fourbar.sh
+bash nl-svg-fourbar.sh description.txt
 
 REM Or provide the description directly
 bash nl-svg-fourbar.sh "Give me a crank-rocker four-bar linkage with crank AB length 1, rocker DC length 3, base AD length 3.5, connector BC length 3.7. Show the coupler curve of a point 3.2 to the right of A and 1.2 below BC."

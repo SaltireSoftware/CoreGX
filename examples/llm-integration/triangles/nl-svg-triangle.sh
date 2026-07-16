@@ -1,26 +1,55 @@
 #!/usr/bin/env bash
 
+#
 # Input:
 #   ./nl-svg-triangle.sh "draw a 3,4,5 triangle"
 #
 # or
 #
 #   ./nl-svg-triangle.sh description.txt
+#
+# Notes:
+#   - Installs Python dependencies from requirements.txt.
+#   - Suppresses Python SyntaxWarning messages.
+#   - Uses Python scripts from the scripts directory.
+#   - Writes generated CoreGX programs and SVG output to the outputs directory.
+#
 
-OUTPUT=output.svg
-PROGRAM=program.coregx
+set -euo pipefail
+
+pip install -r scripts/requirements.txt
+
+export PYTHONWARNINGS="ignore::SyntaxWarning"
+
+SCRIPTS=scripts
+OUTPUT_DIR=outputs
+
+PROGRAM="$OUTPUT_DIR/program.coregx"
+OUTPUT="$OUTPUT_DIR/output.svg"
+
 
 if [ $# -eq 0 ]; then
     echo "Usage:"
-    echo "  ./nl-svg-triangle.sh /"description/""
+    echo "  ./nl-svg-triangle.sh \"description\""
     echo "  ./nl-svg-triangle.sh description.txt"
     exit 1
 fi
 
+
+mkdir -p "$OUTPUT_DIR"
+
+
 if [ -f "$1" ]; then
-    python3 nl-cgx-triangle.py --file "$1" > "$PROGRAM"
+    python3 "$SCRIPTS/nl-cgx-triangle.py" --file "$1" > "$PROGRAM"
 else
-    python3 nl-cgx-triangle.py "$*" > "$PROGRAM"
+    python3 "$SCRIPTS/nl-cgx-triangle.py" "$*" > "$PROGRAM"
 fi
 
-python3 cgx-svg.py < "$PROGRAM" > "$OUTPUT"
+
+python3 "$SCRIPTS/cgx-svg.py" \
+    < "$PROGRAM" \
+    > "$OUTPUT"
+
+
+echo "CoreGX program: $PROGRAM"
+echo "SVG output:     $OUTPUT"
