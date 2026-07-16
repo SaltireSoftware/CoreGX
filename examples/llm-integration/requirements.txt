@@ -1,0 +1,5 @@
+# Dependencies for OpenAI API integration
+# Install with:
+# pip install -r requirements.txt
+
+openai
