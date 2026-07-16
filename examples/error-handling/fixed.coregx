@@ -1,6 +1,4 @@
 triangle A B C
 perpendicular AB BC
-distance A B 3
-distance B C 3+1
-distance A C 3+2
-
+distance A B c
+distance B C c+1
