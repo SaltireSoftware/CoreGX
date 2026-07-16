@@ -41,6 +41,7 @@ request = urllib.request.Request(
         {
             "apikey": os.environ["COREGX_API_KEY"],
             "program": program,
+            "seed": 5,
             "all": True,
         }
     ).encode(),

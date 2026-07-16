@@ -6,36 +6,56 @@
 #
 #   Linux / macOS / WSL / Git Bash:
 #       export COREGX_API_KEY=your-key
-#       ./critical_pipeline.sh
+#       ./cgx-maximize-area.sh
 #
 # Notes:
+#   - Installs Python dependencies from scripts/requirements.txt.
+#   - Suppresses Python SyntaxWarning messages.
 #   - Reads CoreGX source from example.coregx.
 #   - Extracts equations (LaTeX) from the CoreGX program.
 #   - Computes critical points using SymPy.
 #   - Appends a `value <variable> <number>` statement to the CoreGX program.
 #   - Produces a substituted CoreGX program.
-#   - Generates SVG output.
+#   - Generates SVG output in the outputs directory.
 #
 
 set -euo pipefail
 
+SCRIPTS=scripts
+OUTPUT_DIR=output
+
+pip install -r "$SCRIPTS/requirements.txt"
+
+export PYTHONWARNINGS="ignore::SyntaxWarning"
+
 INPUT=example.coregx
-EQUATIONS=equations.json
-CRITICAL=critical.json
-FIXED=fixed.coregx
-OUTPUT=output.svg
+EQUATIONS="$OUTPUT_DIR/equations.json"
+CRITICAL="$OUTPUT_DIR/critical.json"
+FIXED="$OUTPUT_DIR/fixed.coregx"
+OUTPUT="$OUTPUT_DIR/output.svg"
 
-# 1. Extract equations from CoreGX
-python3 cgx-equations.py < "$INPUT" > "$EQUATIONS"
+mkdir -p "$OUTPUT_DIR"
 
-# 2. Compute critical points
-python3 equations-critical_points.py < "$EQUATIONS" > "$CRITICAL"
+python3 "$SCRIPTS/cgx-equations.py" \
+    < "$INPUT" \
+    > "$EQUATIONS"
 
-# 3. Append the critical point as a CoreGX value statement
-python3 solved-substitute.py "$INPUT" "$EQUATIONS" "$CRITICAL" > "$FIXED"
 
-# 4. Generate SVG from the substituted CoreGX program
-python3 cgx-svg.py < "$FIXED" > "$OUTPUT"
+python3 "$SCRIPTS/equations-critical_points.py" \
+    < "$EQUATIONS" \
+    > "$CRITICAL"
+
+
+python3 "$SCRIPTS/solved-substitute.py" \
+    "$INPUT" \
+    "$EQUATIONS" \
+    "$CRITICAL" \
+    > "$FIXED"
+
+python3 "$SCRIPTS/cgx-svg.py" \
+    < "$FIXED" \
+    > "$OUTPUT"
+
 
 echo "Fixed CoreGX program: $FIXED"
 echo "SVG output:           $OUTPUT"

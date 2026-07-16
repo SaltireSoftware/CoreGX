@@ -1,0 +1,27 @@
+[
+  {
+    "expression": "area(A,B,C,D)",
+    "actionscript": "Math.abs(((x*12.0)+(x*x*(-1.0))))",
+    "c": "fabs(((x*12.0)+(x*x*(-1.0))))",
+    "contentmathml": "<math><apply><abs/><apply><plus/><apply><times/><ci variable-value = \"11.6874953999371\">x</ci><cn type = 'integer'>12</cn></apply><apply><times/><apply><power/><ci variable-value = \"11.6874953999371\">x</ci><cn type = 'integer'>2</cn></apply><cn type = 'integer'>(-1)</cn></apply></apply></apply></math>",
+    "cpp": "fabs(((x*12.0)+(x*x*(-1.0))))",
+    "csharp": "Math.Abs(((x*12.0)+(x*x*(-1.0))))",
+    "derive": "abs(((x*12)+((x)^(2)*(-1))))",
+    "displaymathml": "<math><mfenced open = '|' close = '|'><mrow> <mrow><mn>12</mn><mo>&middot;</mo><mi>x</mi><mo>-</mo></mrow><msup> <mrow><mi>x</mi></mrow><mrow><mn>2</mn></mrow></msup></mrow></mfenced></math>",
+    "java": "Math.abs(((x*12.0)+(x*x*(-1.0))))",
+    "javascript": "Math.abs(((x*12.0)+(x*x*(-1.0))))",
+    "lua": "math.abs(((x*12.0)+(x*x*(-1.0))))",
+    "maple": "abs(((x*12)+((x)^(2)*(-1))))",
+    "mathematica": "Abs[((x*12)+((x)^(2)*(-1)))]",
+    "matlab": "abs(((x*12.0)+(x*x*(-1.0))))",
+    "maxima": "abs(((x*12)+((x)^(2)*(-1))))",
+    "mupad": "abs(((x*12)+((x)^(2)*(-1))))",
+    "nspire": "abs(((x*12)+((x)^(2)*(-1))))",
+    "python": "math.fabs(((x*12.0)+(x*x*(-1.0))))",
+    "string": "abs(((x*12)+((x)^(2)*(-1))))",
+    "expressionTex": "area({A,B,C,D})",
+    "valueTex": "12\\cdot x-x^{2}",
+    "valueRealAsTex": "3.652396",
+    "vb": "Math.Abs(((x*12.0)+(x*x*(-1.0))))"
+  }
+]

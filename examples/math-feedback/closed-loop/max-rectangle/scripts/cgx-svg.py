@@ -1,26 +1,24 @@
-#!/usr/bin/env python3
-"""Example: CoreGX source to equations JSON.
+"""Example: CoreGX source to SVG.
 
 Usage:
-
     Linux / macOS / WSL (bash, zsh):
-        COREGX_API_KEY=your-key python3 cgx-equations.py < program.coregx > output.json
+        COREGX_API_KEY=your-key python3 cgx-svg.py < program.coregx > output.svg
 
     Windows PowerShell:
         $env:COREGX_API_KEY="your-key"
-        Get-Content .\program.coregx -Raw | py -3.12 -X utf8 .\cgx-equations.py | Set-Content -Encoding UTF8 .\output.tex
+        Get-Content .\program.coregx -Raw | python .\cgx-svg.py | Out-File .\output.svg -Encoding utf8
 
     Windows Command Prompt (cmd.exe):
         set COREGX_API_KEY=your-key
-        type program.coregx | py -3.12 -X utf8 cgx-equations.py > output.json
+        type program.coregx | python cgx-svg.py > output.svg
 
     Windows Git Bash:
         export COREGX_API_KEY=your-key
-        ./cgx-equations.py < program.coregx > output.json
+        ./cgx-svg.py < program.coregx > output.svg
 
 Notes:
     - The script reads CoreGX source from standard input.
-    - The generated JSON equations output is written to standard output.
+    - The generated SVG is written to standard output.
     - Set COREGX_API_KEY in your environment before running.
 """
 
@@ -28,8 +26,6 @@ import json
 import os
 import sys
 import urllib.request
-from sympy.parsing.latex import parse_latex
-import sympy as sp
 
 program = sys.stdin.read()
 
@@ -40,8 +36,9 @@ request = urllib.request.Request(
     data=json.dumps(
         {
             "apikey": os.environ["COREGX_API_KEY"],
+            "seed": 5,
             "program": program,
-            "all": True,
+            "svg": True,
         }
     ).encode(),
 )
@@ -52,4 +49,4 @@ with urllib.request.urlopen(request) as response:
 if not result["ok"]:
     raise SystemExit(f"CoreGX error: {result['error']}")
 
-print(json.dumps(result["value"]["equations"], indent=2))
+print(result["value"]["svg"])

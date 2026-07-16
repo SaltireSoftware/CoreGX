@@ -1,8 +1,0 @@
-{
-  "expression": "\\sqrt{c^{2} + \\left(- c - 1\\right)^{2}}",
-  "variable": "c",
-  "solutions": [
-    "- \\frac{1}{2} - \\frac{i}{2}",
-    "- \\frac{1}{2} + \\frac{i}{2}"
-  ]
-}

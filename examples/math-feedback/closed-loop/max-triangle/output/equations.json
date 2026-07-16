@@ -1,0 +1,27 @@
+[
+  {
+    "expression": "area(A,B,C)",
+    "actionscript": "Math.abs(((12.0+(c*(-1.0)))*c*-0.5))",
+    "c": "fabs(((12.0+(c*(-1.0)))*c*-0.5))",
+    "contentmathml": "<math><apply><abs/><apply><divide/><apply><times/><apply><plus/><cn type = 'integer'>12</cn><apply><times/><ci variable-value = \"8.49559975858478\">c</ci><cn type = 'integer'>(-1)</cn></apply></apply><ci variable-value = \"8.49559975858478\">c</ci><cn type = 'integer'>(-1)</cn></apply><cn type = 'integer'>2</cn></apply></apply></math>",
+    "cpp": "fabs(((12.0+(c*(-1.0)))*c*-0.5))",
+    "csharp": "Math.Abs(((12.0+(c*(-1.0)))*c*-0.5))",
+    "derive": "abs(((12+(c*(-1)))*c*(-1/2)))",
+    "displaymathml": "<math><mfenced open = '|' close = '|'><mfrac><mrow><mo>-</mo><mi>c</mi><mo>&middot;</mo><mo>(</mo><mn>12</mn><mo>-</mo><mi>c</mi><mo>)</mo></mrow><mrow><mn>2</mn></mrow></mfrac></mfenced></math>",
+    "java": "Math.abs(((12.0+(c*(-1.0)))*c*-0.5))",
+    "javascript": "Math.abs(((12.0+(c*(-1.0)))*c*-0.5))",
+    "lua": "math.abs(((12.0+(c*(-1.0)))*c*-0.5))",
+    "maple": "abs(((12+(c*(-1)))*c*(-1/2)))",
+    "mathematica": "Abs[((12+(c*(-1)))*c*(-1/2))]",
+    "matlab": "abs(((12.0+(c*(-1.0)))*c*-0.5))",
+    "maxima": "abs(((12+(c*(-1)))*c*(-1/2)))",
+    "mupad": "abs(((12+(c*(-1)))*c*(-1/2)))",
+    "nspire": "abs(((12+(c*(-1)))*c*(-1/2)))",
+    "python": "math.fabs(((12.0+(c*(-1.0)))*c*-0.5))",
+    "string": "abs(((12+(c*(-1)))*c*(-1/2)))",
+    "expressionTex": "area({A,B,C})",
+    "valueTex": "\\dfrac{c\\cdot (12-c)}{2}",
+    "valueRealAsTex": "14.88599",
+    "vb": "Math.Abs(((12.0+(c*(-1.0)))*c*-0.5))"
+  }
+]
