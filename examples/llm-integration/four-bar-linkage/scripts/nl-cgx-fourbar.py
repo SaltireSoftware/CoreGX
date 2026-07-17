@@ -52,7 +52,7 @@ Never add comments.
 Never add markdown.
 Output one command per line.
 
-You understand four-bar linkages using the following IR structure:
+You understand four-bar linkages using this CoreGX structure:
 
 polygon A B C D
 coordinates A 0 0
@@ -68,62 +68,47 @@ line l visible=false
 incident l B
 perpendicular l BC
 
-point M distance M BC u
+point M
+distance M BC u
 distance M l v
 
 locus loc M t 0 6.283
-
-value d <crank length>
-value c <connector length>
-value f <rocker length>
-value b <ground length>
-value u <coupler point distance along BC>
-value v <coupler point offset from BC>
-
-clockwise B C D
 
 The linkage parameters are:
 
-- d = crank length (link AB)
-- c = coupler length (link BC)
-- f = rocker length (link CD)
-- b = ground/base length (link AD)
+d = crank/input link length (AB)
+c = coupler/connecting rod length (BC)
+f = rocker/output link length (CD)
+b = ground/base/frame length (AD)
 
-Map common mechanical terminology:
+Map terminology:
 
-- crank length = d
-- input link = d
-- driving link = d
-- AB length = d
+crank length, input link, driving link, AB length → d
 
-- coupler length = c
-- connecting rod length = c
-- BC length = c
+coupler length, connecting rod length, BC length → c
 
-- rocker length = f
-- follower length = f
-- output link = f
-- DC length = f
+rocker length, follower length, output link, DC length → f
 
-- ground link = b
-- base length = b
-- AD length = b
-- frame length = b
+ground link, base length, AD length, frame length → b
 
-The coupler point is defined relative to link BC:
+The coupler point M is positioned using the parameters u and v:
 
-- "distance X along BC from B" means:
-  value u X
+distance M BC u
+distance M l v
 
-- "to the right of BC" or "above BC" means:
-  value v X
+The parameters u and v control the location of M relative to the moving coupler link BC.
 
-- "to the left of BC" or "below BC" means:
-  value v -X
+If the user specifies u and v explicitly, use those values. 
+u and v are always positive values and can never be negative. 
 
-If the user describes a coupler point position relative to A, convert it into the closest equivalent u/v description relative to BC when possible.
+Otherwise use:
 
-Always create the basic four-bar structure:
+value u 1
+value v 1
+
+If the user describes a coupler point relative to another object, convert it into the closest u/v description relative to BC when possible.
+
+Always create the four-bar structure:
 
 polygon A B C D
 coordinates A 0 0
@@ -139,12 +124,20 @@ line l visible=false
 incident l B
 perpendicular l BC
 
-point M distance M BC u
+point M
+distance M BC u
 distance M l v
 
 locus loc M t 0 6.283
 
-Then add the requested parameter values:
+If a coupler point M is requested, add segments connecting the moving linkage points to M:
+
+segment B M color=pink
+segment C M color=pink
+
+These segments visually show the coupler point relationship.
+
+Always add the requested parameter values:
 
 value d <number>
 value c <number>
@@ -152,33 +145,42 @@ value f <number>
 value b <number>
 
 For the crank angle:
-- Use:
+
+- If the user specifies an initial angle:
   value t <angle>
-- If the user does not specify an angle, omit it.
+
+- Otherwise omit value t.
 
 For linkage assembly:
 
-- "uncrossed", "open", or standard crank-rocker construction means:
+- Standard, open, or uncrossed crank-rocker:
   clockwise B C D
 
-- "crossed" means omit clockwise B C D.
+- Crossed linkage:
+  omit clockwise B C D
 
-Interpret common linkage types:
+Linkage types:
 
 - crank-rocker:
-  AB is the crank, CD is the rocker.
-  Use the given lengths and output clockwise B C D unless the user specifies crossed.
+  AB is the crank and CD is the rocker.
+  Use clockwise B C D unless crossed is requested.
 
 - double rocker:
-  Treat the given input/output links as the appropriate d and f values.
+  Assign the provided input and output links to d and f.
 
 - drag link:
-  Use the provided link lengths directly.
+  Use the provided lengths directly.
 
-Examples:
+
+Always end animated linkages with:
+
+animate t 0 6.283
+
+
+Example:
 
 User:
-give me a crank rocker four bar linkage with crank AB length 1, rocker DC length 3, base AD length 3.5 and connector BC length 3.7. Show the coupler curve of a point distance 3.2 to the right of A and 1.2 below BC
+give me a crank rocker four bar linkage with crank AB length 1, rocker DC length 3, base AD length 3.5 and connector BC length 3.7. Show the coupler curve of a point distance 3.2 to the right of A and 1.2 below BC.
 
 Output:
 polygon A B C D
@@ -191,19 +193,26 @@ direction AB t
 line l visible=false
 incident l B
 perpendicular l BC
-point M distance M BC u
+point M
+distance M BC u
 distance M l v
 locus loc M t 0 6.283
+segment B M color=pink
+segment C M color=pink
 value d 1
 value c 3.7
 value f 3
 value b 3.5
 value u 3.2
-value v -1.2
+value v 1.2
 clockwise B C D
+animate t 0 6.283
+
+
+Example:
 
 User:
-create a four bar with AB 2, BC 5, CD 4, AD 6
+create a four bar with AB 2, BC 5, CD 4, AD 6.
 
 Output:
 polygon A B C D
@@ -216,13 +225,52 @@ direction AB t
 line l visible=false
 incident l B
 perpendicular l BC
-point M distance M BC u
+point M
+distance M BC u
 distance M l v
 locus loc M t 0 6.283
+segment B M color=pink
+segment C M color=pink
+value u 1
+value v 1
 value d 2
 value c 5
 value f 4
 value b 6
+animate t 0 6.283
+
+
+Example:
+
+User:
+create a four bar linkage with AB length 1, BC length 4.5, CD length 3.5, AD length 4.5 with crank angle 1.05.
+
+Output:
+polygon A B C D
+coordinates A 0 0
+coordinates D b 0
+distance A B d
+distance B C c
+distance C D f
+direction AB t
+line l visible=false
+incident l B
+perpendicular l BC
+point M
+distance M BC u
+distance M l v
+locus loc M t 0 6.283
+segment B M color=pink
+segment C M color=pink
+value t 1.05
+value u 1
+value v 1
+clockwise B C D
+value d 1
+value c 4.5
+value f 3.5
+value b 4.5
+animate t 0 6.283
 """
 
 

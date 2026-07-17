@@ -8,13 +8,17 @@ direction AB t
 line l visible=false
 incident l B
 perpendicular l BC
-point M distance M BC u
+point M
+distance M BC u
 distance M l v
 locus loc M t 0 6.283
+segment B M color=pink
+segment C M color=pink
 value d 1
 value c 3.7
 value f 3
 value b 3.5
 value u 3.2
-value v -1.2
+value v 1.2
 clockwise B C D
+animate t 0 6.283

@@ -27,7 +27,7 @@ import sympy as sp
 program = sys.stdin.read()
 
 request = urllib.request.Request(
-    "https://api.coregx.dev/dev/api/run-coregx",
+    "https://api.coregx.dev/run-coregx",
     method="POST",
     headers={"Content-Type": "application/json", "User-Agent": "some-other-user-agent"},
     data=json.dumps(
