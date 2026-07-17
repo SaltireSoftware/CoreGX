@@ -14,13 +14,15 @@ Set your CoreGX API key:
 export COREGX_API_KEY=your-api-key
 ```
 
-Python dependencies are installed automatically by the shell script from:
+The shell script optionally installs Python dependencies. Python dependencies are listed in `requirements.txt`.
 
-```
-scripts/requirements.txt
+Install with:
+
+```bash
+pip install -r scripts/requirements.txt
 ```
 
-The shell script also suppresses Python `SyntaxWarning` messages during execution.
+The requirements include the SymPy dependency used for symbolic computation.
 
 ## Run
 
@@ -41,7 +43,7 @@ The pipeline automatically:
 1. Installs Python dependencies from `scripts/requirements.txt`.
 2. Extracts equations from the CoreGX program.
 3. Computes critical points using SymPy.
-4. Writes intermediate and final outputs into the `outputs` directory.
+4. Writes intermediate and final outputs into the `output` directory.
 
 ## Pipeline
 

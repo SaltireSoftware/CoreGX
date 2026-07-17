@@ -55,7 +55,7 @@ Python dependencies are listed in `requirements.txt`.
 Install with:
 
 ```bash
-pip install -r requirements.txt
+pip install -r scripts/requirements.txt
 ```
 
 ## Windows

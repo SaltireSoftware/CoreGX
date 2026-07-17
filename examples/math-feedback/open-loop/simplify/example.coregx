@@ -1,5 +1,0 @@
-triangle A B C
-perpendicular AB BC
-distance A B 3
-distance B C 4
-measure area(A,B,C)

@@ -1,13 +1,15 @@
 # CoreGX Maximize Triangle Area Pipeline Example
 
-A CoreGX program is read from `example.coregx`, the equations are extracted, and critical points are computed using SymPy. The resulting solution is substituted back into the CoreGX program as a `value` statement, and the solved program is rendered as an SVG.
+A CoreGX program is read from `example.coregx`, the equations are extracted, and critical points are computed using SymPy. The resulting solution, a triangle with maximized area, is substituted back into the CoreGX program, and the solved program is rendered as an SVG.
 
 ## Setup
 
-The shell script installs Python dependencies automatically from:
+The shell script optionally installs Python dependencies. Python dependencies are listed in `requirements.txt`.
 
-```
-scripts/requirements.txt
+Install with:
+
+```bash
+pip install -r scripts/requirements.txt
 ```
 
 The requirements include the SymPy dependency used for symbolic computation.
@@ -34,12 +36,10 @@ Run the pipeline:
 
 The pipeline automatically:
 
-1. Installs Python dependencies.
-2. Suppresses Python `SyntaxWarning` messages.
-3. Extracts equations from the CoreGX program.
-4. Computes critical points using SymPy.
-5. Substitutes the resulting value into the CoreGX program.
-6. Generates an SVG visualization.
+1. Extracts equations from the CoreGX program.
+2. Computes critical points using SymPy.
+3. Substitutes the resulting value into the CoreGX program.
+4. Generates an SVG visualization.
 
 The intermediate files are preserved in the `output` directory:
 
