@@ -1,6 +1,0 @@
-point A
-coordinates A -7.84355757304769 0
-point B
-coordinates B 3 4
-segment A B
-measure length(AB) 6
