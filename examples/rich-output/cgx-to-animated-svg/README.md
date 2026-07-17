@@ -1,14 +1,40 @@
-# Example
+# CoreGX SVG Pipeline Example
 
-A CoreGX program is read from `example.coregx` and an animated SVG drawing is written to `output.svg`. The CoreGX example program in this folder contains an animation. 
+A workflow example showing a complete pipeline where a CoreGX program with an animation is read from `example.coregx` and converted into an animated SVG. The generated SVG is written to the `output` directory.
+
+```
+[CoreGX program] ── CoreGX API ─➤ [animated SVG]
+```
+
+## Setup
+
+Set your CoreGX API key:
 
 ```bash
 export COREGX_API_KEY=your-api-key
+```
 
+The shell script also suppresses Python `SyntaxWarning` messages during execution.
+
+## Run
+
+```bash
 ./cgx-svg.sh
 ```
 
-This usage may require `chmod +x *.sh` to make the shell scripts executable.
+This usage may require:
+
+```bash
+chmod +x *.sh
+```
+
+to make the shell scripts executable.
+
+The pipeline automatically:
+
+1. Reads the CoreGX program.
+2. Converts the program into an animated SVG.
+3. Writes the generated SVG into the `outputs` directory.
 
 ## Pipeline
 
@@ -18,10 +44,10 @@ By default:
 example.coregx
       │
       ▼
-cgx-svg.py
+scripts/cgx-svg.py
       │
       ▼
-output.svg
+output/output.svg
 ```
 
 Alternatively, uncomment the JSON pipeline inside the shell script:
@@ -30,16 +56,16 @@ Alternatively, uncomment the JSON pipeline inside the shell script:
 example.coregx
       │
       ▼
-cgx-json.py
+scripts/cgx-json.py
       │
       ▼
-output.json
+output/output.json
       │
       ▼
-json-svg.py
+scripts/json-svg.py
       │
       ▼
-output.svg
+output/output.svg
 ```
 
 ## Windows
@@ -52,4 +78,4 @@ export COREGX_API_KEY=your-api-key
 ./cgx-svg.sh
 ```
 
-If you prefer not to use a Bash-compatible shell, see the corresponding Python example for PowerShell and Command Prompt usage.
+If you prefer not to use a Bash-compatible shell, run the individual Python scripts directly from PowerShell or Command Prompt.

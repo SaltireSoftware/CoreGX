@@ -2,7 +2,7 @@
 
 A CoreGX program is read from `example.coregx`, executed through CoreGX, and checked for overconstraint errors. If an overconstraint is detected, the conflicting constraint line is removed from the original CoreGX program. The repaired program is then rendered to SVG.
 
-The pipeline automatically installs Python dependencies from `requirements.txt` before running. The main dependency is SymPy, which is used by the Python scripts when symbolic processing is required.
+The pipeline optionally installs Python dependencies from `requirements.txt` before running. The main dependency is SymPy, which is used by the Python scripts when symbolic processing is required.
 
 ```bash
 export COREGX_API_KEY=your-api-key
@@ -12,21 +12,6 @@ export COREGX_API_KEY=your-api-key
 
 This usage may require `chmod +x *.sh` to make the shell scripts executable.
 
-## Folder Structure
-
-```
-example.coregx
-repair_pipeline.sh
-requirements.txt
-scripts/
-    cgx-json.py
-    error-remover.py
-    cgx-svg.py
-outputs/
-    coregx.json
-    fixed.coregx
-    output.svg
-```
 
 ## Pipeline
 
@@ -67,13 +52,7 @@ The pipeline:
 
 Python dependencies are listed in `requirements.txt`.
 
-The shell script installs them automatically:
-
-```bash
-pip install -r requirements.txt
-```
-
-If running the Python scripts manually, install dependencies first:
+Install with:
 
 ```bash
 pip install -r requirements.txt

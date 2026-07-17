@@ -1,0 +1,27 @@
+[
+  {
+    "expression": "distance(A,C)",
+    "actionscript": "Math.sqrt((c*c+Math.pow(((-1.0)+(c*(-1.0))),2.0)))",
+    "c": "sqrt((c*c+pow(((-1.0)+(c*(-1.0))),2.0)))",
+    "contentmathml": "<math><apply><root/><apply><plus/><apply><power/><ci variable-value = \"9.50235103919203\">c</ci><cn type = 'integer'>2</cn></apply><apply><power/><apply><plus/><cn type = 'integer'>(-1)</cn><apply><times/><ci variable-value = \"9.50235103919203\">c</ci><cn type = 'integer'>(-1)</cn></apply></apply><cn type = 'integer'>2</cn></apply></apply></apply></math>",
+    "cpp": "sqrt((c*c+pow(((-1.0)+(c*(-1.0))),2.0)))",
+    "csharp": "Math.Sqrt((c*c+Math.Pow(((-1.0)+(c*(-1.0))),2.0)))",
+    "derive": "(((c)^(2)+(((-1)+(c*(-1))))^(2)))^(1/2)",
+    "displaymathml": "<math><msqrt><mrow> <msup> <mrow><mi>c</mi></mrow><mrow><mn>2</mn></mrow></msup><mrow><mo>+</mo></mrow><msup> <mrow><mo>(</mo><mo>-</mo><mn>1</mn><mo>-</mo><mi>c</mi><mo>)</mo></mrow><mrow><mn>2</mn></mrow></msup></mrow></msqrt></math>",
+    "java": "Math.sqrt((c*c+Math.pow(((-1.0)+(c*(-1.0))),2.0)))",
+    "javascript": "Math.sqrt((c*c+Math.pow(((-1.0)+(c*(-1.0))),2.0)))",
+    "lua": "math.sqrt((c*c+math.pow(((-1.0)+(c*(-1.0))),2.0)))",
+    "maple": "(((c)^(2)+(((-1)+(c*(-1))))^(2)))^(1/2)",
+    "mathematica": "(((c)^(2)+(((-1)+(c*(-1))))^(2)))^(1/2)",
+    "matlab": "sqrt((c*c+power(((-1.0)+(c*(-1.0))),2.0)))",
+    "maxima": "(((c)^(2)+(((-1)+(c*(-1))))^(2)))^(1/2)",
+    "mupad": "(((c)^(2)+(((-1)+(c*(-1))))^(2)))^(1/2)",
+    "nspire": "(((c)^(2)+(((-1)+(c*(-1))))^(2)))^(1/2)",
+    "python": "math.sqrt((c*c+math.pow(((-1.0)+(c*(-1.0))),2.0)))",
+    "string": "(((c)^(2)+(((-1)+(c*(-1))))^(2)))^(1/2)",
+    "expressionTex": "distance(A,C)",
+    "valueTex": "\\sqrt{c^{2}+(-1-c)^{2}}",
+    "valueRealAsTex": "14.16312",
+    "vb": "Math.Sqrt((c*c+Math.Pow(((-1.0)+(c*(-1.0))),2.0)))"
+  }
+]

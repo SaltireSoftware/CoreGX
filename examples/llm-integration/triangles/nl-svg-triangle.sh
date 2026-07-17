@@ -9,7 +9,7 @@
 #   ./nl-svg-triangle.sh description.txt
 #
 # Notes:
-#   - Installs Python dependencies from requirements.txt.
+#   - Optionally Installs Python dependencies from requirements.txt.
 #   - Suppresses Python SyntaxWarning messages.
 #   - Uses Python scripts from the scripts directory.
 #   - Writes generated CoreGX programs and SVG output to the outputs directory.
@@ -17,12 +17,12 @@
 
 set -euo pipefail
 
-pip install -r scripts/requirements.txt
+# pip install -r scripts/requirements.txt
 
 export PYTHONWARNINGS="ignore::SyntaxWarning"
 
 SCRIPTS=scripts
-OUTPUT_DIR=outputs
+OUTPUT_DIR=output
 
 PROGRAM="$OUTPUT_DIR/program.coregx"
 OUTPUT="$OUTPUT_DIR/output.svg"

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 #
 # Working example: CoreGX source to SVG.
 #
@@ -10,20 +11,37 @@
 #
 # Notes:
 #   - Reads CoreGX source from example.coregx.
-#   - Writes the generated SVG to output.svg.
+#   - Writes the generated SVG to the outputs directory.
+#   - Uses Python scripts from the scripts directory.
 #
 
 set -euo pipefail
 
-INPUT=example.coregx
-OUTPUT=output.svg
+SCRIPTS=scripts
+OUTPUT_DIR=output
 
-# Direct conversion: CoreGX source → SVG
-python3 cgx-svg.py < "$INPUT" > "$OUTPUT"
+export PYTHONWARNINGS="ignore::SyntaxWarning"
+
+INPUT=example.coregx
+
+OUTPUT="$OUTPUT_DIR/output.svg"
+
+mkdir -p "$OUTPUT_DIR"
+
+python3 "$SCRIPTS/cgx-svg.py" \
+    < "$INPUT" \
+    > "$OUTPUT"
+
+echo "SVG output:    $OUTPUT"
 
 # Alternatively, generate JSON first and then extract the SVG:
 #
-# JSON=output.json
+# JSON="$OUTPUT_DIR/output.json"
 #
-# python3 cgx-json.py < "$INPUT" > "$JSON"
-# python3 json-svg.py < "$JSON" > "$OUTPUT"
+# python3 "$SCRIPTS/cgx-json.py" \
+#     < "$INPUT" \
+#     > "$JSON"
+#
+# python3 "$SCRIPTS/json-svg.py" \
+#     < "$JSON" \
+#     > "$OUTPUT"

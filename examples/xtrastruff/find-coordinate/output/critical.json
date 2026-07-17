@@ -1,0 +1,10 @@
+{
+  "expression": "\\sqrt{\\left(3 - x\\right)^{2} + 16}",
+  "target": "11.5578",
+  "equation": "\\sqrt{\\left(3 - x\\right)^{2} + 16} = 11.5578",
+  "variable": "x",
+  "solutions": [
+    "-7.84355757304769",
+    "13.8435575730477"
+  ]
+}

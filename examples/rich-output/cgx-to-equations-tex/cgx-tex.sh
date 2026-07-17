@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 #
 # Working example: CoreGX source to TeX.
 #
@@ -10,12 +11,25 @@
 #
 # Notes:
 #   - Reads CoreGX source from example.coregx.
-#   - Writes the generated TeX to output.tex.
+#   - Uses Python scripts from the scripts directory.
+#   - Writes the generated TeX to the output directory.
 #
 
 set -euo pipefail
 
-INPUT=example.coregx
-OUTPUT=output.tex
+SCRIPTS=scripts
+OUTPUT_DIR=output
 
-python3 cgx-tex.py < "$INPUT" > "$OUTPUT"
+export PYTHONWARNINGS="ignore::SyntaxWarning"
+
+INPUT=example.coregx
+
+OUTPUT="$OUTPUT_DIR/output.tex"
+
+mkdir -p "$OUTPUT_DIR"
+
+python3 "$SCRIPTS/cgx-tex.py" \
+    < "$INPUT" \
+    > "$OUTPUT"
+
+echo "TeX output:    $OUTPUT"

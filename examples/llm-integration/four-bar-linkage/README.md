@@ -2,6 +2,8 @@
 
 A workflow example showing a complete pipeline using a small constrained prompt about four-bar linkages, an LLM, and the CoreGX API to turn a natural language description into a diagram.
 
+The provided prompt can be edited within `nl-cgx-fourbar.py`. 
+
 ```
 [natural language] ── LLM ─➤ [CoreGX program] ── CoreGX API ─➤ [SVG]
 ```
@@ -18,10 +20,12 @@ export LLM_MODEL=your-model-name
 export COREGX_API_KEY=your-coregx-api-key
 ```
 
-Python dependencies are installed automatically by the shell script from:
+Python dependencies are listed in `requirements.txt`.
 
-```
-scripts/requirements.txt
+Install with:
+
+```bash
+pip install -r scripts/requirements.txt
 ```
 
 The requirements file contains the dependencies needed for LLM integration.
@@ -46,11 +50,10 @@ Place your prompt in `description.txt` and run:
 
 The pipeline automatically:
 
-1. Installs Python dependencies from `scripts/requirements.txt`.
-2. Generates a CoreGX program using the LLM.
-3. Saves the generated program to `outputs/program.coregx`.
-4. Sends the program to the CoreGX API.
-5. Writes the resulting SVG to `outputs/output.svg`.
+1. Generates a CoreGX program using the LLM.
+2. Saves the generated program to `output/program.coregx`.
+3. Sends the program to the CoreGX API.
+4. Writes the resulting SVG to `output/output.svg`.
 
 The intermediate CoreGX program is preserved in the output folder, making it easy to inspect or edit before rendering.
 

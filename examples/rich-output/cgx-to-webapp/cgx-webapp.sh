@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 #
 # Working example: CoreGX source to web app.
 #
@@ -10,20 +11,37 @@
 #
 # Notes:
 #   - Reads CoreGX source from example.coregx.
-#   - Writes the generated web app to output.html.
+#   - Uses Python scripts from the scripts directory.
+#   - Writes the generated web app to the output directory.
 #
 
 set -euo pipefail
 
-INPUT=example.coregx
-OUTPUT=output.html
+SCRIPTS=scripts
+OUTPUT_DIR=output
 
-# Direct conversion: CoreGX source → web app
-python3 cgx-webapp.py < "$INPUT" > "$OUTPUT"
+export PYTHONWARNINGS="ignore::SyntaxWarning"
+
+INPUT=example.coregx
+
+OUTPUT="$OUTPUT_DIR/output.html"
+
+mkdir -p "$OUTPUT_DIR"
+
+python3 "$SCRIPTS/cgx-webapp.py" \
+    < "$INPUT" \
+    > "$OUTPUT"
+
+echo "Web app:       $OUTPUT"
 
 # Alternatively, generate JSON first and then extract the web app:
 #
-# JSON=output.json
+# JSON="$OUTPUT_DIR/output.json"
 #
-# python3 cgx-json.py < "$INPUT" > "$JSON"
-# python3 json-webapp.py < "$JSON" > "$OUTPUT"
+# python3 "$SCRIPTS/cgx-json.py" \
+#     < "$INPUT" \
+#     > "$JSON"
+#
+# python3 "$SCRIPTS/json-webapp.py" \
+#     < "$JSON" \
+#     > "$OUTPUT"

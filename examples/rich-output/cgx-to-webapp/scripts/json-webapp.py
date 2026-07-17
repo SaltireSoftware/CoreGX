@@ -28,8 +28,8 @@ except json.JSONDecodeError as e:
     raise SystemExit(f"Invalid JSON input: {e}")
 
 try:
-    svg = data["value"]["svg"]
+    app = data["value"]["app"]
 except KeyError:
-    raise SystemExit("Input JSON does not contain value.svg")
+    raise SystemExit("Input JSON does not contain value.app")
 
-print(svg)
+print(app)

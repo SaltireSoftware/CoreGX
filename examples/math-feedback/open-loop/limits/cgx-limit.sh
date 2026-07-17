@@ -10,7 +10,7 @@
 #       ./cgx-limit.sh
 #
 # Notes:
-#   - Installs Python dependencies from scripts/requirements.txt.
+#   - Optionally installs Python dependencies from scripts/requirements.txt.
 #   - Suppresses Python SyntaxWarning messages.
 #   - Uses Python scripts from the scripts directory.
 #   - Writes intermediate equations and final TeX output to the outputs directory.
@@ -19,9 +19,9 @@
 set -euo pipefail
 
 SCRIPTS=scripts
-OUTPUT_DIR=outputs
+OUTPUT_DIR=output
 
-pip install -r "$SCRIPTS/requirements.txt"
+# pip install -r "$SCRIPTS/requirements.txt"
 
 export PYTHONWARNINGS="ignore::SyntaxWarning"
 

@@ -9,6 +9,7 @@
 #
 # Notes:
 #   - Reads CoreGX source from example.coregx.
+#   - Optionaly installs dependencies. 
 #   - Runs CoreGX and captures JSON output.
 #   - Finds overconstraint error line numbers.
 #   - Removes the offending CoreGX lines.
@@ -18,7 +19,7 @@
 #
 
 set -euo pipefail
-pip install -r scripts/requirements.txt
+#pip install -r scripts/requirements.txt
 export PYTHONWARNINGS="ignore::SyntaxWarning"
 
 INPUT=example.coregx
