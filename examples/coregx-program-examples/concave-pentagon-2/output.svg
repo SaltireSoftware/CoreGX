@@ -1,0 +1,51 @@
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 500 500'>
+<g transform='translate(0 500) scale(1,-1)'>
+<g transform='scale(19.87477972) translate(15.22822769 11.08557718)'>
+<defs>
+<marker id = 'arrowhead'
+markerWidth = '10'
+markerHeight = '7'
+refX = '10'
+refY = '3.5'
+orient = 'auto'
+markerUnits = 'strokeWidth'>
+<polygon points = '0 0, 10 3.5, 0 7' fill = 'currentColor'/>
+</marker>
+<marker id = 'distance-arrowhead-end'
+markerWidth = '5'
+markerHeight = '5'
+refX = '5'
+refY = '2.5'
+orient = 'auto'
+markerUnits = 'strokeWidth'>
+<polygon points = '0 0, 5 2.5, 0 5' style = 'fill: context-stroke'/>
+</marker>
+<marker id = 'distance-arrowhead-start'
+markerWidth = '5'
+markerHeight = '5'
+refX = '0'
+refY = '2.5'
+orient = 'auto'
+markerUnits = 'strokeWidth'>
+<polygon points = '5 0, 0 2.5, 5 5' style = 'fill: context-stroke'/>
+</marker>
+</defs>
+<circle id='A' cx='8.900113' cy='9.133885' r='0.251575' fill='#A463BF' />
+<g transform='translate(9.471176,9.798223) scale(1,-1)'><text x='0' y='0' font-size='0.754725' fill='black' font-style='normal' text-anchor='start' dominant-baseline='middle'>A</text></g>
+<circle id='B' cx='-0.155950' cy='-6.376232' r='0.251575' fill='#A463BF' />
+<g transform='translate(0.139314,-7.250040) scale(1,-1)'><text x='0' y='0' font-size='0.754725' fill='black' font-style='normal' text-anchor='start' dominant-baseline='middle'>B</text></g>
+<line id='AB' x1='8.90011291848506' y1='9.1338847010712' x2='-0.155949583422346' y2='-6.37623218482009' stroke='#000000' stroke-width='0.100630'/>
+<circle id='C' cx='-13.970352' cy='0.797451' r='0.251575' fill='#A463BF' />
+<g transform='translate(-15.082952,0.992029) scale(1,-1)'><text x='0' y='0' font-size='0.754725' fill='black' font-style='normal' text-anchor='start' dominant-baseline='middle'>C</text></g>
+<line id='BC' x1='-0.155949583422346' y1='-6.37623218482009' x2='-13.9703521146095' y2='0.797451217846168' stroke='#000000' stroke-width='0.100630'/>
+<circle id='D' cx='-6.027100' cy='-0.638142' r='0.251575' fill='#A463BF' />
+<g transform='translate(-7.129186,-0.397364) scale(1,-1)'><text x='0' y='0' font-size='0.754725' fill='black' font-style='normal' text-anchor='start' dominant-baseline='middle'>D</text></g>
+<line id='CD' x1='-13.9703521146095' y1='0.797451217846168' x2='-6.02710043641468' y2='-0.638142033143101' stroke='#000000' stroke-width='0.100630'/>
+<circle id='E' cx='5.900754' cy='7.676931' r='0.251575' fill='#A463BF' />
+<g transform='translate(6.418903,8.394534) scale(1,-1)'><text x='0' y='0' font-size='0.754725' fill='black' font-style='normal' text-anchor='start' dominant-baseline='middle'>E</text></g>
+<line id='DE' x1='-6.02710043641468' y1='-0.638142033143101' x2='5.90075380718406' y2='7.67693105868709' stroke='#000000' stroke-width='0.100630'/>
+<line id='AE' x1='8.90011291848506' y1='9.1338847010712' x2='5.90075380718406' y2='7.67693105868709' stroke='#000000' stroke-width='0.100630'/>
+
+</g>
+</g>
+</svg>

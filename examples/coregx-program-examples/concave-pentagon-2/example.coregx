@@ -1,0 +1,5 @@
+polygon A B C D E
+
+counterclockwise A B C
+counterclockwise A B E
+clockwise C D E

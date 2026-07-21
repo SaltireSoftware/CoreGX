@@ -1,0 +1,48 @@
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 500 500'>
+<g transform='translate(0 500) scale(1,-1)'>
+<g transform='scale(779.87699807) translate(-0.28338453 0.01576006)'>
+<defs>
+<marker id = 'arrowhead'
+markerWidth = '10'
+markerHeight = '7'
+refX = '10'
+refY = '3.5'
+orient = 'auto'
+markerUnits = 'strokeWidth'>
+<polygon points = '0 0, 10 3.5, 0 7' fill = 'currentColor'/>
+</marker>
+<marker id = 'distance-arrowhead-end'
+markerWidth = '5'
+markerHeight = '5'
+refX = '5'
+refY = '2.5'
+orient = 'auto'
+markerUnits = 'strokeWidth'>
+<polygon points = '0 0, 5 2.5, 0 5' style = 'fill: context-stroke'/>
+</marker>
+<marker id = 'distance-arrowhead-start'
+markerWidth = '5'
+markerHeight = '5'
+refX = '0'
+refY = '2.5'
+orient = 'auto'
+markerUnits = 'strokeWidth'>
+<polygon points = '5 0, 0 2.5, 5 5' style = 'fill: context-stroke'/>
+</marker>
+</defs>
+<circle id='A' cx='0.893341' cy='0.565487' r='0.006411' fill='#A463BF' />
+<g transform='translate(0.897384,0.589213) scale(1,-1)'><text x='0' y='0' font-size='0.019234' fill='black' font-style='normal' text-anchor='start' dominant-baseline='middle'>A</text></g>
+<circle id='B' cx='0.320383' cy='0.593310' r='0.006411' fill='#A463BF' />
+<g transform='translate(0.309008,0.617154) scale(1,-1)'><text x='0' y='0' font-size='0.019234' fill='black' font-style='normal' text-anchor='start' dominant-baseline='middle'>B</text></g>
+<line id='AB' x1='0.893340922954244' y1='0.565486830712422' x2='0.320383312479019' y2='0.593310342722861' stroke='#000000' stroke-width='0.002565'/>
+<circle id='C' cx='0.368603' cy='0.010468' r='0.006411' fill='#A463BF' />
+<g transform='translate(0.349799,0.030505) scale(1,-1)'><text x='0' y='0' font-size='0.019234' fill='black' font-style='normal' text-anchor='start' dominant-baseline='middle'>C</text></g>
+<line id='BC' x1='0.320383312479019' y1='0.593310342722861' x2='0.368602557451094' y2='0.010467848750267' stroke='#000000' stroke-width='0.002565'/>
+<circle id='D' cx='0.464431' cy='0.273385' r='0.006411' fill='#A463BF' />
+<g transform='translate(0.454719,0.297691) scale(1,-1)'><text x='0' y='0' font-size='0.019234' fill='black' font-style='normal' text-anchor='start' dominant-baseline='middle'>D</text></g>
+<line id='CD' x1='0.368602557451094' y1='0.010467848750267' x2='0.464430677205725' y2='0.273384807885983' stroke='#000000' stroke-width='0.002565'/>
+<line id='AD' x1='0.893340922954244' y1='0.565486830712422' x2='0.464430677205725' y2='0.273384807885983' stroke='#000000' stroke-width='0.002565'/>
+
+</g>
+</g>
+</svg>

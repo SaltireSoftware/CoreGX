@@ -1,0 +1,45 @@
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 500 500'>
+<g transform='translate(0 500) scale(1,-1)'>
+<g transform='scale(32.19508648) translate(10.45454573 7.47849666)'>
+<defs>
+<marker id = 'arrowhead'
+markerWidth = '10'
+markerHeight = '7'
+refX = '10'
+refY = '3.5'
+orient = 'auto'
+markerUnits = 'strokeWidth'>
+<polygon points = '0 0, 10 3.5, 0 7' fill = 'currentColor'/>
+</marker>
+<marker id = 'distance-arrowhead-end'
+markerWidth = '5'
+markerHeight = '5'
+refX = '5'
+refY = '2.5'
+orient = 'auto'
+markerUnits = 'strokeWidth'>
+<polygon points = '0 0, 5 2.5, 0 5' style = 'fill: context-stroke'/>
+</marker>
+<marker id = 'distance-arrowhead-start'
+markerWidth = '5'
+markerHeight = '5'
+refX = '0'
+refY = '2.5'
+orient = 'auto'
+markerUnits = 'strokeWidth'>
+<polygon points = '5 0, 0 2.5, 5 5' style = 'fill: context-stroke'/>
+</marker>
+</defs>
+<circle id='A' cx='-7.169103' cy='-6.843165' r='0.155303' fill='#A463BF' />
+<g transform='translate(-7.603976,-7.343264) scale(1,-1)'><text x='0' y='0' font-size='0.465910' fill='black' font-style='normal' text-anchor='start' dominant-baseline='middle'>A</text></g>
+<circle id='B' cx='1.931516' cy='7.275307' r='0.155303' fill='#A463BF' />
+<g transform='translate(2.154153,7.792135) scale(1,-1)'><text x='0' y='0' font-size='0.465910' fill='black' font-style='normal' text-anchor='start' dominant-baseline='middle'>B</text></g>
+<line id='AB' x1='-7.1691030610065' y1='-6.84316537980285' x2='1.93151646473586' y2='7.27530747398297' stroke='#000000' stroke-width='0.062121'/>
+<circle id='C' cx='-3.825495' cy='-4.433424' r='0.155303' fill='#A463BF' />
+<g transform='translate(-4.078721,-5.017579) scale(1,-1)'><text x='0' y='0' font-size='0.465910' fill='black' font-style='normal' text-anchor='start' dominant-baseline='middle'>C</text></g>
+<circle id='D' cx='-3.180944' cy='3.867100' r='0.155303' fill='#A463BF' />
+<g transform='translate(-3.345306,4.468586) scale(1,-1)'><text x='0' y='0' font-size='0.465910' fill='black' font-style='normal' text-anchor='start' dominant-baseline='middle'>D</text></g>
+
+</g>
+</g>
+</svg>

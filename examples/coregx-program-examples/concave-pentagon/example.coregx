@@ -1,0 +1,12 @@
+polygon A B C D E
+
+point P
+
+clockwise A B C
+clockwise B C D
+counterclockwise C D E
+clockwise D E A
+clockwise E A B
+
+oppositeside P C AB
+oppositeside P D BC

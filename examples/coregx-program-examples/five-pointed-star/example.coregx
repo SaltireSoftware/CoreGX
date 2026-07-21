@@ -1,0 +1,60 @@
+anglemode degree
+
+point O
+point A
+point B
+point C
+point D
+point E
+point F
+point G
+point H
+point I
+point J
+
+distance O A 5
+distance O C 5
+distance O E 5
+distance O G 5
+distance O I 5
+
+distance O B 2
+distance O D 2
+distance O F 2
+distance O H 2
+distance O J 2
+
+angle A O B 36
+angle B O C 36
+angle C O D 36
+angle D O E 36
+angle E O F 36
+angle F O G 36
+angle G O H 36
+angle H O I 36
+angle I O J 36
+angle J O A 36
+
+clockwise A O B
+clockwise B O C
+clockwise C O D
+clockwise D O E
+clockwise E O F
+clockwise F O G
+clockwise G O H
+clockwise H O I
+clockwise I O J
+clockwise J O A
+
+polygon A B C D E F G H I J
+
+clockwise J A B
+counterclockwise A B C
+clockwise B C D
+counterclockwise C D E
+clockwise D E F
+counterclockwise E F G
+clockwise F G H
+counterclockwise G H I
+clockwise H I J
+counterclockwise I J A

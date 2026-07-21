@@ -1,0 +1,53 @@
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 500 500'>
+<g transform='translate(0 500) scale(1,-1)'>
+<g transform='scale(573.73231545) translate(-0.12183599 0.16938783)'>
+<defs>
+<marker id = 'arrowhead'
+markerWidth = '10'
+markerHeight = '7'
+refX = '10'
+refY = '3.5'
+orient = 'auto'
+markerUnits = 'strokeWidth'>
+<polygon points = '0 0, 10 3.5, 0 7' fill = 'currentColor'/>
+</marker>
+<marker id = 'distance-arrowhead-end'
+markerWidth = '5'
+markerHeight = '5'
+refX = '5'
+refY = '2.5'
+orient = 'auto'
+markerUnits = 'strokeWidth'>
+<polygon points = '0 0, 5 2.5, 0 5' style = 'fill: context-stroke'/>
+</marker>
+<marker id = 'distance-arrowhead-start'
+markerWidth = '5'
+markerHeight = '5'
+refX = '0'
+refY = '2.5'
+orient = 'auto'
+markerUnits = 'strokeWidth'>
+<polygon points = '5 0, 0 2.5, 5 5' style = 'fill: context-stroke'/>
+</marker>
+</defs>
+<circle id='A' cx='0.774682' cy='0.439985' r='0.008715' fill='#A463BF' />
+<g transform='translate(0.779439,0.472473) scale(1,-1)'><text x='0' y='0' font-size='0.026145' fill='black' font-style='normal' text-anchor='start' dominant-baseline='middle'>A</text></g>
+<circle id='B' cx='0.165410' cy='0.096164' r='0.008715' fill='#A463BF' />
+<g transform='translate(0.135223,0.119235) scale(1,-1)'><text x='0' y='0' font-size='0.026145' fill='black' font-style='normal' text-anchor='start' dominant-baseline='middle'>B</text></g>
+<line id='AB' x1='0.774681844538713' y1='0.439985351115452' x2='0.165410321359905' y2='0.0961638233588672' stroke='#000000' stroke-width='0.003486'/>
+<circle id='C' cx='0.957671' cy='0.342326' r='0.008715' fill='#A463BF' />
+<g transform='translate(0.971111,0.370728) scale(1,-1)'><text x='0' y='0' font-size='0.026145' fill='black' font-style='normal' text-anchor='start' dominant-baseline='middle'>C</text></g>
+<line id='BC' x1='0.165410321359905' y1='0.0961638233588672' x2='0.957670827356792' y2='0.34232612079226' stroke='#000000' stroke-width='0.003486'/>
+<circle id='D' cx='0.501325' cy='0.084803' r='0.008715' fill='#A463BF' />
+<g transform='translate(0.490720,0.118363) scale(1,-1)'><text x='0' y='0' font-size='0.026145' fill='black' font-style='normal' text-anchor='start' dominant-baseline='middle'>D</text></g>
+<line id='CD' x1='0.957670827356792' y1='0.34232612079226' x2='0.501324922169295' y2='0.0848029306579016' stroke='#000000' stroke-width='0.003486'/>
+<line id='AD' x1='0.774681844538713' y1='0.439985351115452' x2='0.501324922169295' y2='0.0848029306579016' stroke='#000000' stroke-width='0.003486'/>
+<line id='ParallelMark' x1='0.455798731011201' y1='0.272042677764142' x2='0.470046082949309' y2='0.268074587237159' stroke='gray' stroke-width='0.001743' stroke-dasharray='0.012201,0.005229'/>
+<line id='ParallelMark' x1='0.470046082949309' y1='0.268074587237159' x2='0.466077992422326' y2='0.253827235299052' stroke='gray' stroke-width='0.001743' stroke-dasharray='0.012201,0.005229'/>
+<line id='ParallelMark' x1='0.715250522824936' y1='0.217532616252063' x2='0.729497874763043' y2='0.213564525725081' stroke='gray' stroke-width='0.001743' stroke-dasharray='0.012201,0.005229'/>
+<line id='ParallelMark' x1='0.729497874763043' y1='0.213564525725081' x2='0.725529784236061' y2='0.199317173786974' stroke='gray' stroke-width='0.001743' stroke-dasharray='0.012201,0.005229'/>
+<line id='AC' x1='0.774681844538713' y1='0.439985351115452' x2='0.957670827356792' y2='0.34232612079226' stroke='#000000' stroke-width='0.003486'/>
+
+</g>
+</g>
+</svg>
