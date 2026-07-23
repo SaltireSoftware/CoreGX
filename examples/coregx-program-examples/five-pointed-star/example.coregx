@@ -1,4 +1,5 @@
 anglemode degree
+defaultproperties constraint visible=false
 
 point O
 point A
@@ -47,14 +48,3 @@ clockwise I O J
 clockwise J O A
 
 polygon A B C D E F G H I J
-
-clockwise J A B
-counterclockwise A B C
-clockwise B C D
-counterclockwise C D E
-clockwise D E F
-counterclockwise E F G
-clockwise F G H
-counterclockwise G H I
-clockwise H I J
-counterclockwise I J A
