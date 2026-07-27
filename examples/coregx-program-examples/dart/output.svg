@@ -1,0 +1,50 @@
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 500 500'>
+<g transform='translate(0 500) scale(1,-1)'>
+<g transform='scale(25.91673203) translate(-0.10016300 14.83961899)'>
+<defs>
+<marker id = 'arrowhead'
+markerWidth = '10'
+markerHeight = '7'
+refX = '10'
+refY = '3.5'
+orient = 'auto'
+markerUnits = 'strokeWidth'>
+<polygon points = '0 0, 10 3.5, 0 7' fill = 'currentColor'/>
+</marker>
+<marker id = 'distance-arrowhead-end'
+markerWidth = '5'
+markerHeight = '5'
+refX = '5'
+refY = '2.5'
+orient = 'auto'
+markerUnits = 'strokeWidth'>
+<polygon points = '0 0, 5 2.5, 0 5' style = 'fill: context-stroke'/>
+</marker>
+<marker id = 'distance-arrowhead-start'
+markerWidth = '5'
+markerHeight = '5'
+refX = '0'
+refY = '2.5'
+orient = 'auto'
+markerUnits = 'strokeWidth'>
+<polygon points = '5 0, 0 2.5, 5 5' style = 'fill: context-stroke'/>
+</marker>
+</defs>
+<circle id='A' cx='16.952359' cy='1.136737' r='0.192926' fill='#A463BF' />
+<g transform='translate(17.492259,0.767633) scale(1,-1)'><text x='0' y='0' font-size='0.578777' fill='black' font-style='normal' text-anchor='start' dominant-baseline='middle'>A</text></g>
+<circle id='B' cx='1.064791' cy='-7.430952' r='0.192926' fill='#A463BF' />
+<g transform='translate(0.522692,-8.050913) scale(1,-1)'><text x='0' y='0' font-size='0.578777' fill='black' font-style='normal' text-anchor='start' dominant-baseline='middle'>B</text></g>
+<circle id='C' cx='18.603478' cy='-11.698806' r='0.192926' fill='#A463BF' />
+<g transform='translate(18.837117,-12.365172) scale(1,-1)'><text x='0' y='0' font-size='0.578777' fill='black' font-style='normal' text-anchor='start' dominant-baseline='middle'>C</text></g>
+<circle id='D' cx='7.646274' cy='-6.584333' r='0.192926' fill='#A463BF' />
+<g transform='translate(7.398434,-7.325059) scale(1,-1)'><text x='0' y='0' font-size='0.578777' fill='black' font-style='normal' text-anchor='start' dominant-baseline='middle'>D</text></g>
+<line id='AB' x1='16.9523593572048' y1='1.13673674423901' x2='1.06479079561755' y2='-7.43095187231056' stroke='blue' stroke-width='0.077170'/>
+<line id='BC' x1='1.06479079561755' y1='-7.43095187231056' x2='18.6034779257409' y2='-11.6988057569856' stroke='blue' stroke-width='0.077170'/>
+<line id='CD' x1='18.6034779257409' y1='-11.6988057569856' x2='7.64627416219618' y2='-6.58433324329412' stroke='blue' stroke-width='0.077170'/>
+<line id='AD' x1='16.9523593572048' y1='1.13673674423901' x2='7.64627416219618' y2='-6.58433324329412' stroke='blue' stroke-width='0.077170'/>
+<line id='AC' x1='16.9523593572048' y1='1.13673674423901' x2='18.6034779257409' y2='-11.6988057569856' stroke='gray' stroke-width='0.077170' stroke-dasharray='0.270096,0.115755'/>
+<line id='BD' x1='1.06479079561755' y1='-7.43095187231056' x2='7.64627416219618' y2='-6.58433324329412' stroke='gray' stroke-width='0.077170' stroke-dasharray='0.270096,0.115755'/>
+
+</g>
+</g>
+</svg>

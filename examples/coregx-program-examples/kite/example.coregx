@@ -1,0 +1,19 @@
+defaultproperties constraint visible=false
+
+point A
+point B
+point C
+point D
+
+distance A B b
+distance B C b
+
+distance A D c
+distance C D c
+
+polygon A B C D color=blue
+segment A C linestyle=dashed color=gray
+segment B D linestyle=dashed color=gray
+
+counterclockwise A C B
+clockwise A C D
