@@ -1,6 +1,6 @@
 # CoreGX Examples
 
-This repository contains example programs, pipelines, and scripts demonstrating how to use CoreGX.
+The `examples` folder inside the CoreGX repository contains example programs, pipelines, and scripts demonstrating how to use CoreGX.
 
 ## CoreGX program examples
 
