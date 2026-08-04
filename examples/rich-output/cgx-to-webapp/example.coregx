@@ -1,5 +1,0 @@
-triangle A B C
-distance A B c
-distance B C a
-angle A B C theta
-measure distance(A,C)
