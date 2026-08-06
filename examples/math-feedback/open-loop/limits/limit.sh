@@ -7,7 +7,7 @@
 #
 #   Linux / macOS / WSL / Git Bash:
 #       export COREGX_API_KEY=your-key
-#       ./cgx-limit.sh
+#       ./limit.sh
 #
 # Notes:
 #   - Optionally installs Python dependencies from scripts/requirements.txt.
@@ -39,7 +39,7 @@ python3 "$SCRIPTS/cgx-equations.py" \
     > "$EQUATIONS"
 
 
-python3 "$SCRIPTS/equations-limit.py" \
+python3 "$SCRIPTS/limit.py" \
     < "$EQUATIONS" \
     > "$OUTPUT"
 

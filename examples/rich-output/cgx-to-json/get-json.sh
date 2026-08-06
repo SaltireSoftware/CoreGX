@@ -7,7 +7,7 @@
 #
 #   Linux / macOS / WSL / Git Bash:
 #       export COREGX_API_KEY=your-key
-#       ./cgx-json.sh
+#       ./get-json.sh
 #
 # Notes:
 #   - Reads CoreGX source from example.coregx.

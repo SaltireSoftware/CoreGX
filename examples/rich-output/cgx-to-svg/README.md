@@ -19,7 +19,7 @@ The shell script also suppresses Python `SyntaxWarning` messages during executio
 ## Run
 
 ```bash
-./cgx-svg.sh
+./get-svg.sh
 ```
 
 This usage may require:
@@ -75,7 +75,7 @@ These examples are Bash shell scripts. You can run them using Git Bash, WSL, or 
 ```bash
 export COREGX_API_KEY=your-api-key
 
-./cgx-svg.sh
+./get-svg.sh
 ```
 
 If you prefer not to use a Bash-compatible shell, run the individual Python scripts directly from PowerShell or Command Prompt.

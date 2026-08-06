@@ -7,7 +7,7 @@
 #
 #   Linux / macOS / WSL / Git Bash:
 #       export COREGX_API_KEY=your-key
-#       ./equations-critical_points.sh
+#       ./critical.sh
 #
 # Notes:
 #   - Optionally installs Python dependencies from scripts/requirements.txt.
@@ -31,7 +31,7 @@ export PYTHONWARNINGS="ignore::SyntaxWarning"
 INPUT=example.coregx
 
 EQUATIONS="$OUTPUT_DIR/equations.json"
-OUTPUT="$OUTPUT_DIR/output.json"
+OUTPUT="$OUTPUT_DIR/output.tex"
 
 
 mkdir -p "$OUTPUT_DIR"
@@ -42,7 +42,7 @@ python3 "$SCRIPTS/cgx-equations.py" \
     > "$EQUATIONS"
 
 
-python3 "$SCRIPTS/equations-critical_points.py" \
+python3 "$SCRIPTS/critical.py" \
     < "$EQUATIONS" \
     > "$OUTPUT"
 

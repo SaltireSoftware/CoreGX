@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
 
 #
-# Working example: CoreGX source to SVG.
+# Working example: CoreGX source to DXF.
 #
 # Usage:
 #
 #   Linux / macOS / WSL / Git Bash:
 #       export COREGX_API_KEY=your-key
-#       ./cgx-svg.sh
+#       ./get-dxf.sh
 #
 # Notes:
 #   - Reads CoreGX source from example.coregx.
 #   - Uses Python scripts from the scripts directory.
-#   - Writes the generated SVG to the output directory.
+#   - Writes the generated DXF to the output directory.
 #
 
 set -euo pipefail
@@ -24,17 +24,17 @@ export PYTHONWARNINGS="ignore::SyntaxWarning"
 
 INPUT=example.coregx
 
-OUTPUT="$OUTPUT_DIR/output.svg"
+OUTPUT="$OUTPUT_DIR/output.dxf"
 
 mkdir -p "$OUTPUT_DIR"
 
-python3 "$SCRIPTS/cgx-svg.py" \
+python3 "$SCRIPTS/cgx-dxf.py" \
     < "$INPUT" \
     > "$OUTPUT"
 
-echo "SVG output:    $OUTPUT"
+echo "DXF output:    $OUTPUT"
 
-# Alternatively, generate JSON first and then extract the SVG:
+# Alternatively, generate JSON first and then extract the dxf:
 #
 # JSON="$OUTPUT_DIR/output.json"
 #
@@ -42,6 +42,6 @@ echo "SVG output:    $OUTPUT"
 #     < "$INPUT" \
 #     > "$JSON"
 #
-# python3 "$SCRIPTS/json-svg.py" \
+# python3 "$SCRIPTS/json-dxf.py" \
 #     < "$JSON" \
 #     > "$OUTPUT"

@@ -31,7 +31,7 @@ chmod +x *.sh
 Run the pipeline:
 
 ```bash
-./cgx-maximize-area.sh
+./max-area.sh
 ```
 
 The pipeline automatically:
@@ -57,13 +57,13 @@ cgx-equations.py
 equations.json
       │
       ▼
-equations-critical_points.py
+critical.py
       │
       ▼
 critical.json
       │
       ▼
-solved-substitute.py
+substitute.py
       │
       ▼
 fixed.coregx
@@ -82,7 +82,7 @@ These examples are Bash shell scripts. You can run them using Git Bash, WSL, or 
 ```bash
 export COREGX_API_KEY=your-api-key
 
-./cgx-maximize-area.sh
+./max-area.sh
 ```
 
 If you prefer not to use a Bash-compatible shell, run the Python scripts directly from PowerShell or Command Prompt using the same pipeline order.

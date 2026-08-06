@@ -6,7 +6,7 @@
 #
 #   Linux / macOS / WSL / Git Bash:
 #       export COREGX_API_KEY=your-key
-#       ./cgx-maximize-area.sh
+#       ./max-area.sh
 #
 # Notes:
 #   - Optionally Python dependencies from scripts/requirements.txt.
@@ -41,12 +41,12 @@ python3 "$SCRIPTS/cgx-equations.py" \
     > "$EQUATIONS"
 
 
-python3 "$SCRIPTS/equations-critical_points.py" \
+python3 "$SCRIPTS/critical.py" \
     < "$EQUATIONS" \
     > "$CRITICAL"
 
 
-python3 "$SCRIPTS/solved-substitute.py" \
+python3 "$SCRIPTS/substitute.py" \
     "$INPUT" \
     "$EQUATIONS" \
     "$CRITICAL" \

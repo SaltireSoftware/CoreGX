@@ -1,0 +1,25 @@
+triangle A B C
+
+midpoint M A B
+midpoint N A C
+
+point K
+point L
+
+insidetriangle K B M C
+insidetriangle L B N C
+insidetriangle K A B L
+insidetriangle L A K C
+
+angle K B A u
+angle A C L u
+
+angle L B K v
+angle L N C v
+
+angle L C K w
+angle B M K w
+
+circumcircle C0 O A K L
+
+measure "distance(O,M)-distance(O,N)"

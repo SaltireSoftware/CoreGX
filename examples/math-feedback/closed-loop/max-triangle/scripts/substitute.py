@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-solved-substitute.py
+substitute.py
 
 Substitute a solved variable into a CoreGX program.
 
@@ -12,7 +12,7 @@ Modes:
         Appends a CoreGX `value <variable> <value>` statement.
 
 Usage:
-    python3 solved-substitute.py program.coregx equations.json critical.json > fixed.coregx
+    python3 substitute.py program.coregx equations.json critical.json > fixed.coregx
 
 Optional:
     COREGX_SUBSTITUTE_MODE=value
@@ -106,7 +106,7 @@ def append_value(program_text, variable, value):
 def main():
     if len(sys.argv) != 4:
         raise SystemExit(
-            "Usage: python3 solved-substitute.py program.coregx equations.json critical.json"
+            "Usage: python3 substitute.py program.coregx equations.json critical.json"
         )
 
     coregx_path = sys.argv[1]

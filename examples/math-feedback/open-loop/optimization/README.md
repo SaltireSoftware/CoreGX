@@ -1,9 +1,9 @@
 # CoreGX Critical Points Pipeline Example
 
-A workflow example showing a complete pipeline where a CoreGX program is read from `example.coregx`, equations are extracted through the CoreGX API, and the critical points of the resulting expression are calculated using SymPy. The critical points and their corresponding values are written to the `outputs` directory.
+A workflow example showing a complete pipeline where a CoreGX program is read from `example.coregx`, equations are extracted through the CoreGX API, and the critical points of the resulting expression are calculated using SymPy. The critical points and their corresponding values are written as a sentence in TeX format to the `output` directory.
 
 ```
-[CoreGX program] ── CoreGX API ─➤ [equations] ── SymPy ─➤ [critical points]
+[CoreGX program] ── CoreGX API ─➤ [equations] ── SymPy ─➤ [TeX sentence]
 ```
 
 ## Setup
@@ -27,7 +27,7 @@ The requirements include the SymPy dependency used for symbolic computation.
 ## Run
 
 ```bash
-./cgx-critical_points.sh
+./critical.sh
 ```
 
 This usage may require:
@@ -57,10 +57,10 @@ scripts/cgx-equations.py
 outputs/equations.json
       │
       ▼
-scripts/equations-critical_points.py
+scripts/critical.py
       │
       ▼
-outputs/output.json
+output/output.tex
 ```
 
 ## Windows
@@ -70,7 +70,7 @@ These examples are Bash shell scripts. You can run them using Git Bash, WSL, or 
 ```bash
 export COREGX_API_KEY=your-api-key
 
-./cgx-critical_points.sh
+./critical.sh
 ```
 
 If you prefer not to use a Bash-compatible shell, run the individual Python scripts directly from PowerShell or Command Prompt.

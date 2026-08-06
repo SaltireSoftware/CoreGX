@@ -1,9 +1,9 @@
 # CoreGX Symbolic Limit Pipeline Example
 
-A workflow example showing a complete pipeline where a CoreGX program is read from `example.coregx`, geometric equations are extracted through the CoreGX API, and a symbolic limit is computed using SymPy. The resulting TeX output is written to the `outputs` directory.
+A workflow example showing a complete pipeline where a CoreGX program is read from `example.coregx`, geometric equations are extracted through the CoreGX API, and a symbolic limit is computed using SymPy. The answer is written as a sentence in TeX format to the `output` directory.
 
 ```
-[CoreGX program] ── CoreGX API ─➤ [equations] ── SymPy ─➤ [TeX limit]
+[CoreGX program] ── CoreGX API ─➤ [equations] ── SymPy ─➤ [TeX sentence]
 ```
 
 ## Setup
@@ -29,7 +29,7 @@ The shell script also suppresses Python `SyntaxWarning` messages during executio
 ## Run
 
 ```bash
-./cgx-limit.sh
+./limit.sh
 ```
 
 This usage may require:
@@ -58,7 +58,7 @@ scripts/cgx-equations.py
 outputs/equations.json
       │
       ▼
-scripts/equations-limit.py
+scripts/limit.py
       │
       ▼
 outputs/output.tex
@@ -71,7 +71,7 @@ These examples are Bash shell scripts. You can run them using Git Bash, WSL, or 
 ```bash
 export COREGX_API_KEY=your-api-key
 
-./cgx-limit.sh
+./limit.sh
 ```
 
 If you prefer not to use a Bash-compatible shell, run the individual Python scripts directly from PowerShell or Command Prompt.
