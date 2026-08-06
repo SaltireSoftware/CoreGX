@@ -1,14 +1,14 @@
-﻿<?xml version='1.0' encoding='UTF-8' ?><sg app='GXWeb' version='1.2.01'>
+<?xml version='1.0' encoding='UTF-8' ?><sg app='GXWeb' version='1.2.01'>
 <document name='xml' id='0' type='geometry' title='xml'>
-<point id='A' name='A' x='-2.81321549167233' y='-3.21453221000537'>
+<point id='A' name='A' x='0.577566990256106' y='-4.15497888607367'>
 <point_properties color='#A463BF'/>
 <visible_properties visible='1'/>
 </point>
-<point id='B' name='B' x='-0.60301568814516' y='-5.24308263542951'>
+<point id='B' name='B' x='-2.36615363345547' y='-3.57661145136184'>
 <point_properties color='#A463BF'/>
 <visible_properties visible='1'/>
 </point>
-<point id='C' name='C' x='-3.30774958871068' y='-8.19001570679907'>
+<point id='C' name='C' x='-3.13731021307124' y='-7.50157228297727'>
 <point_properties color='#A463BF'/>
 <visible_properties visible='1'/>
 </point>
@@ -39,7 +39,7 @@
 <parent id='C'/>
 <symscalar name='value' evaluate='1' as_string='4'/>
 </distance_constraint>
-<variable name='╧ä' value='0.000000' min='0.000000' max='60.000000' locked='0'/>
+<variable name='τ' value='0.000000' min='0.000000' max='60.000000' locked='0'/>
 <variable name='g' value='9.806650' min='0.000000' max='200.000000' locked='0'/>
 <draw_view>
 <geometry scale='50.000000' originx='0.000000' originy='0.000000' />
