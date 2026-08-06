@@ -2,7 +2,7 @@
 
 A workflow example showing a complete pipeline using a small constrained prompt about four-bar linkages, an LLM, and the CoreGX API to turn a natural language description into a diagram.
 
-The provided prompt can be edited within `nl-cgx-fourbar.py`. 
+The provided prompt can be edited in `scripts/system-prompt.txt`.
 
 ```
 [natural language] ── LLM ─➤ [CoreGX program] ── CoreGX API ─➤ [SVG]
@@ -39,13 +39,13 @@ The shell script accepts either a description file or a description passed direc
 Place your prompt in `description.txt` and run:
 
 ```bash
-./nl-svg-fourbar.sh description.txt
+./fourbar.sh description.txt
 ```
 
 ### Using a command-line description
 
 ```bash
-./nl-svg-fourbar.sh "Give me a crank-rocker four-bar linkage with crank AB length 1, rocker DC length 3, base AD length 3.5, connector BC length 3.7. Show the coupler curve of a point 3.2 to the right of A and 1.2 below BC."
+./fourbar.sh "Give me a crank-rocker four-bar linkage with crank AB length 1, rocker DC length 3, base AD length 3.5, connector BC length 3.7. Show the coupler curve of a point 3.2 to the right of A and 1.2 below BC."
 ```
 
 The pipeline automatically:
@@ -71,10 +71,10 @@ $env:LLM_MODEL = "your-model-name"
 $env:COREGX_API_KEY = "your-coregx-api-key"
 
 # Using description.txt
-bash .\nl-svg-fourbar.sh description.txt
+bash .\fourbar.sh description.txt
 
 # Or provide the description directly
-bash .\nl-svg-fourbar.sh "Give me a crank-rocker four-bar linkage with crank AB length 1, rocker DC length 3, base AD length 3.5, connector BC length 3.7. Show the coupler curve of a point 3.2 to the right of A and 1.2 below BC."
+bash .\fourbar.sh "Give me a crank-rocker four-bar linkage with crank AB length 1, rocker DC length 3, base AD length 3.5, connector BC length 3.7. Show the coupler curve of a point 3.2 to the right of A and 1.2 below BC."
 ```
 
 ### Command Prompt (cmd.exe)
@@ -87,8 +87,8 @@ set LLM_MODEL=your-model-name
 set COREGX_API_KEY=your-coregx-api-key
 
 REM Using description.txt
-bash nl-svg-fourbar.sh description.txt
+bash fourbar.sh description.txt
 
 REM Or provide the description directly
-bash nl-svg-fourbar.sh "Give me a crank-rocker four-bar linkage with crank AB length 1, rocker DC length 3, base AD length 3.5, connector BC length 3.7. Show the coupler curve of a point 3.2 to the right of A and 1.2 below BC."
+bash fourbar.sh "Give me a crank-rocker four-bar linkage with crank AB length 1, rocker DC length 3, base AD length 3.5, connector BC length 3.7. Show the coupler curve of a point 3.2 to the right of A and 1.2 below BC."
 ```

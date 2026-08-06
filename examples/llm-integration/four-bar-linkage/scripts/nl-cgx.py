@@ -1,0 +1,158 @@
+#!/usr/bin/env python3
+"""Working example: Natural language to CoreGX.
+
+Usage:
+
+    Linux / macOS / WSL (bash, zsh):
+
+        python3 nl-cgx.py --system-prompt system-prompt.txt "describe a four-bar linkage" > program.coregx
+
+        python3 nl-cgx.py --system-prompt system-prompt.txt --file description.txt > program.coregx
+
+        cat description.txt | python3 nl-cgx.py --system-prompt system-prompt.txt > program.coregx
+
+    Windows PowerShell:
+
+        py -3 -X utf8 ./nl-cgx.py --system-prompt system-prompt.txt "describe a four-bar linkage" |
+            Set-Content -Encoding UTF8 program.coregx
+
+        Get-Content ./description.txt -Raw |
+            py -3 -X utf8 ./nl-cgx.py --system-prompt system-prompt.txt |
+            Set-Content -Encoding UTF8 program.coregx
+
+    Windows Command Prompt (cmd.exe):
+
+        py nl-cgx.py --system-prompt system-prompt.txt "describe a four-bar linkage" > program.coregx
+
+        type description.txt | py nl-cgx.py --system-prompt system-prompt.txt > program.coregx
+
+    Windows Git Bash:
+
+        ./nl-cgx.py --system-prompt system-prompt.txt "describe a four-bar linkage" > program.coregx
+
+Notes:
+    - Reads the description from a command-line argument, a file, or stdin.
+    - Outputs a CoreGX program.
+    - LLM configuration is taken from LLM_API_KEY, LLM_MODEL, and optionally LLM_BASE_URL.
+"""
+
+import argparse
+import os
+import sys
+
+import openai
+
+
+def generate_program(client, model, prompt, description):
+    response = client.chat.completions.create(
+        model=model,
+        messages=[
+            {"role": "system", "content": prompt},
+            {"role": "user", "content": description},
+        ],
+    )
+    return response.choices[0].message.content.strip()
+
+
+def parse_args():
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument(
+        "description",
+        nargs="?",
+        help="Geometry description. If omitted, read from --file or stdin.",
+    )
+
+    parser.add_argument(
+        "--file",
+        help="Read description from a file.",
+    )
+
+    parser.add_argument(
+        "--system-prompt",
+        required=True,
+        help="Read the system prompt from a text file.",
+    )
+
+    parser.add_argument(
+        "-o",
+        "--output",
+        help="Write CoreGX program to this file instead of stdout.",
+    )
+
+    parser.add_argument("--base-url")
+    parser.add_argument("--llm-key")
+    parser.add_argument("--model")
+
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="store_true",
+    )
+
+    return parser.parse_args()
+
+
+def main():
+    args = parse_args()
+
+    if args.file and args.description:
+        raise SystemExit("Pass either a description or --file, not both.")
+
+    if args.file:
+        with open(args.file, encoding="utf-8") as f:
+            description = f.read().strip()
+    elif args.description:
+        description = args.description
+    else:
+        description = sys.stdin.read().strip()
+
+    if not description:
+        raise SystemExit("No description provided.")
+
+    with open(args.system_prompt, encoding="utf-8") as f:
+        system_prompt = f.read().strip()
+
+    if not system_prompt:
+        raise SystemExit("System prompt file is empty.")
+
+    api_key = args.llm_key or os.environ.get("LLM_API_KEY")
+    if not api_key:
+        raise SystemExit("Set LLM_API_KEY.")
+
+    model = args.model or os.environ.get("LLM_MODEL")
+    if not model:
+        raise SystemExit("Set LLM_MODEL.")
+
+    base_url = args.base_url or os.environ.get("LLM_BASE_URL")
+
+    client = (
+        openai.OpenAI(api_key=api_key)
+        if base_url is None
+        else openai.OpenAI(api_key=api_key, base_url=base_url)
+    )
+
+    program = generate_program(
+        client,
+        model,
+        system_prompt,
+        description,
+    )
+
+    if args.verbose:
+        print("=== Description ===", file=sys.stderr)
+        print(description, file=sys.stderr)
+        print(file=sys.stderr)
+        print("=== CoreGX program ===", file=sys.stderr)
+        print(program, file=sys.stderr)
+        print(file=sys.stderr)
+
+    if args.output:
+        with open(args.output, "w", encoding="utf-8") as f:
+            f.write(program)
+    else:
+        print(program)
+
+
+if __name__ == "__main__":
+    main()

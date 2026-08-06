@@ -2,7 +2,7 @@
 
 A workflow example showing a complete pipeline using a natural language triangle description, an LLM, and the CoreGX API to turn a prompt into a CoreGX program and SVG diagram.
 
-The provided prompt can be edited within `nl-cgx-triangle.py`. 
+The provided prompt can be edited in `scripts/system-prompt.txt`.
 
 
 ```

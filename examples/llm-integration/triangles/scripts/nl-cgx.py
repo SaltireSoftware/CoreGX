@@ -5,30 +5,30 @@ Usage:
 
     Linux / macOS / WSL (bash, zsh):
 
-        python3 nl-cgx-triangle.py "draw a 3,4,5 triangle" > program.coregx
+        python3 nl-cgx.py --system-prompt system-prompt.txt "draw a 3,4,5 triangle" > program.coregx
 
-        python3 nl-cgx-triangle.py --file description.txt > program.coregx
+        python3 nl-cgx.py --system-prompt system-prompt.txt --file description.txt > program.coregx
 
-        cat description.txt | python3 nl-cgx-triangle.py > program.coregx
+        cat description.txt | python3 nl-cgx.py --system-prompt system-prompt.txt > program.coregx
 
     Windows PowerShell:
 
-        py -3 -X utf8 ./nl-cgx-triangle.py "draw a 3,4,5 triangle" |
+        py -3 -X utf8 ./nl-cgx.py --system-prompt system-prompt.txt "draw a 3,4,5 triangle" |
             Set-Content -Encoding UTF8 program.coregx
 
         Get-Content ./description.txt -Raw |
-            py -3 -X utf8 ./nl-cgx-triangle.py |
+            py -3 -X utf8 ./nl-cgx.py --system-prompt system-prompt.txt |
             Set-Content -Encoding UTF8 program.coregx
 
     Windows Command Prompt (cmd.exe):
 
-        py nl-cgx-triangle.py "draw a 3,4,5 triangle" > program.coregx
+        py nl-cgx.py --system-prompt system-prompt.txt "draw a 3,4,5 triangle" > program.coregx
 
-        type description.txt | py nl-cgx-triangle.py > program.coregx
+        type description.txt | py nl-cgx.py --system-prompt system-prompt.txt > program.coregx
 
     Windows Git Bash:
 
-        ./nl-cgx-triangle.py "draw a 3,4,5 triangle" > program.coregx
+        ./nl-cgx.py --system-prompt system-prompt.txt "draw a 3,4,5 triangle" > program.coregx
 
 Notes:
     - Reads the description from a command-line argument, a file, or stdin.
@@ -41,44 +41,6 @@ import os
 import sys
 
 import openai
-
-
-def build_system_prompt() -> str:
-    return """You are a geometry interpreter that converts natural language into coreGX commands.
-You only understand two commands:
-
-1. triangle A B C
-   - Creates triangle ABC.
-
-2. distance X Y value
-   - Sets the length of segment XY to the given number.
-
-Rules:
-- If the user names a triangle (e.g., "triangle ABC"), create it.
-- If the user gives side lengths (e.g., "AB = 3"), output distance commands.
-- If the user gives a pattern like "3,4,5 triangle", interpret it as AB=3, BC=4, AC=5.
-- If the user says "draw a 3,4,5 triangle", output triangle ABC plus the three distances.
-- Always output CoreGX commands only, one per line.
-- Never explain, never comment, never add text.
-
-Examples:
-
-User: triangle ABC has sides AB=3, BC=4, AC=5
-
-Output:
-triangle A B C
-distance A B 3
-distance B C 4
-distance A C 5
-
-User: draw a 3,4,5 triangle
-
-Output:
-triangle A B C
-distance A B 3
-distance B C 4
-distance A C 5
-"""
 
 
 def generate_program(client, model, prompt, description):
@@ -104,6 +66,12 @@ def parse_args():
     parser.add_argument(
         "--file",
         help="Read description from a file.",
+    )
+
+    parser.add_argument(
+        "--system-prompt",
+        required=True,
+        help="Read the system prompt from a text file.",
     )
 
     parser.add_argument(
@@ -142,6 +110,12 @@ def main():
     if not description:
         raise SystemExit("No description provided.")
 
+    with open(args.system_prompt, encoding="utf-8") as f:
+        system_prompt = f.read().strip()
+
+    if not system_prompt:
+        raise SystemExit("System prompt file is empty.")
+
     api_key = args.llm_key or os.environ.get("LLM_API_KEY")
     if not api_key:
         raise SystemExit("Set LLM_API_KEY.")
@@ -161,7 +135,7 @@ def main():
     program = generate_program(
         client,
         model,
-        build_system_prompt(),
+        system_prompt,
         description,
     )
 

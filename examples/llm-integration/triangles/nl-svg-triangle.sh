@@ -23,6 +23,7 @@ export PYTHONWARNINGS="ignore::SyntaxWarning"
 
 SCRIPTS=scripts
 OUTPUT_DIR=output
+SYSTEM_PROMPT="$SCRIPTS/system-prompt.txt"
 
 PROGRAM="$OUTPUT_DIR/program.coregx"
 OUTPUT="$OUTPUT_DIR/output.svg"
@@ -40,9 +41,9 @@ mkdir -p "$OUTPUT_DIR"
 
 
 if [ -f "$1" ]; then
-    python3 "$SCRIPTS/nl-cgx-triangle.py" --file "$1" > "$PROGRAM"
+    python3 "$SCRIPTS/nl-cgx.py" --system-prompt "$SYSTEM_PROMPT" --file "$1" > "$PROGRAM"
 else
-    python3 "$SCRIPTS/nl-cgx-triangle.py" "$*" > "$PROGRAM"
+    python3 "$SCRIPTS/nl-cgx.py" --system-prompt "$SYSTEM_PROMPT" "$*" > "$PROGRAM"
 fi
 
 
