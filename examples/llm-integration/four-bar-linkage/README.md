@@ -8,6 +8,12 @@ The provided prompt can be edited in `scripts/system-prompt.txt`.
 [natural language] ── LLM ─➤ [CoreGX program] ── CoreGX API ─➤ [SVG]
 ```
 
+## Model and prompt design
+
+The example outputs included in this folder were produced with [`Qwen/Qwen2.5-14B-Instruct-1M`](https://huggingface.co/Qwen/Qwen2.5-14B-Instruct-1M). This model is not required: the pipeline can work with other instruction-following models of different sizes, including smaller models that can be run locally. Results may vary with the selected model, quantization, context-window size, and inference settings.
+
+The prompt in `scripts/system-prompt.txt` is intentionally constrained to one specific task: translating natural-language four-bar linkage descriptions into a fixed CoreGX structure. It explicitly maps common linkage terminology to link parameters, defines the supported assembly choices and coupler-point representation, and requires command-only output. By limiting the vocabulary, structure, and expected response, the prompt is designed to remain usable with limited-context LLMs and local model servers while providing enough task-specific guidance to model four-bar linkages in CoreGX.
+
 ## Setup
 
 Works with any OpenAI-compatible chat completions API. Pass your API key, model name, and optionally a base URL via environment variables. If no base URL is provided, the default OpenAI API is used.

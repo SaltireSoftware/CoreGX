@@ -9,6 +9,12 @@ The provided prompt can be edited in `scripts/system-prompt.txt`.
 [natural language] ── LLM ─➤ [CoreGX program] ── CoreGX API ─➤ [SVG]
 ```
 
+## Model and prompt design
+
+The example outputs included in this folder were produced with [`Qwen/Qwen2.5-14B-Instruct-1M`](https://huggingface.co/Qwen/Qwen2.5-14B-Instruct-1M). This model is not required: the pipeline can work with other instruction-following models of different sizes, including smaller models that can be run locally. Results may vary with the selected model, quantization, context-window size, and inference settings.
+
+The prompt in `scripts/system-prompt.txt` is intentionally constrained to one specific task: translating natural-language triangle descriptions into a small, predictable set of CoreGX commands. It defines the supported commands, mapping rules, and output format while excluding explanations and unrelated output. This narrow scope keeps the prompt and expected response compact, making the example suitable for limited-context LLMs and local model servers while still giving the model enough guidance to construct triangles and apply side-length constraints in CoreGX.
+
 ## Setup
 
 Works with any OpenAI-compatible chat completions API. Pass your API key, model name, and optionally a base URL via environment variables. If no base URL is provided, the default OpenAI API is used.
@@ -40,13 +46,13 @@ The shell script accepts either a description file or a description passed direc
 Place your prompt in `description.txt` and run:
 
 ```bash
-./nl-svg-triangle.sh description.txt
+./triangles.sh description.txt
 ```
 
 ### Using a command-line description
 
 ```bash
-./nl-svg-triangle.sh "Draw triangle ABC with AB = 3, BC = 4, AC = 5."
+./triangles.sh "Draw triangle ABC with AB = 3, BC = 4, AC = 5."
 ```
 
 The pipeline automatically:
@@ -72,10 +78,10 @@ $env:LLM_MODEL = "your-model-name"
 $env:COREGX_API_KEY = "your-coregx-api-key"
 
 # Using description.txt
-bash .\nl-svg-triangle.sh description.txt
+bash .\triangles.sh description.txt
 
 # Or provide the description directly
-bash .\nl-svg-triangle.sh "Draw triangle ABC with AB = 3, BC = 4, AC = 5."
+bash .\triangles.sh "Draw triangle ABC with AB = 3, BC = 4, AC = 5."
 ```
 
 ### Command Prompt (cmd.exe)
@@ -88,8 +94,8 @@ set LLM_MODEL=your-model-name
 set COREGX_API_KEY=your-coregx-api-key
 
 REM Using description.txt
-bash nl-svg-triangle.sh description.txt
+bash triangles.sh description.txt
 
 REM Or provide the description directly
-bash nl-svg-triangle.sh "Draw triangle ABC with AB = 3, BC = 4, AC = 5."
+bash triangles.sh "Draw triangle ABC with AB = 3, BC = 4, AC = 5."
 ```

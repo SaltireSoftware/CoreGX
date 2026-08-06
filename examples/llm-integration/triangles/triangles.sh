@@ -2,11 +2,11 @@
 
 #
 # Input:
-#   ./nl-svg-triangle.sh "draw a 3,4,5 triangle"
+#   ./triangles.sh "draw a 3,4,5 triangle"
 #
 # or
 #
-#   ./nl-svg-triangle.sh description.txt
+#   ./triangles.sh description.txt
 #
 # Notes:
 #   - Optionally Installs Python dependencies from requirements.txt.
@@ -31,8 +31,8 @@ OUTPUT="$OUTPUT_DIR/output.svg"
 
 if [ $# -eq 0 ]; then
     echo "Usage:"
-    echo "  ./nl-svg-triangle.sh \"description\""
-    echo "  ./nl-svg-triangle.sh description.txt"
+    echo "  ./triangles.sh \"description\""
+    echo "  ./triangles.sh description.txt"
     exit 1
 fi
 
